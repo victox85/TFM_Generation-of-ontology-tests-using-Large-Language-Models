@@ -1,0 +1,573 @@
+Repo,Type,Tests
+vicinity-ontology-wot-mappings,subclassOf,ThingEcosystemDescription subclassOf describes some Ecosystem
+vicinity-ontology-wot-mappings,subclassOf,Ecosystem subclassOf hasComponent some Thing
+vicinity-ontology-wot-mappings,subclassOf,ThingEcosystemDescription subclassOf describes some Ecosystem
+vicinity-ontology-wot-mappings,subclassOf,Ecosystem subclassOf hasComponent some Thing
+vicinity-ontology-wot-mappings,subclassOf,Thing subclassOf isAccessibleThrough some Link
+vicinity-ontology-wot-mappings,subclassOf,Ecosystem subclassOf isDescribedBy some ThingEcosystemDescription
+vicinity-ontology-wot-mappings,subclassOf,ThingDescription subclassOf hasAccessMapping some AccessMapping
+vicinity-ontology-wot-mappings,subclassOf,Mapping subclassOf key only string
+vicinity-ontology-wot-mappings,subclassOf,AccessMapping subclassOf hasMapping only Mapping
+vicinity-ontology-wot-mappings,subclassOf,ObjectPropertyMapping SubClassOf Mapping
+vicinity-ontology-wot-mappings,subclassOf,DatatypePropertyMapping SubClassOf Mapping
+vicinity-ontology-wot-mappings,subclassOf,ObjectPropertyMapping  SubClassOf predicate some ObjectProperty
+vicinity-ontology-wot-mappings,subclassOf,DatatypePropertyMapping  SubClassOf predicate some DatatypeProperty
+vicinity-ontology-wot-mappings,subclassOf,ObjectPropertyMapping SubClassOf targetClass only Class
+vicinity-ontology-wot-mappings,subclassOf,DatatypePropertyMapping SubClassOf targetDatatype only Datatype
+vicinity-ontology-wot-mappings,subclassOf,ObjectPropertyMapping SubClassOf valuesTransformedBy max 1 ThingDescription
+vicinity-ontology-wot-mappings,subclassOf,AccessMapping SubClassOf isExecutedAfter only AccessMapping
+vicinity-ontology-wot-mappings,subclassOf,Mapping SubClassOf jsonPath only string
+vicinity-ontology-wot-mappings,subclassOf,AccessMapping SubClassOf mapsResourcesFrom exactly 1 Link
+wot-ontology,type,Thing type Class
+wot-ontology,subclassOf,Property subclassOf InteractionPattern
+wot-ontology,subclassOf,Action subclassOf InteractionPattern
+wot-ontology,subclassOf,Event subclassOf InteractionPattern
+wot-ontology,subclassOf,InteractionPattern subclassOf isProvidedOverProtocol some CommunicationProtocol
+wot-ontology,type,CommunicationProtocol type Class
+wot-ontology,subclassOf,Thing subclassOf providesInteractionPattern only InteractionPattern
+wot-ontology,subclassOf,InteractionPattern subclassOf isAccessibleThrough min 1 Link
+wot-ontology,subclassOf,Property subclassOf InteractionPattern
+wot-ontology,subclassOf,Property subclassOf isWritable only boolean
+wot-ontology,subclassOf,Property subclassOf isRequired only boolean
+wot-ontology,subclassOf,InteraccionPattern subclassOf isAccessibleThrough some Link
+wot-ontology,subclassOf,Link subclassOf hasMediaType only string
+wot-ontology,subclassOf,Link subclassOf href only string
+wot-ontology,subclassOf,Thing subclassOf implementsSecurity some Security
+wot-ontology,subclassOf,Thing subclassOf isAccessibleThrough only Link
+wot-ontology,subclassOf,InteractionPattern subclassOf isAccessibleThrough some Link
+wot-ontology,subclassOf,InteractionPattern subclassOf interactionName only string
+vicinity-ontology-core,subclassOf,Device subClassOf PhysicalThing
+vicinity-ontology-core,subclassOf,Organization subclassOf SymmetricProperty(hasPartnershipWith) some Organization
+vicinity-ontology-core,subclassOf,Organization subclassOf SymmetricProperty(hasPartnershipWith) some Organization
+vicinity-ontology-core,subclassOf,Organization subclassOf hasPartnershipWith some Organization>
+vicinity-ontology-core,subclassOf,Organization subclassOf SymmetricProperty(hasPartnershipWith) some Organization
+vicinity-ontology-core,subclassOf,Agent subclassOf memberOf some Organization
+vicinity-ontology-core,subclassOf,Agent subclassOf owns some  Device
+vicinity-ontology-core,subclassOf,Device subclassOf serialNumber only string
+vicinity-ontology-core,subclassOf,Device subclassOf deviceName only string
+vicinity-ontology-core,subclassOf,Device subclassOf avatar some Image
+vicinity-ontology-core,subclassOf,Device subclassOf serialNumber only string
+vicinity-ontology-core,subclassOf,Device subclassOf deviceName only string
+vicinity-ontology-core,subclassOf,Device subclassOf avatar some Image
+vicinity-ontology-core,subclassOf,Device subclassOf serialNumber only string
+vicinity-ontology-core,subclassOf,Device subclassOf deviceDescription only string
+vicinity-ontology-core,subclassOf,Device subclassOf observes some Property
+vicinity-ontology-core,subclassOf,Device subClassOf SpatialThing
+vicinity-ontology-core,subclassOf,Device subClassOf SpatialThing
+vicinity-ontology-core,subclassOf,Device subclassof hasOwner some Agent
+vicinity-ontology-core,subclassOf,Device subclassOf hasOwner some Agent
+vicinity-ontology-core,subclassOf,Service subclassOf hasOwner some Agent
+vicinity-ontology-core,subclassOf,HumanUser subClassOf Person
+vicinity-ontology-core,subclassOf,Agent subclassOf owns some Service
+vicinity-ontology-core,subclassOf,Service subclassOf serviceName only string
+vicinity-ontology-core,subclassOf,Service subclassOf avatar some Image
+vicinity-ontology-core,subclassOf,Service subclassOf hasOwner some Agent
+vicinity-ontology-core,subclassOf,Service subclassOf serviceDescription only string
+vicinity-ontology-core,subclassOf,Service subclassOf serviceName only string
+vicinity-ontology-core,subclassOf,Device subclassOf hasOwner some Agent
+vicinity-ontology-core,subclassOf,Device subClassOf PhysicalThing
+vicinity-ontology-core,subclassOf,Organization subclassOf hasMember some Agent
+vicinity-ontology-core,subclassOf,Device SubClassOf PhysicalThing
+vicinity-ontology-core,subclassOf,Service SubClassOf VirtualThing
+vicinity-ontology-core,subclassOf,Device subclassOf hasOwner some Agent
+vicinity-ontology-core,subclassOf,Device subclassOf deviceName some string
+vicinity-ontology-core,subclassOf,Device subclassOf avatar some Image
+vicinity-ontology-core,subclassOf,Device subclassOf serialNumber only string
+vicinity-ontology-core,subclassOf,Device subclassOf deviceDescription only string
+vicinity-ontology-core,subclassOf,Device subclassOf deviceName only string
+vicinity-ontology-core,subclassOf,Device subclassOf avatar some Image
+vicinity-ontology-core,subclassOf,Sensor subClassOf Device
+vicinity-ontology-core,subclassOf,Actuator subClassOf Device
+vicinity-ontology-core,subclassOf,Device subclassOf hasOwner some Agent
+vicinity-ontology-core,subclassOf,Device subclassOf serialNumber some string
+vicinity-ontology-core,subclassOf,Device subclassOf hasOwner some Agent
+vicinity-ontology-core,subclassOf,Service subclassOf serviceName only string
+vicinity-ontology-core,subclassOf,Service subclassOf avatar some Image
+vicinity-ontology-core,subclassOf,Service subclassOf hasOwner some Agent
+vicinity-ontology-core,subclassOf,Service subclassOf hasOwner some Agent
+vicinity-ontology-core,subclassOf,Service subclassOf serviceDescription some string
+vicinity-ontology-core,subclassOf,Organization subclassOf hasPartnershipWith some Organization
+vicinity-ontology-core,subclassOf,Organization subclassOf SymmetricProperty(hasPartnershipWith) some Organization
+vicinity-ontology-core,subclassOf,Agent subclassOf hasNeighbourhood some Neighbourhood
+vicinity-ontology-core,subclassOf,Agent subclassOf memberOf some Organization
+vicinity-ontology-core,subclassOf,DigitalUser subClassOf Agent
+vicinity-ontology-core,subclassOf,HumanUser subClassOf Person
+vicinity-ontology-core,subclassOf,Agent subclassOf hasMembership some Membership
+vicinity-ontology-core,subclassOf,Agent subclassOf memberOf some Organization
+vicinity-ontology-core,subclassOf,Organization subclassOf  SymmetricProperty(hasPartnershipWith) some Organization
+vicinity-ontology-core,subclassOf,Agent subclassOf hasMembership some Membership
+vicinity-ontology-core,subclassOf,Membership subclassOf role some Role
+vicinity-ontology-core,subclassOf,PhysicalThing subclassOf isContainedIn some BuildingSpace
+vicinity-ontology-core,subclassOf,PhysicalThing subclassOf location some SpatialThing
+vicinity-ontology-core,subclassOf,Thermometer subclassOf observes some AmbientTemperatureProperty
+vicinity-ontology-core,subclassOf,CO2Sensor subclassOf observes some CarbonDioxide
+vicinity-ontology-core,subclassOf,NoiseSensor subclassOf observes some NoiseLevel
+vicinity-ontology-core,subclassOf,HumiditySensor subclassOf observes some AmbientHumidityProperty
+vicinity-ontology-core,type,ThingDescription type Class
+vicinity-ontology-core,subclassOf,ThingDescription subclassOf describes some Thing
+vicinity-ontology-core,subclassOf,PeopleCounter SubClassOf Device
+vicinity-ontology-core,subclassOf,HumiditySensor subClassOf Device
+vicinity-ontology-core,subclassOf,HVACSensor SubClassOf Device
+vicinity-ontology-core,subclassOf,PeopleCounter subclassOf observes some Presence
+vicinity-ontology-core,subclassOf,HumiditySensor subclassOf observes some AmbientHumidityProperty
+vicinity-ontology-core,subclassOf,LightSwitch subclassOf forProperty only Property
+vicinity-ontology-core,subclassOf,MotionSensor subclassOf observes some MotionProperty
+vicinity-ontology-core,subclassOf,Thermometer subclassOf observes some AmbientTemperatureProperty
+vicinity-ontology-core,subclassOf,CO2Sensor subclassOf observes some CarbonDioxide
+vicinity-ontology-core,subclassOf,HVACSensor subclassOf observes some Property
+vicinity-ontology-core,subclassOf,OperationalStatus subclassOf ssn#Property
+vicinity-ontology-core,subclassOf,Thermometer SubClassOf Device
+vicinity-ontology-core,subclassOf,HumiditySensor SubclassOf Device
+vicinity-ontology-core,subclassOf,LuminanceMeter SubClassOf Device
+vicinity-ontology-core,subclassOf,Thermometer SubClassOf Device
+vicinity-ontology-core,subclassOf,HumiditySensor SubclassOf Device
+vicinity-ontology-core,subclassOf,Lightbulb SubClassOf Device
+vicinity-ontology-core,subclassOf,EBikeCharger subclassOf observes some Property
+vicinity-ontology-core,type,ChargeStatus type Property
+vicinity-ontology-core,subclassOf,LuminanceMeter subclassOf observes some Property
+vicinity-ontology-core,subclassOf,Thermostat subclassOf observes some Property
+vicinity-ontology-core,type,ValvePosition type Property
+vicinity-ontology-core,type,Mode type Property
+vicinity-ontology-core,subclassOf,WeightScale subClassOf Device
+vicinity-ontology-core,subclassOf,BloodPressureMonitor SubClassOf Device
+vicinity-ontology-core,subclassOf,WeightScale subclassOf observes some Property
+vicinity-ontology-core,type,Weight type Property
+vicinity-ontology-core,subclassOf,WeightScale subclassOf monitorsFeatureProperty only FeatureProperty
+vicinity-ontology-core,subclassOf,Event subclassOf observes some Property
+vicinity-ontology-core,type,Weight type Property
+vicinity-ontology-core,subclassOf,BloodPressureMonitor subclassOf observes some Property
+vicinity-ontology-core,type,SystolicBloodPressure type Property
+vicinity-ontology-core,type,DiastolicBloodPressure type Property
+vicinity-ontology-core,type,HeartRate type Property
+vicinity-ontology-core,subclassOf,BloodPressureMonitor subclassOf monitorsFeatureProperty only FeatureProperty
+vicinity-ontology-core,type,SystolicBloodPressure type Property
+vicinity-ontology-core,type,DiastolicBloodPressure type Property
+vicinity-ontology-core,type,HeartRate type Property
+vicinity-ontology-core,subclassOf,Event subclassOf observes some Property
+vicinity-ontology-core,type,SystolicBloodPressure type Property
+vicinity-ontology-core,type,DiastolicBloodPressure type Property
+vicinity-ontology-core,type,HeartRate type Property
+vicinity-ontology-core,subclassOf,ActivityTracker subclassOf observes some Property
+vicinity-ontology-core,type,CaloriesBurned type Property
+vicinity-ontology-core,type,Sleep type Property
+vicinity-ontology-core,subclassOf,ActivityTracker subclassOf monitorsFeatureProperty only FeatureProperty
+vicinity-ontology-core,type,CaloriesBurned type Property
+vicinity-ontology-core,type,Sleep type Property
+vicinity-ontology-core,subclassOf,Event subclassOf observes some Property
+vicinity-ontology-core,type,CaloriesBurned type Property
+vicinity-ontology-core,type,Sleep type Property
+vicinity-ontology-core,subclassOf,Event subclassOf observes some Property
+vicinity-ontology-core,type,DeviceStatus type Property
+vicinity-ontology-core,subclassOf,MotionSensor subclassOf observes some Property
+vicinity-ontology-core,subclassOf,LuminusIntensity subclassof Property
+vicinity-ontology-core,subclassOf,AmbientTemperatureProperty subclassof Property
+vicinity-ontology-core,subclassOf,HumanUser subClassOf Person
+vicinity-ontology-core,subclassOf,VirtualUser subClassOf Agent
+vicinity-ontology-core,subclassOf,DigitalUser subclassOf interactsUsing some Service
+vicinity-ontology-core,subclassOf,HumanUser subclassOf interactsUsing some Application
+vicinity-ontology-core,subclassOf,Application subClassOf Service
+vicinity-ontology-core,subclassOf,Application subclassOf interactsUsing some Network
+vicinity-ontology-core,subclassOf,PhysicalThing subClassOf Thing
+vicinity-ontology-core,subclassOf,PhysicalThing subclassOf  actsOnFeatureProperty some FeatureProperty>
+vicinity-ontology-core,subclassOf,PhysicalThing subclassOf monitorsFeatureProperty some FeatureProperty
+vicinity-ontology-core,subclassOf,PhysicalThing subclassOf hasTag some  Tag
+vicinity-ontology-core,subclassOf,VirtualThing subclassOf represents some PhysicalThing
+vicinity-ontology-core,subclassOf,Actuator subclassof Device
+vicinity-ontology-core,subclassOf,Sensor subclassof Device
+vicinity-ontology-core,subclassOf,Device subclassOf interactsThrough some Network
+vicinity-ontology-core,subclassOf,Device subclassOf areConnectedWith some Gateway
+vicinity-ontology-core,subclassOf,DataStore subclassOf holds some IoTSystem
+vicinity-ontology-core,subclassOf,Thing subclassOf thingName some xsd:string
+vicinity-ontology-core,subclassOf,Thing subclassOf thingName min 1 xsd:string
+vicinity-ontology-core,subclassOf,Network subclassOf connects some Link
+vicinity-ontology-core,subclassOf,Service subClassOf exposes min 1 Link
+vicinity-ontology-core,subclassOf,Gateway subClassOf DigitalThing
+vicinity-ontology-core,subclassOf,Gateway subclassOf interactsThrough some Network
+vicinity-ontology-core,subclassOf,Gateway subclassOf exposes some Links
+vicinity-ontology-core,subclassOf,Gateway subclassOf connects some Device
+vicinity-ontology-core,subclassOf,Gateway subclassOf uses some DataStore
+vicinity-ontology-core,subclassOf,Device subclassOf interactsWith some Network
+vicinity-ontology-core,subclassOf,Device subclassOf isAccessibleThrough some Link
+vicinity-ontology-core,subclassOf,Service subclassOf interactsWith some Network
+vicinity-ontology-core,subclassOf,Service subclassOf interactsWith some Gateway
+vicinity-ontology-core,subclassOf,Service subclassOf interactsWith some Device
+vicinity-ontology-core,subclassOf,Service subclassOf interactsWith some Service
+vicinity-ontology-core,subclassOf,Service subclassOf uses some DataStore
+vicinity-ontology-core,subclassOf,VirtualThing subclassOf isAccessibleThrough some Link
+vicinity-ontology-core,subclassOf,VirtualThing subClassOf Thing
+vicinity-ontology-core,subclassOf,PhysicalThing subClassOf Thing
+vicinity-ontology-core,subclassOf,Service subclassOf uses some DataStore
+vicinity-ontology-core,subclassOf,Device subclassOf uses some DataStore
+vicinity-ontology-core,subclassOf,Gateway subclassOf uses some DataStore
+vicinity-ontology-core,subclassOf,HumanUser subclassOf interactsUsing some Application
+vicinity-ontology-core,subclassOf,Application subClassOf Service
+vicinity-ontology-core,subclassOf,Sensor subclassOf monitors some Tag
+vicinity-ontology-core,subclassOf,PhysicalThing subclassOf hasTag some Tag
+OpenADRontology,subclassOf,SignalInterval subClassOf hasTypicalValue only Value
+OpenADRontology,subclassOf,Asset subclassOf SpatialThing
+OpenADRontology,subclassOf,Signal subclassOf hasSignalInterval only SignalInterval
+OpenADRontology,subclassOf,Signal subclassOf signalName only string
+OpenADRontology,subclassOf,EnergyPriceSignal subClassOf Signal
+OpenADRontology,subclassOf,OptIn subClassOf Opt
+OpenADRontology,subclassOf,OptOut subClassOf Opt
+OpenADRontology,subclassOf,SamplingRate subClassOf isOnChange some boolean
+OpenADRontology,subclassOf,SamplingRate subClassOf hasMaxPeriod only TemporalEntity
+OpenADRontology,subclassOf,SamplingRate subClassOf hasMinPeriod only TemporalEntity
+OpenADRontology,subclassOf,Signal subClassOf isDefinedIn some SignalInterval
+OpenADRontology,subclassOf,ReportDescriptor subClassOf hasSamplingRate only SamplingRate
+OpenADRontology,subclassOf,Report subClassOf hasDuration only Duration
+OpenADRontology,subclassOf,HistoryReport subclassOf Report
+OpenADRontology,subclassOf,TelemetryReport subclassOf Report
+OpenADRontology,subclassOf,DataReport subClassOf Report
+OpenADRontology,subclassOf,MetadataReport subClassOf Report
+OpenADRontology,subclassOf,BidLoadSignal subclassOf Signal
+OpenADRontology,subclassOf,EnergyPriceSignal subClassOf Signal
+OpenADRontology,type,VEN type Class
+OpenADRontology,subclassOf,Signal subClassOf hasTarget some Group
+OpenADRontology,subclassOf,Report subClassOf reportDescriptor some ReportDescriptor
+OpenADRontology,subclassOf,Event subClassOf includesSignal min 1 Signal
+OpenADRontology,subclassOf,Event subClassOf ramp_up some Duration
+OpenADRontology,subclassOf,Event subClassOf recovery some Duration
+OpenADRontology,subclassOf,Event subClassOf includesSignal only Signal
+OpenADRontology,subclassOf,EventDescriptor subClassOf hasRandomization only string
+OpenADRontology,subclassOf,Event subclassOf hasActivePeriod only TemporalEntity
+OpenADRontology,subclassOf,Event subclassOf eventDescriptor only EventDescriptor
+OpenADRontology,subclassOf,EventDescriptor subclassOf  hasMarketContext only string
+OpenADRontology,subclassOf,EventDescriptor subclassOf comment only string
+OpenADRontology,subclassOf,EventDescriptor subclassOf createdDateTime only date
+OpenADRontology,subclassOf,EventDescriptor subclassOf hasEventStatus only string
+OpenADRontology,subclassOf,EventDescriptor subclassOf hasModificationDateTime only date
+OpenADRontology,subclassOf,EventDescriptor subclassOf hasModificationNumber only string
+OpenADRontology,subclassOf,EventDescriptor subclassOf hasModificationReason only string
+OpenADRontology,subclassOf,EventDescriptor subclassOf hasPriority only integer
+OpenADRontology,subclassOf,EventDescriptor subclassOf isTestEvent only boolean
+OpenADRontology,subclassOf,Event subclassOf eventDescriptor some EventDescriptor
+OpenADRontology,subclassOf,DistributeEvent subclassOf containsEvent only Event
+OpenADRontology,subclassOf,Event subClassOf expectedResponse only Opt
+OpenADRontology,type,OptIn type Class
+OpenADRontology,type,OptOut type Class
+OpenADRontology,subclassOf,Event subClassOf hasMarketContext only string
+OpenADRontology,subclassOf,Report subClassOf hasMarketContext only string
+OpenADRontology,subclassOf,Signal subClassOf hasMarketContext only string
+OpenADRontology,subclassOf,Group subclassOf containsResource some Resource
+OpenADRontology,subclassOf,Group subclassOf containsVEN some VEN
+OpenADRontology,subclassOf,Event subClassOf hasGroupTarget only Group
+OpenADRontology,subclassOf,VTN subClassOf sendsEvent some Event
+OpenADRontology,subclassOf,VEN subClassOf manages some Resource
+OpenADRontology,subclassOf,Resource subClassOf manages some Asset
+delta-ontology,subclassOf,Consumer subclassOf Customer
+delta-ontology,type,Prosumer type Class
+delta-ontology,subclassOf,FEID subclassOf measuresProperty some UpFlexibility or DownFlexibility
+delta-ontology,subclassOf,Frequency subclassOf core:Property
+delta-ontology,subclassOf,Load subclassOf core:Property
+delta-ontology,subclassOf,Voltage subclassOf core:Property
+delta-ontology,subclassOf,Asset subclassOf measuresProperty some EnergyUpFlexibility
+delta-ontology,subclassOf,Device subclassOf measuresProperty some EnergyUpFlexibility
+delta-ontology,subclassOf,Asset subclassOf measuresProperty some EnergyGeneration
+delta-ontology,subclassOf,Device subclassOf measuresProperty some EnergyConsumption
+delta-ontology,subclassOf,Prosumer subclassOf SpatialObject
+delta-ontology,isOwnedBy,Asset isOwnedBy Prosumer
+delta-ontology,subclassOf,Asset subclassOf measuresProperty some EnergyConsumption
+delta-ontology,isOwnedBy,Asset isOwnedBy Prosumer
+delta-ontology,subclassOf,Asset subclassOf measuresProperty some EnergyGeneration
+delta-ontology,subclassOf,VirtualNode subclassOf belongsToCluster only Cluster
+delta-ontology,type,Profile type Class
+delta-ontology,subclassOf,Asset subclassOf isOwnedBy some Customer
+delta-ontology,subclassOf,Customer subclassOf hasReward only Reward
+delta-ontology,subclassOf,Consumer subclassOf owns some Asset
+delta-ontology,subclassOf,Prosumer subclassOf owns some Asset
+delta-ontology,subclassOf,Frequency subclassOf core:Property
+delta-ontology,subclassOf,Voltage subclassOf core:Property
+delta-ontology,relatesToProperty,Profile relatesToProperty core:Property
+delta-ontology,subclassOf,Profile subclassOf hasGranularity only string
+delta-ontology,subclassOf,VirtualNode subclassOf sends some Event
+delta-ontology,subclassOf,DemandChargeSignal subclassOf Signal
+delta-ontology,subclassOf,BidEnergySignal subclassOf Signal
+cogito-construction,hasQualityInformation,Task hasQualityInformation QualityInformation
+cogito-construction,relatesToElement,Task relatesToElement Element
+cogito-construction,hasCost,Process hasCost Cost
+cogito-construction,isMeasuredIn,Cost isMeasuredIn UnitOfCurrency
+cogito-construction,belongsTo,Task belongsTo Process
+cogito-construction,hasProgress,Task hasProgress Literal
+cogito-construction,hasCreationDate,Task hasCreationDate DateTime
+cogito-construction,hasPriority,Task hasPriority Integer
+cogito-construction,involvesResource,Task involvesResource Resource
+cogito-construction,isAssignedToTask,Resource isAssignedToTask Task
+cogito-facility,isRelatedToSite,Project isRelatedToSite Site
+cogito-facility,hasFacility,SpatialZone hasFacility Facility
+cogito-facility,subclassOf,Building subClassOf Facility
+cogito-facility,subclassOf,Railway subClassOf Facility
+cogito-facility,subclassOf,Bridge subClassOf Facility
+cogito-facility,subclassOf,Road subClassOf Facility
+cogito-facility,hasFacilityPart,SpatialZone hasFacilityPart FacilityPart
+cogito-facility,hasStorey,SpatialZone hasStorey Storey
+cogito-facility,hasSpace,SpatialZone hasSpace Space
+cogito-facility,containsElement,SpatialZone containsElement Element
+cogito-facility,isRelatedToSpatialZone,SpatialZone isRelatedToSpatialZone SpatialZone
+cogito-facility,subclassOf,BuildingElement subClassOf Element
+cogito-facility,hasSubElement,Element hasSubElement Element
+cogito-facility,subclassOf,Site subClassOf SpatialZone
+cogito-facility,subclassOf,Facility subClassOf SpatialZone
+cogito-facility,subclassOf,FacilityPart subClassOf SpatialZone
+cogito-facility,subclassOf,Storey subClassOf SpatialZone
+cogito-facility,subclassOf,Space subClassOf SpatialZone
+cogito-facility,subclassOf,ConstructionZone subClassOf SpatialZone
+cogito-facility,identifier,SpatialZone identifier literal
+cogito-facility,title,SpatialZone title literal
+cogito-facility,description,SpatialZone description string
+cogito-facility,identifier,Element identifier literal
+cogito-facility,title,Element title literal
+cogito-facility,codeUniclassMaterial,Element codeUniclassMaterial literal
+cogito-facility,codeUniclassElement,Element codeUniclassElement literal
+cogito-facility,ifcType,Element ifcType literal
+cogito-facility,identifier,Project identifier literal
+cogito-facility,title,Project title literal
+cogito-facility,belongsToSpatialZone,Element belongsToSpatialZone SpatialZone
+cogito-resources-ontology,subclassOf,Worker subClassOf Resource
+cogito-resources-ontology,subclassOf,Equipment subClassOf Resource
+cogito-resources-ontology,belongsToType,Resource belongsToType ResourceType
+cogito-resources-ontology,subclassOf,WorkerRole subClassOf ResourceType
+cogito-resources-ontology,subclassOf,EquipmentType subClassOf ResourceType
+cogito-resources-ontology,identifier,ResourceType identifier literal
+cogito-resources-ontology,title,ResourceType title string
+cogito-resources-ontology,maxUnit,ResourceType maxUnit integer
+cogito-resources-ontology,costPerHour,ResourceType costPerHour float
+cogito-resources-ontology,identifier,Resource identifier literal
+cogito-resources-ontology,status,Resource status string
+cogito-resources-ontology,email,Worker email string
+cogito-resources-ontology,firstName,Worker firstName string
+cogito-resources-ontology,lastName,Worker lastName string
+cogito-resources-ontology,hasTrackingTag,Resource hasTrackingTag TrackingTag
+(3)_saref4watr,hasSubSystem,WaterInfrastructure hasSubSystem WaterAsset
+(3)_saref4watr,subclassOf,Reservoir subClassOf WaterAsset
+(3)_saref4watr,subclassOf,Pipe subClassOf WaterAsset
+(3)_saref4watr,subclassOf,CatchmentWell subClassOf Well
+(3)_saref4watr,subclassOf,TreatmentPlant subClassOf WaterInfrastructure
+(3)_saref4watr,isDesignedFor,TreatmentPlant isDesignedFor WaterKind
+(3)_saref4watr,type,Wastewater type WaterKind
+(3)_saref4watr,hasSubSystem,WaterInfrastructure hasSubSystem Sensor
+(3)_saref4watr,subclassOf,WaterMeter subClassOf Sensor
+(3)_saref4watr,hasSubSystem,WaterInfrastructure hasSubSystem Actuator
+(3)_saref4watr,subclassOf,Pump subClassOf Actuator
+(3)_saref4watr,subclassOf,Valve subClassOf Actuator
+(3)_saref4watr,subclassOf,WaterMeter subClassOf Device
+(3)_saref4watr,observes,WaterMeter observes WaterFlowProperty
+(3)_saref4watr,subclassOf,ColdWaterMeter subClassOf WaterMeter
+(3)_saref4watr,hasFabricationNumber,WaterMeter hasFabricationNumber Literal
+(3)_saref4watr,hasManufacturer,WaterMeter hasManufacturer Literal
+(3)_saref4watr,hasModel,WaterMeter hasModel Literal
+(3)_saref4watr,hasVersion,WaterMeter hasVersion Literal
+(3)_saref4watr,hasHardwareVersion,WaterMeter hasHardwareVersion Literal
+(3)_saref4watr,hasFirmwareVersion,WaterMeter hasFirmwareVersion Literal
+(3)_saref4watr,hasProperty,WaterMeter hasProperty WaterMeterProperty
+(3)_saref4watr,type,MeterOnTime type WaterMeterProperty
+(3)_saref4watr,hasProperty,WaterMeter hasProperty WaterMeterProperty
+(3)_saref4watr,type,MeterOperatingTime type WaterMeterProperty
+(3)_saref4watr,hasProperty,WaterMeter hasProperty WaterMeterProperty
+(3)_saref4watr,type,BatteryOperatingTime type WaterMeterProperty
+(3)_saref4watr,hasProperty,WaterMeter hasProperty WaterMeterProperty
+(3)_saref4watr,type,BatteryLastChange type WaterMeterProperty
+(3)_saref4watr,hasProperty,WaterMeter hasProperty WaterMeterProperty
+(3)_saref4watr,type,BatteryRemainingTime type WaterMeterProperty
+(3)_saref4watr,requiresPower,WaterMeter requiresPower string
+(3)_saref4watr,operatesAtRadioFrequency,WaterMeter operatesAtRadioFrequency string
+(3)_saref4watr,hasGeometry,WaterMeter hasGeometry Point
+(3)_saref4watr,observes,WaterMeter observes WaterFlowProperty
+(3)_saref4watr,type,FlowVolume type WaterFlowProperty
+(3)_saref4watr,observes,WaterMeter observes WaterFlowProperty
+(3)_saref4watr,type,FlowRate type WaterFlowProperty
+(3)_saref4watr,observes,WaterMeter observes WaterFlowProperty
+(3)_saref4watr,type,ExternalTemperature type EnvironmentalProperty
+(3)_saref4watr,observes,WaterMeter observes WaterFlowProperty
+(3)_saref4watr,type,FlowTemperature type WaterFlowProperty
+(3)_saref4watr,madeExecution,WaterMeter madeExecution Observation
+(3)_saref4watr,hasResultTime,Observation hasResultTime dateTime
+(3)_saref4watr,hasPhenomenonTime,Observation hasPhenomenonTime TemporalEntity
+(3)_saref4watr,subclassOf,Reservoir subClassOf WaterAsset
+(3)_saref4watr,hasProperty,Reservoir hasProperty core:Property
+(3)_saref4watr,type,Level type core:Property
+(3)_saref4watr,subclassOf,Reservoir subClassOf WaterAsset
+(3)_saref4watr,hasProperty,Reservoir hasProperty core:Property
+(3)_saref4watr,type,InFlowRate type core:Property
+(3)_saref4watr,subclassOf,Pipe subClassOf WaterAsset
+(3)_saref4watr,hasProperty,Pipe hasProperty WaterFlowProperty
+(3)_saref4watr,type,FlowRate type WaterFlowProperty
+(3)_saref4watr,subclassOf,Pipe subClassOf WaterAsset
+(3)_saref4watr,hasProperty,Pipe hasProperty core:Property
+(3)_saref4watr,type,LeakRate type core:Property
+(3)_saref4watr,hasProperty,WaterAsset hasProperty core:Property
+(3)_saref4watr,type,FlowPressure type core:Property
+(3)_saref4watr,hasProperty,Pump hasProperty core:Property
+(3)_saref4watr,type,DischargeFlowRate type core:Property
+(3)_saref4watr,hasProperty,Water hasProperty WaterProperty
+(3)_saref4watr,subclassOf,AcceptabilityProperty subClassOf WaterProperty
+(3)_saref4watr,type,Temperature type AcceptabilityProperty
+(3)_saref4watr,type,Conductivity type AcceptabilityProperty
+(3)_saref4watr,type,Turbidity type AcceptabilityProperty
+(3)_saref4watr,hasProperty,Water hasProperty WaterProperty
+(3)_saref4watr,subclassOf,ChemicalProperty subClassOf WaterProperty
+(3)_saref4watr,type,HydrogenIonConcentration type AcceptabilityProperty
+(3)_saref4watr,type,Hardness type AcceptabilityProperty
+(3)_saref4watr,type,Arsenic type ChemicalProperty
+(3)_saref4watr,hasKPI,DistributionSystem hasKPI KeyPerformanceIndicator
+(3)_saref4watr,assesses,KeyPerformanceIndicatorAssessment assesses DistributionSystem
+(3)_saref4watr,type,MinimumPressureLevel type KeyPerformanceIndicator
+(3)_saref4watr,hasKPI,TreatmentPlant hasKPI KeyPerformanceIndicator
+(3)_saref4watr,assesses,KeyPerformanceIndicatorAssessment assesses TreatmentPlant
+(3)_saref4watr,type,Capacity type KeyPerformanceIndicator
+(3)_saref4watr,refersToFeature,KeyPerformanceIndicatorAssessment refersToFeature Feature
+(3)_saref4watr,hasStartTimestamp,Tariff hasStartTimestamp dateTime
+(3)_saref4watr,hasDuration,Tariff hasDuration TemporalDuration
+(3)_saref4watr,hasPeriod,Tariff hasPeriod TemporalDuration
+(3)_saref4watr,subclassOf,ConsumptionBasedTariff subClassOf Tariff
+(3)_saref4watr,forVolumeConsumption,ConsumptionBasedTariff forVolumeConsumption string
+(3)_saref4watr,hasBillingDate,Tariff hasBillingDate dateTime
+(3)_saref4watr,hasBillingPeriod,Tariff hasBillingPeriod TemporalDuration
+(3)_saref4watr,subclassOf,SourceAsset subClassOf WaterAsset
+(3)_saref4watr,subclassOf,SinkAsset subClassOf WaterAsset
+(3)_saref4watr,subclassOf,TransportAsset subClassOf WaterAsset
+(3)_saref4watr,subclassOf,StorageAsset subClassOf WaterAsset
+(3)_saref4watr,subclassOf,Lake subClassOf SourceAsset
+(3)_saref4watr,subclassOf,Lagoon subClassOf SourceAsset
+(3)_saref4watr,subclassOf,Glacier subClassOf SourceAsset
+(3)_saref4watr,subclassOf,Estuary subClassOf SinkAsset
+(3)_saref4watr,subclassOf,Ocean subClassOf SinkAsset
+(3)_saref4watr,subclassOf,River subClassOf SinkAsset
+(3)_saref4watr,subclassOf,Sea subClassOf SinkAsset
+(3)_saref4watr,subclassOf,Aquifer subClassOf StorageAsset
+(3)_saref4watr,subclassOf,Intake subClassOf TransportAsset
+(3)_saref4watr,subclassOf,HydroelectricPowerPlant subClassOf WaterInfrastructure
+(3)_saref4watr,subclassOf,GaugingStation subClassOf MonitoringInfrastructure
+(3)_saref4watr,isIntendedFor,WaterInfrastructure isIntendedFor WaterUse
+(3)_saref4watr,type,Industry type WaterUse
+(3)_saref4watr,type,Recreation type WaterUse
+(3)_saref4watr,type,Domestic type WaterUse
+(3)_saref4watr,type,Agriculture type WaterUse
+(3)_saref4watr,type,Aquaculture type WaterUse
+(3)_saref4watr,type,TotalDissolvedSolids type AcceptabilityProperty
+(3)_saref4watr,type,Oxygen type ChemicalProperty
+(3)_saref4watr,type,Humidity type EnvironmentalProperty
+(3)_saref4watr,type,AtmosphericPressure type EnvironmentalProperty
+(3)_saref4watr,type,Precipitation type EnvironmentalProperty
+(3)_saref4watr,actsUpon,Device actsUpon WaterAsset
+(4)_saref4lift,subclassOf,CurrentCarStop subClassOf CarSignal
+(4)_saref4lift,subclassOf,CurrentCarStop subclassOf hasValue some integer
+(4)_saref4lift,subclassOf,MovingUpwardDirection subClassOf CarSignal
+(4)_saref4lift,subclassOf,MovingUpwardDirection subclassOf hasValue some boolean
+(4)_saref4lift,subclassOf,MovingDownwardDirection subClassOf CarSignal
+(4)_saref4lift,subclassOf,MovingDownwardDirection subclassOf hasValue some boolean
+(4)_saref4lift,subclassOf,CarInUnlockingZone subClassOf CarSignal
+(4)_saref4lift,subclassOf,CarInUnlockingZone subclassOf hasValue some boolean
+(4)_saref4lift,subclassOf,TestRide subClassOf CarSignal
+(4)_saref4lift,subclassOf,TestRide subclassOf hasValue some boolean
+(4)_saref4lift,type,FaultSignal type Class
+(4)_saref4lift,subclassOf,OutOfService subClassOf CarSignal
+(4)_saref4lift,subclassOf,OutOfService subclassOf hasValue some boolean
+(4)_saref4lift,subclassOf,OutOfService subClassOf CarSignal
+(4)_saref4lift,subclassOf,OutOfService subclassOf hasValue some boolean
+(4)_saref4lift,subclassOf,Overload subClassOf CarSignal
+(4)_saref4lift,subclassOf,Overload subclassOf hasValue some boolean
+(4)_saref4lift,subclassOf,InspectionOperation subClassOf CarSignal
+(4)_saref4lift,subclassOf,InspectionOperation subclassOf hasValue some boolean
+(4)_saref4lift,subclassOf,FireOperation subClassOf CarSignal
+(4)_saref4lift,subclassOf,FireOperation subclassOf hasValue some boolean
+(4)_saref4lift,subclassOf,CarAlarm subClassOf CarSignal
+(4)_saref4lift,subclassOf,CarAlarm subclassOf hasValue some boolean
+(4)_saref4lift,subclassOf,CarEmpty subClassOf CarSignal
+(4)_saref4lift,subclassOf,CarEmpty subclassOf hasValue some boolean
+(4)_saref4lift,hasLimitLoad,SmartLiftInstallation hasLimitLoad Load
+(4)_saref4lift,hasPowerSupply,SmartLiftInstallation hasPowerSupply Power
+(4)_saref4lift,hasStandardPowerSupply,SmartLiftInstallation hasStandardPowerSupply Power
+(4)_saref4lift,subclassOf,SmartLiftInstallation subClassOf hasCarStops only integer
+(4)_saref4lift,subclassOf,SmartLiftInstallation subClassOf hasDoorsStatus some boolean
+(4)_saref4lift,subclassOf,TimeOfLastPeriodicTest72hAttempt subClassOf BCSSignal
+(4)_saref4lift,hasValue,TimeOfLastPeriodicTest72hAttempt hasValue Time
+(4)_saref4lift,receives,SmartLiftInstallation receives BCSSignal
+(4)_saref4lift,isMeasuredIn,NetworkCoverage isMeasuredIn UnitOfMeasure
+(4)_saref4lift,subclassOf,RegisteredNetworkOperator subclassOf BCSSignal
+(4)_saref4lift,subclassOf,RegisteredNetworkOperator subclassOf hasValue some string
+(4)_saref4lift,subclassOf,TimeOfLastPeriodicTest72hAttempt subclassOf BCSSignal
+(4)_saref4lift,subclassOf,timeOfConfirmationOfLastPeriodicTest72hAttempt subclassOf BCSSignal
+(4)_saref4lift,subclassOf,registeredNetworkOperator subclassOf BCSSignal
+(4)_saref4lift,subclassOf,networkQualityRSSI subclassOf BCSSignal
+(4)_saref4lift,subclassOf,networkQualityBER subclassOf BCSSignal
+(4)_saref4lift,type,NetworkFixedLine type Network
+(4)_saref4lift,type,Network2G type Network
+(4)_saref4lift,type,Network3G type Network
+(4)_saref4lift,type,Network4G type Network
+(4)_saref4lift,type,Network5G type Network
+(4)_saref4lift,subclassOf,SmartLiftInstallation subClassOf hasTelephoneNumber some string
+(4)_saref4lift,subclassOf,SmartLiftInstallation subClassOf hasSecondaryEmergencyTelephoneNumber only string
+(4)_saref4lift,subclassOf,EmergencyPowerSupplySignal subClassOf Signal
+(4)_saref4lift,subclassOf,EmergencyPowerSupplySignal subclassOf hasValue some boolean
+(4)_saref4lift,subclassOf,StandardEmergencyPowerSupplySignal subClassOf Signal
+(4)_saref4lift,subclassOf,StandardEmergencyPowerSupplySignal subclassOf hasValue some boolean
+(4)_saref4lift,hasPowerSupply,SmartLiftInstallation hasPowerSupply Power
+(4)_saref4lift,subclassOf,OutOfService subclassOf CarSignal
+(4)_saref4lift,subclassOf,OutOfService subclassOf hasValue some boolean
+(4)_saref4lift,subclassOf,Overload subClassOf CarSignal
+(4)_saref4lift,subclassOf,Overload subclassOf hasValue some boolean
+(4)_saref4lift,subclassOf,InspectionOperation subClassOf Signal
+(4)_saref4lift,subclassOf,InspectionOperation subclassOf hasValue some boolean
+(4)_saref4lift,subclassOf,FireOperation subClassOf CarSignal
+(4)_saref4lift,subclassOf,FireOperation subclassOf hasValue some boolean
+(4)_saref4lift,subclassOf,DangerousFault subclassof FaultSignal
+(4)_saref4lift,subclassOf,MinorFault subclassof FaultSignal
+(4)_saref4lift,subclassOf,AudioFault subclassOf FaultSignal
+(4)_saref4lift,subclassOf,NumberOfCalls subClassOf StatisticSignal
+(4)_saref4lift,subclassOf,NumberOfCalls subclassOf hasValue some integer
+(4)_saref4lift,subclassOf,UpwardTravels subClassOf StatisticSignal
+(4)_saref4lift,subclassOf,UpwardTravels subclassOf hasValue some integer
+(4)_saref4lift,subclassOf,DownwardTravels subClassOf StatisticSignal
+(4)_saref4lift,subclassOf,DownwardTravels subclassOf hasValue some integer
+(4)_saref4lift,subclassOf,TotalFloorsCovered subClassOf StatisticSignal
+(4)_saref4lift,subclassOf,totalFloorsCovered subclassOf hasValue some integer
+(4)_saref4lift,subclassOf,TotalResetSequence subClassOf StatisticSignal
+(4)_saref4lift,subclassOf,TotalResetSequence subclassOf hasValue some integer
+(4)_saref4lift,subclassOf,TotalReversalDirection subClassOf StatisticSignal
+(4)_saref4lift,subclassOf,TotalReversalDirection subclassOf hasValue some integer
+(4)_saref4lift,type,TotalTimesOpened type StatisticSignal
+(4)_saref4lift,subclassOf,TotalTimesOpened subclassOf hasValue some integer
+(4)_saref4lift,type,CallsPerService type StatisticSignal
+(4)_saref4lift,subclassOf,CallsPerService subclassOf hasValue some integer
+(4)_saref4lift,type,NumberOfFaults type StatisticSignal
+(4)_saref4lift,subclassOf,NumberOfFaults subclassOf hasValue some integer
+(4)_saref4lift,subclassOf,AlarmInTheCar subclassOf Alarm
+(4)_saref4lift,subclassOf,CarAlarm subclassOf hasValue some boolean
+(4)_saref4lift,subclassOf,AlarmInTheCar subclassOf Alarm
+(4)_saref4lift,subclassOf,CarAlarm subclassOf hasValue some boolean
+(4)_saref4lift,subclassOf,AlarmVoiceCommunication subclassOf Alarm
+(4)_saref4lift,subclassOf,AlarmInTheWell subclassOf Alarm
+(4)_saref4lift,subclassOf,AlarmInTheMachinery subclassOf Alarm
+(4)_saref4lift,subclassOf,FloodAlarm subclassOf Alarm
+(4)_saref4lift,subclassOf,EmergencyPowerAlarm subclassOf Alarm
+(4)_saref4lift,hasCommand,Function hasCommand Command
+(4)_saref4lift,a,CallCarToSpecificFloorCommand a Command
+(4)_saref4lift,a,SendCarToSpecificServiceCommand a Command
+(4)_saref4lift,hasDoorOpenTime,SmartLiftInstallationCommand hasDoorOpenTime Time
+(4)_saref4lift,hasDoorCloseTime,SmartLiftInstallationCommand hasDoorCloseTime Time
+(4)_saref4lift,a,SetOutOfServiceCommand a Command
+(4)_saref4lift,a,TestEmergencyNumberCommand a Command
+(4)_saref4lift,a,TestRideCommand a Command
+(4)_saref4lift,a,SetRealTimeModeCommand a Command
+(4)_saref4lift,subclassOf,SmartLiftInstallation subclassOf hasMainEmergencyNumber only string
+(4)_saref4lift,hasTraveledTime,SmartLiftInstallation hasTraveledTime Time
+(4)_saref4lift,a,BoardResetCommand a Command
+(4)_saref4lift,subclassOf,EmergencyPowerSupplySignal subClassOf hasValue some string
+(4)_saref4lift,subclassOf,StandardEmergencyPowerSupplySignal subClassOf hasValue some string
+(4)_saref4lift,hasSubsystem,SmartLiftInstallation hasSubsystem SmartLiftInstallation
+(4)_saref4lift,hasSubsystem,SmartLiftInstallation hasSubsystem SmartLiftEdgeControlUnit
+(4)_saref4lift,subclassOf,Signal subClassOf SmartLiftmodule
+(4)_saref4lift,subclassOf,BidirectionalCommunicationSystem subClassOf SmartLiftmodule
+(4)_saref4lift,type,SmartLiftInstallation type Class
+(4)_saref4lift,type,SmartLiftsGroup type Class
+(4)_saref4lift,subclassOf,SmartLiftInstallation subClassOf hasManufacturer only string
+(4)_saref4lift,subclassOf,SmartLiftInstallation subClassOf hasInstallerLiftCompany only string
+(4)_saref4lift,subclassOf,SmartLiftInstallation subClassOf hasMaintenanceCompany only string
+(4)_saref4lift,subclassOf,SmartLiftInstallation subClassOf hasBuildingManager only string
+(4)_saref4lift,subclassOf,SmartLiftInstallation subClassOf hasOwner only string
+(4)_saref4lift,hasGeometry,SmartLiftInstallation hasGeometry Point
+(4)_saref4lift,subclassOf,SmartLiftInstallation subclassOf hasLocationValidator only string
+(4)_saref4lift,a,GoodsLift a DeviceKind
+(4)_saref4lift,a,GoodsOnlyLift a DeviceKind
+(4)_saref4lift,a,FiremanLift a DeviceKind
