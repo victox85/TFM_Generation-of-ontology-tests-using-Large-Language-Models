@@ -1,0 +1,18 @@
+#Existencia de Clase
+Book type Class
+
+
+#Jerarquía / Subclase
+Author SubClassOf Person
+
+
+# Propiedad de Objeto y su Dominio
+writtenBy domain Book
+
+
+#Propiedad de Datos y su Rango
+yearOfPublication range xsd:integer
+
+
+#Clases Disjuntas
+Author disjointWith Book

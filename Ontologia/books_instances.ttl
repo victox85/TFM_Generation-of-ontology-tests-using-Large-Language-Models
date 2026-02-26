@@ -1,0 +1,94 @@
+@prefix rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
+@prefix book: <http://example.org/books#> .
+
+
+
+
+
+book:MarkMorford
+    rdf:type book:Author ;
+    book:name "Mark P. O. Morford" .
+
+book:RichardWright
+    rdf:type book:Author ;
+    book:name "Richard Bruce Wright" .
+
+book:RoaldDahl
+    rdf:type book:Author ;
+    book:name "Roald Dahl" .
+
+book:GeorgeOrwell
+    rdf:type book:Author ;
+    book:name "George Orwell" .
+
+book:HarperLee
+    rdf:type book:Author ;
+    book:name "Harper Lee" .
+
+
+
+book:OxfordUniversityPress
+    rdf:type book:Publisher ;
+    book:name "Oxford University Press" .
+
+book:HarperFlamingo
+    rdf:type book:Publisher ;
+    book:name "HarperFlamingo Canada" .
+
+book:PenguinBooks
+    rdf:type book:Publisher ;
+    book:name "Penguin Books" .
+
+book:HarperCollins
+    rdf:type book:Publisher ;
+    book:name "HarperCollins" .
+
+
+
+
+book:Book_0195153448
+    rdf:type book:Book ;
+    book:isbn              "0195153448" ;
+    book:title             "Classical Mythology" ;
+    book:yearOfPublication 2002 ;
+    book:writtenBy         book:MarkMorford ;
+    book:publishedBy       book:OxfordUniversityPress .
+
+
+book:Book_0002005018
+    rdf:type book:Book ;
+    book:isbn              "0002005018" ;
+    book:title             "Clara Callan" ;
+    book:yearOfPublication 2001 ;
+    book:writtenBy         book:RichardWright ;
+    book:publishedBy       book:HarperFlamingo .
+
+
+book:Book_0142410320
+    rdf:type book:Book ;
+    book:isbn              "0060973129" ;
+    book:title             "Charlie and the Chocolate Factory" ;
+    book:yearOfPublication 1964 ;
+    book:writtenBy         book:RoaldDahl ;
+    book:publishedBy       book:PenguinBooks .
+
+
+book:Book_0451524934
+    rdf:type book:Book ;
+    book:isbn              "0451524934" ;
+    book:title             "1984" ;
+    book:yearOfPublication 1949 ;
+    book:writtenBy         book:GeorgeOrwell ;
+    book:publishedBy       book:PenguinBooks .
+
+
+book:Book_0061743526
+    rdf:type book:Book ;
+    book:isbn              "0061743526" ;
+    book:title             "To Kill a Mockingbird" ;
+    book:yearOfPublication 1960 ;
+    book:writtenBy         book:HarperLee ;
+    book:publishedBy       book:HarperCollins .

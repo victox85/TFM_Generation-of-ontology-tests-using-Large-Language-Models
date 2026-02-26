@@ -1,0 +1,95 @@
+@prefix rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
+@prefix book: <http://algo.org/books#> .
+
+# ─── Ontología ───────────────────────────────────────────────────────────────
+
+<http://algo.org/books>
+    rdf:type owl:Ontology ;
+    rdfs:label "Book Ontology"@en ;
+
+
+book:Book
+    rdf:type owl:Class ;
+    rdfs:label "Book"@en ;
+    rdfs:label "Libro"@es ;
+    rdfs:subClassOf [
+        rdf:type owl:Restriction ;
+        owl:onProperty book:writtenBy ;
+        owl:someValuesFrom book:Author
+    ] ;
+    rdfs:subClassOf [
+        rdf:type owl:Restriction ;
+        owl:onProperty book:isbn ;
+        owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+        owl:onDataRange xsd:string
+    ] .
+
+
+book:Person
+    rdf:type owl:Class ;
+    rdfs:label "Person"@en ;
+    rdfs:label "Persona"@es ;
+
+book:Author
+    rdf:type owl:Class ;
+    rdfs:label "Author"@en ;
+    rdfs:subClassOf book:Person ;
+
+book:Publisher
+    rdf:type owl:Class ;
+    rdfs:label "Publisher"@en ;
+    rdfs:label "Editorial"@es ;
+
+
+book:Author
+    owl:disjointWith book:Book ;
+    owl:disjointWith book:Publisher .
+
+book:Book
+    owl:disjointWith book:Publisher .
+
+
+book:writtenBy
+    rdf:type owl:ObjectProperty ;
+    rdfs:label "writtenBy"@en ;
+    rdfs:domain book:Book ;
+    rdfs:range  book:Author ;
+
+book:publishedBy
+    rdf:type owl:ObjectProperty ;
+    rdfs:label "publishedBy"@en ;
+    rdfs:domain book:Book ;
+    rdfs:range  book:Publisher ;
+
+
+
+book:isbn
+    rdf:type owl:DatatypeProperty ;
+    rdf:type owl:FunctionalProperty ;
+    rdfs:label "isbn"@en ;
+    rdfs:domain book:Book ;
+    rdfs:range  xsd:string ;
+
+
+book:title
+    rdf:type owl:DatatypeProperty ;
+    rdfs:label "title"@en ;
+    rdfs:domain book:Book ;
+    rdfs:range  xsd:string .
+
+book:yearOfPublication
+    rdf:type owl:DatatypeProperty ;
+    rdfs:label "yearOfPublication"@en ;
+    rdfs:domain book:Book ;
+    rdfs:range  xsd:integer ;
+
+
+book:name
+    rdf:type owl:DatatypeProperty ;
+    rdfs:label "name"@en ;
+    rdfs:range  xsd:string .
+
+
