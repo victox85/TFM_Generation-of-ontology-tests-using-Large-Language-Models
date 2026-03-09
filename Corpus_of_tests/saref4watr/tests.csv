@@ -1,0 +1,113 @@
+Id;Requirement;Category;Test
+WATR-TEST-1;WATR-1;Water infrastructure;WaterInfrastructure hasSubSystem WaterAsset
+WATR-TEST-2;WATR-1;Water infrastructure;Reservoir subClassOf WaterAsset
+WATR-TEST-3;WATR-1;Water infrastructure;Pipe subClassOf WaterAsset
+WATR-TEST-4;WATR-2;Water infrastructure;CatchmentWell subClassOf Well
+WATR-TEST-5;WATR-3;Water infrastructure;TreatmentPlant subClassOf WaterInfrastructure
+WATR-TEST-6;WATR-3;Water infrastructure;TreatmentPlant isDesignedFor WaterKind
+WATR-TEST-7;WATR-3;Water infrastructure;Wastewater type WaterKind
+WATR-TEST-8;WATR-4;Water infrastructure;WaterInfrastructure hasSubSystem Sensor
+WATR-TEST-9;WATR-4;Water infrastructure;WaterMeter subClassOf Sensor
+WATR-TEST-10;WATR-5;Water infrastructure;WaterInfrastructure hasSubSystem Actuator
+WATR-TEST-11;WATR-5;Water infrastructure;Pump subClassOf Actuator
+WATR-TEST-12;WATR-5;Water infrastructure;Valve subClassOf Actuator
+WATR-TEST-13;WATR-6;Water meter;WaterMeter subClassOf Device
+WATR-TEST-14;WATR-6;Water meter;WaterMeter observes WaterFlowProperty
+WATR-TEST-15;WATR-7;Water meter;ColdWaterMeter subClassOf WaterMeter
+WATR-TEST-16;WATR-8;Water meter;WaterMeter hasFabricationNumber Literal
+WATR-TEST-17;WATR-9;Water meter;WaterMeter hasManufacturer Literal
+WATR-TEST-18;WATR-9;Water meter;WaterMeter hasModel Literal
+WATR-TEST-19;WATR-10;Water meter;WaterMeter hasVersion Literal
+WATR-TEST-20;WATR-11;Water meter;WaterMeter hasHardwareVersion Literal
+WATR-TEST-21;WATR-12;Water meter;WaterMeter hasFirmwareVersion Literal
+WATR-TEST-22;WATR-13;Water meter;WaterMeter hasProperty WaterMeterProperty
+WATR-TEST-23;WATR-13;Water meter;MeterOnTime type WaterMeterProperty
+WATR-TEST-24;WATR-14;Water meter;WaterMeter hasProperty WaterMeterProperty
+WATR-TEST-25;WATR-14;Water meter;MeterOperatingTime type WaterMeterProperty
+WATR-TEST-26;WATR-15;Water meter;WaterMeter hasProperty WaterMeterProperty
+WATR-TEST-27;WATR-15;Water meter;BatteryOperatingTime type WaterMeterProperty
+WATR-TEST-28;WATR-16;Water meter;WaterMeter hasProperty WaterMeterProperty
+WATR-TEST-29;WATR-16;Water meter;BatteryLastChange type WaterMeterProperty
+WATR-TEST-30;WATR-17;Water meter;WaterMeter hasProperty WaterMeterProperty
+WATR-TEST-31;WATR-17;Water meter;BatteryRemainingTime type WaterMeterProperty
+WATR-TEST-32;WATR-18;Water meter;WaterMeter requiresPower string
+WATR-TEST-33;WATR-19;Water meter;WaterMeter operatesAtRadioFrequency string
+WATR-TEST-34;WATR-20;Water meter;WaterMeter hasGeometry Point
+WATR-TEST-35;WATR-21;Meter observations;WaterMeter observes WaterFlowProperty
+WATR-TEST-36;WATR-21;Meter observations;FlowVolume type WaterFlowProperty
+WATR-TEST-37;WATR-22;Meter observations;WaterMeter observes WaterFlowProperty
+WATR-TEST-38;WATR-22;Meter observations;FlowRate type WaterFlowProperty
+WATR-TEST-39;WATR-23;Meter observations;WaterMeter observes WaterFlowProperty
+WATR-TEST-40;WATR-23;Meter observations;ExternalTemperature type EnvironmentalProperty
+WATR-TEST-41;WATR-24;Meter observations;WaterMeter observes WaterFlowProperty
+WATR-TEST-42;WATR-24;Meter observations;FlowTemperature type WaterFlowProperty
+WATR-TEST-43;WATR-25;Meter observations;WaterMeter madeExecution Observation
+WATR-TEST-44;WATR-26;Meter observations;Observation hasResultTime dateTime
+WATR-TEST-45;WATR-26;Meter observations;Observation hasPhenomenonTime TemporalEntity
+WATR-TEST-46;WATR-27;Infrastructure observations;Reservoir subClassOf WaterAsset
+WATR-TEST-47;WATR-27;Infrastructure observations;Reservoir hasProperty core:Property
+WATR-TEST-48;WATR-27;Infrastructure observations;Level type core:Property
+WATR-TEST-49;WATR-28;Infrastructure observations;Reservoir subClassOf WaterAsset
+WATR-TEST-50;WATR-28;Infrastructure observations;Reservoir hasProperty core:Property
+WATR-TEST-51;WATR-28;Infrastructure observations;InFlowRate type core:Property
+WATR-TEST-52;WATR-29;Infrastructure observations;Pipe subClassOf WaterAsset
+WATR-TEST-53;WATR-29;Infrastructure observations;Pipe hasProperty WaterFlowProperty
+WATR-TEST-54;WATR-29;Infrastructure observations;FlowRate type WaterFlowProperty
+WATR-TEST-55;WATR-30;Infrastructure observations;Pipe subClassOf WaterAsset
+WATR-TEST-56;WATR-30;Infrastructure observations;Pipe hasProperty core:Property
+WATR-TEST-57;WATR-30;Infrastructure observations;LeakRate type core:Property
+WATR-TEST-58;WATR-31;Infrastructure observations;WaterAsset hasProperty core:Property
+WATR-TEST-59;WATR-31;Infrastructure observations;FlowPressure type core:Property
+WATR-TEST-60;WATR-32;Infrastructure observations;Pump hasProperty core:Property
+WATR-TEST-61;WATR-32;Infrastructure observations;DischargeFlowRate type core:Property
+WATR-TEST-62;WATR-33;Water observations;Water hasProperty WaterProperty
+WATR-TEST-63;WATR-33;Water observations;AcceptabilityProperty subClassOf WaterProperty
+WATR-TEST-64;WATR-33;Water observations;Temperature type AcceptabilityProperty
+WATR-TEST-65;WATR-33;Water observations;Conductivity type AcceptabilityProperty
+WATR-TEST-66;WATR-33;Water observations;Turbidity type AcceptabilityProperty
+WATR-TEST-67;WATR-34;Water observations;Water hasProperty WaterProperty
+WATR-TEST-68;WATR-34;Water observations;ChemicalProperty subClassOf WaterProperty
+WATR-TEST-69;WATR-34;Water observations;HydrogenIonConcentration type AcceptabilityProperty
+WATR-TEST-70;WATR-34;Water observations;Hardness type AcceptabilityProperty
+WATR-TEST-71;WATR-34;Water observations;Arsenic type ChemicalProperty
+WATR-TEST-72;WATR-35;Indicators;DistributionSystem hasKPI KeyPerformanceIndicator
+WATR-TEST-73;WATR-35;Indicators;KeyPerformanceIndicatorAssessment assesses DistributionSystem
+WATR-TEST-74;WATR-35;Indicators;MinimumPressureLevel type KeyPerformanceIndicator
+WATR-TEST-75;WATR-36;Indicators;TreatmentPlant hasKPI KeyPerformanceIndicator
+WATR-TEST-76;WATR-36;Indicators;KeyPerformanceIndicatorAssessment assesses TreatmentPlant
+WATR-TEST-77;WATR-36;Indicators;Capacity type KeyPerformanceIndicator
+WATR-TEST-78;WATR-37;Indicators;KeyPerformanceIndicatorAssessment refersToFeature Feature
+WATR-TEST-79;WATR-38;Tariff;Tariff hasStartTimestamp dateTime
+WATR-TEST-80;WATR-39;Tariff;Tariff hasDuration TemporalDuration
+WATR-TEST-81;WATR-40;Tariff;Tariff hasPeriod TemporalDuration
+WATR-TEST-82;WATR-41;Tariff;ConsumptionBasedTariff subClassOf Tariff
+WATR-TEST-83;WATR-41;Tariff;ConsumptionBasedTariff forVolumeConsumption string
+WATR-TEST-84;WATR-42;Tariff;Tariff hasBillingDate dateTime
+WATR-TEST-85;WATR-43;Tariff;Tariff hasBillingPeriod TemporalDuration
+WATR-TEST-86;WATR-44;ICT4Water cluster;SourceAsset subClassOf WaterAsset
+WATR-TEST-87;WATR-44;ICT4Water cluster;SinkAsset subClassOf WaterAsset
+WATR-TEST-88;WATR-44;ICT4Water cluster;TransportAsset subClassOf WaterAsset
+WATR-TEST-89;WATR-44;ICT4Water cluster;StorageAsset subClassOf WaterAsset
+WATR-TEST-90;WATR-45;ICT4Water cluster;Lake subClassOf SourceAsset
+WATR-TEST-91;WATR-45;ICT4Water cluster;Lagoon subClassOf SourceAsset
+WATR-TEST-92;WATR-45;ICT4Water cluster;Glacier subClassOf SourceAsset
+WATR-TEST-93;WATR-46;ICT4Water cluster;Estuary subClassOf SinkAsset
+WATR-TEST-94;WATR-46;ICT4Water cluster;Ocean subClassOf SinkAsset
+WATR-TEST-95;WATR-46;ICT4Water cluster;River subClassOf SinkAsset
+WATR-TEST-96;WATR-46;ICT4Water cluster;Sea subClassOf SinkAsset
+WATR-TEST-97;WATR-47;ICT4Water cluster;Aquifer subClassOf StorageAsset
+WATR-TEST-98;WATR-48;ICT4Water cluster;Intake subClassOf TransportAsset
+WATR-TEST-99;WATR-49;ICT4Water cluster;HydroelectricPowerPlant subClassOf WaterInfrastructure
+WATR-TEST-100;WATR-50;ICT4Water cluster;GaugingStation subClassOf MonitoringInfrastructure
+WATR-TEST-101;WATR-51;ICT4Water cluster;WaterInfrastructure isIntendedFor WaterUse
+WATR-TEST-102;WATR-51;ICT4Water cluster;Industry type WaterUse
+WATR-TEST-103;WATR-51;ICT4Water cluster;Recreation type WaterUse
+WATR-TEST-104;WATR-51;ICT4Water cluster;Domestic type WaterUse
+WATR-TEST-105;WATR-51;ICT4Water cluster;Agriculture type WaterUse
+WATR-TEST-106;WATR-51;ICT4Water cluster;Aquaculture type WaterUse
+WATR-TEST-107;WATR-52;ICT4Water cluster;TotalDissolvedSolids type AcceptabilityProperty
+WATR-TEST-108;WATR-53;ICT4Water cluster;Oxygen type ChemicalProperty
+WATR-TEST-109;WATR-54;ICT4Water cluster;Humidity type EnvironmentalProperty
+WATR-TEST-110;WATR-54;ICT4Water cluster;AtmosphericPressure type EnvironmentalProperty
+WATR-TEST-111;WATR-54;ICT4Water cluster;Precipitation type EnvironmentalProperty
+WATR-TEST-112;WATR-55;ICT4Water cluster;Device actsUpon WaterAsset

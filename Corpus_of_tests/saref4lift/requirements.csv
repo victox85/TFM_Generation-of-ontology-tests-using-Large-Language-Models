@@ -1,0 +1,80 @@
+Id;Category;Requirement
+LIFT-1;Car Signal;Which is the car position? (Floor Number i.e.: -2, -1, 0, 1,...)
+LIFT-2;Car Signal;Is the lift direction upward? Yes/No
+LIFT-3;Car Signal;Is the lift direction downward? Yes/No
+LIFT-4;Car Signal;Is the car in an unlocking zone? Yes/No
+LIFT-5;Car Signal;Is there a test ride in execution? Yes/No
+LIFT-6;Car Signal;Is there any fault? Yes/No
+LIFT-7;Car Signal;Is the lift out of service? Yes/No
+LIFT-8;Car Signal;Is the lift overloaded? Yes/No
+LIFT-9;Car Signal;Are there ongoing inspection operations? Yes/No
+LIFT-10;Car Signal;Are there fire operations? Yes/No
+LIFT-11;Car Signal;Is the car alarm activated? Yes/No
+LIFT-12;Car Signal;Is the car empty? Yes/No
+LIFT-13;Car Signal;What is the limit load of the lift? 90 kg
+LIFT-14;Car Signal;What is the power supply voltage of a lift? 380 volts
+LIFT-15;Car Signal;What is the value of the standard power supply of a lift? 12 volts
+LIFT-16;Car Signal;How many car stops has the lift? 8
+LIFT-17;Car Signal;How many doors are installed in the lift? 2
+LIFT-18;Car Signal;How many car services are available in the lift? 8
+LIFT-19;Bidirectional Communication System Signal;Signal related to the periodic test run every 72h has been received.
+LIFT-20;Bidirectional Communication System Signal;The bidirectional communication system signal has been received.
+LIFT-21;Bidirectional Communication System Signal;Which is the network coverage? 87%
+LIFT-22;Bidirectional Communication System Signal;Which is the home network operator of the lift? 289-88
+LIFT-23;Bidirectional Communication System Signal;The types of signals that can be sent by the Bidirectional Communication System are: timeOfLastPeriodicTest72hAttempt, timeOfConfirmationOfLastPeriodicTest72hAttempt, registeredNetworkOperator, networkQualityRSSI and networkQualityBER
+LIFT-24;Bidirectional Communication System Signal;Examples of network technologies supported by the Bidirectional Communication System of the lift are: Fixed_line, 2G, 3G, 4G or 5G
+LIFT-25;Bidirectional Communication System Signal;Which is the telephone number of the lift? 85-755-28568888
+LIFT-26;Bidirectional Communication System Signal;Which are the secondary emergency numbers of the lift? 85-755-28568889, 85-755-28568890, 85-755-28568891
+LIFT-27;Power Supply Signal;Is the emergency power supply signal active? Yes/No
+LIFT-28;Power Supply Signal;Is the standard power supply signal active? Yes/No
+LIFT-29;Power Supply Signal;Which is the voltage of emergency power?  330 volts
+LIFT-30;System Status Signal;Is the lift out of service? Yes/No
+LIFT-31;System Status Signal;Is the lift overloaded? Yes/No
+LIFT-32;System Status Signal;Are there ongoing inspection operations? Yes/No
+LIFT-33;System Status Signal;Are there fire operations? Yes/No
+LIFT-34;Fault Signal;The lift has a dangerous fault.
+LIFT-35;Fault Signal;The lift has a minor fault.
+LIFT-36;Fault Signal;The lift has an audio fault.
+LIFT-37;Statistic Signal;How many times the lift has been called? 245
+LIFT-38;Statistic Signal;How many upward travel the lift did? 167
+LIFT-39;Statistic Signal;How many downward travel the lift did? 153
+LIFT-40;Statistic Signal;Which is the total number of floors covered? 94
+LIFT-41;Statistic Signal;How many times have been executed the reset sequence? 26
+LIFT-42;Statistic Signal;How many times the lift adopted the reversal direction? 4
+LIFT-43;Statistic Signal;How many times the door has been opened? 362
+LIFT-44;Statistic Signal;How many times the lift has been called from the floor X? 46
+LIFT-45;Statistic Signal;How many times the fault event X occurred? 12
+LIFT-46;Alarm;Alarm button has been pressed.
+LIFT-47;Alarm;Alarm has been initiated.
+LIFT-48;Alarm;Alarm voice communication has been activated.
+LIFT-49;Alarm;Alarm in the well is active.
+LIFT-50;Alarm;Alarm in the machinery is active.
+LIFT-51;Alarm;Flood alarm is active.
+LIFT-52;Alarm;Emergency power alarm is active.
+LIFT-53;Command;A lift sends commands
+LIFT-54;Command;A command can call to a specific floor.
+LIFT-55;Command;A command can send a car to a specific floor. 
+LIFT-56;Command;A command can set the lift to out of service.
+LIFT-57;Command;Which is the opening door time?
+LIFT-58;Command;Which is the closing door time?
+LIFT-59;Command;A command can test the emergency number.
+LIFT-60;Command;A command can test the ride
+LIFT-61;Command;A command can start the real time mode
+LIFT-62;Command;What is the emergency number?
+LIFT-63;Command;Which is the current total travel time?
+LIFT-64;Command;A command can initiate the board reset
+LIFT-65;Command;There are four emergency battery power status: good, warn, critical and insufficient
+LIFT-66;Command;There are four alarm SOS battery power status: good, warn, critical and insufficient
+LIFT-67;Smart Lift System;A Smart Lift Installation is contained into a Smart Lift System
+LIFT-68;Smart Lift System;A Smart Lift Edge Control Unit hosts the different Smart Lift modules
+LIFT-69;Smart Lift System;Examples of Smart Lift modules are signals or bidirectional communication systems
+LIFT-70;Smart Lift identification;Each Smart Lift Installation should be globally and uniquely identified
+LIFT-71;Smart Lift identification;Each Smart Lifts Group should be globally and uniquely identified
+LIFT-72;Smart Lift identification;Which is the manufacturing lift company? Company1
+LIFT-73;Smart Lift identification;Which is the installer lift company? Company2
+LIFT-74;Smart Lift administrative information;Which is the maintenance lift company? Company3
+LIFT-75;Smart Lift administrative information;Who is the building manager of a lift? Company4
+LIFT-76;Smart Lift administrative information;Who is the legal owner of a lift? Company5
+LIFT-77;Smart Lift administrative information;A lift is installed in a geographic location
+LIFT-78;Smart Lift administrative information;The lift geographic location is provided by the geographic location validator
+LIFT-79;Smart Lift administrative information;Examples of types of use of a lift are: Lift, Goods lift, Goods only lift, or Fireman lift

@@ -1,0 +1,56 @@
+Id;Category;Requirement
+WATR-1;Water infrastructure;Which assets compose a water distribution infrastructure? Catchment well, raw water pipe, reservoirs, etc.
+WATR-2;Water infrastructure;A catchment well is a well that has been constructed to collect water.
+WATR-3;Water infrastructure;A wastewater treatment plant is a facility where contaminants are removed from wastewater or sewage.
+WATR-4;Water infrastructure;Which types of sensors are used in water infrastructures? Water quality sensors, capacity sensors, tank level sensors, etc.
+WATR-5;Water infrastructure;Which types of actuators are used in water infrastructures? Pressure regulators, pumps, valves, etc.
+WATR-6;Water meter;A water meter is a device that observes different aspects of a water infrastructure.
+WATR-7;Water meter;What is the type of the water meter? It is a cold-water meter.
+WATR-8;Water meter;What is the fabrication number of the water meter? 4837QW.
+WATR-9;Water meter;What are the manufacturer and the model of the water meter? It is a Meterall, model Turion.
+WATR-10;Water meter;What is the version of the water meter? Version 1.2.
+WATR-11;Water meter;What is the hardware version number of the water meter? 23.5b.
+WATR-12;Water meter;What firmware version is the water meter using? The metrology (firmware) version is 123.7.
+WATR-13;Water meter;What has been the on time for the water meter? 15 days.
+WATR-14;Water meter;What is the operating time of the water meter? 5 hours.
+WATR-15;Water meter;What is the operating time of the water meter's battery? 4 months and 4 days.
+WATR-16;Water meter;When was the battery of the water meter previously changed? On February 23rd 2019, at 13:45.
+WATR-17;Water meter;What is the remaining battery time of the water meter? 27 months.
+WATR-18;Water meter;What is the power of the water meter? 24 volts.
+WATR-19;Water meter;What is the radio frequency level of the water meter? 2.4 GHz.
+WATR-20;Water meter;What is the geolocation of the water meter? Latitude 40.4165 and longitude -3.7025.
+WATR-21;Meter observations;What is the volume being observed by water meter 243? 127 liters.
+WATR-22;Meter observations;Which was the flow of water meter 44 on January 15th 2019 at 12:30? 32 liters per hour.
+WATR-23;Meter observations;How many water meters are observing an external temperature greater than 23ºC? 5 meters.
+WATR-24;Meter observations;The maximum temperature limit of the water meter is of 49ºC.
+WATR-25;Meter observations;Water meters can provide observations according to different temporal settings: current values, periodical values, set date values, billing date values, minimum values, and maximum values.
+WATR-26;Meter observations;Observations can be related to a specific date and/or time, to some duration, or to a temporal interval.
+WATR-27;Infrastructure observations;What is the current level of the reservoir? 200 liters.
+WATR-28;Infrastructure observations;What are the inflow/outflow rates of the water reservoir? 500 liters.
+WATR-29;Infrastructure observations;What is the current water flow in water pipe 212? 250 liters per second.
+WATR-30;Infrastructure observations;What is the current water leak rate in water pipe 212? 0.4 liters per second.
+WATR-31;Infrastructure observations;Which systems had the water pressure lower than 100 on August 15th? Pump 123 and pump 145.
+WATR-32;Infrastructure observations;What is the maximum discharge flow of water pump 8? 500 liters per minute.
+WATR-33;Water observations;What are the physical properties of water? Temperature, conductance, turbidity, etc.
+WATR-34;Water observations;What are the chemical properties of water? pH, total hardness, concentration of different chemical components, etc.
+WATR-35;Indicators;Is the minimum pressure level maintained everywhere the water distribution infrastructure? Yes.
+WATR-36;Indicators;What is the capacity of wastewater treatment plants in Madrid? 12 Megaliters per day.
+WATR-37;Indicators;Which water indicators are defined for Burgos? Number of connected residential properties, annual maintenance costs, volume of potable water supplied.
+WATR-38;Tariff;What is the start date and time of the tariff in use in the water meter? 1st January 2019.
+WATR-39;Tariff;What is the duration of the current tariff of the water meter? 1 year.
+WATR-40;Tariff;What is the tariff period of the water meter? 1 month.
+WATR-41;Tariff;What is the maximum contracted consumption of the water meter? 1,200 liters.
+WATR-42;Tariff;What is the billing date of the water meter? 31st March 2019.
+WATR-43;Tariff;What is the billing date period of the water meter? 1 month.
+WATR-44;ICT4Water Cluster;There are four main types of water assets: source, sink, transport and storage ones.
+WATR-45;ICT4Water Cluster;Examples of source assets are: lakes, lagoons or glaciers.
+WATR-46;ICT4Water Cluster;Examples of sink assets are: rivers, seas, oceans or estuaries.
+WATR-47;ICT4Water Cluster;An aquifer is a type of storage asset.
+WATR-48;ICT4Water Cluster;An intake is a type of transport asset.
+WATR-49;ICT4Water Cluster;A hydroelectric power plant is a type of water infrastructure.
+WATR-50;ICT4Water Cluster;A gauging station is a type of water monitoring infrastructure.
+WATR-51;ICT4Water Cluster;A water infrastructure is intended for a particular use of water, for example: industry, agriculture, recreation or aquaculture.
+WATR-52;ICT4Water Cluster;Total dissolved solids is an acceptability property of water.
+WATR-53;ICT4Water Cluster;Dissolved oxygen is a chemical property of water.
+WATR-54;ICT4Water Cluster;Some environmental properties are relevant for water, such as external humidity, atmospheric pressure, amount of precipitation.
+WATR-55;ICT4Water Cluster;A device can monitor a water asset.

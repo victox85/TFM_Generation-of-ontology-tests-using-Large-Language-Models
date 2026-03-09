@@ -1,0 +1,98 @@
+id,title,test_uri,requirement_text
+,,https://w3id.org/def/vtc#TestCaseDesign,
+core-40,User containsItem Item,:Test1,A user can contain an item
+,ActiveUserStatus type UserStatus,:Test10,
+core-40,User isRepresentedByAvatar Image,:Test11,A user can contain an item
+core-33,User belongsTo Organisation,:Test12,A user belongs to an organisation
+core-40,User subclassOf hasID only string,:Test13,A user can contain an item
+core-40,User subclassOf hasUpdateDate only datetime,:Test14,A user can contain an item
+core-40,User subclassOf hasCreationDate only datetime,:Test15,A user can contain an item
+core-40,User subclassOf hasLocation only string,:Test16,A user can contain an item
+core-40,User subclassOf hasOccupation only string,:Test17,A user can contain an item
+core-40,User subclassOf hasContactMail only string,:Test18,A user can contain an item
+core-40,User subclassOf hasEmail only string,:Test19,A user can contain an item
+core-39,User hasAudit Audit,:Test2,A user can contain an audit
+core-40,User subclassOf hasLastName only string,:Test20,A user can contain an item
+core-40,User subclassOf hasFirstName only string,:Test21,A user can contain an item
+core-40,User subclassOf hasName only string,:Test22,A user can contain an item
+,DeletedItemStatus type ItemStatus,:Test23,
+,EnabledItemStatus type ItemStatus,:Test24,
+,DisabledItemStatus type ItemStatus,:Test25,
+core-29,Service subclassOf Item,:Test26,An item can be a service
+core-28,Device subclassOf Item,:Test27,An item can be a device 
+core-29,Item isRepresentedByAvatar Image,:Test28,An item can be a service
+core-26,Item belongsTo Organisation,:Test29,An item belongs to an organisation
+core-38,User hasNotification Notification,:Test3,A user contain can contain a notification
+core-40,Item hasUser User,:Test30,A user can contain an item
+core-24,Item belongsTo Node,:Test31,An item is contained in a node
+core-29,Item subclassof hasUpdateDate only datetime,:Test32,An item can be a service
+core-29,Item subclassof hasCreationDate only datetime,:Test33,An item can be a service
+core-29,Item subclassof hasStatus only string,:Test34,An item can be a service
+core-29,Item subclassof hasName only string,:Test35,An item can be a service
+,DeletedNodeStatus type NodeStatus,:Test36,
+,ActiveNodeStatus type NodeStatus,:Test37,
+core-24,Node containsItem Item,:Test38,An item is contained in a node
+core-17,Auroral type Node,:Test39,A node has an AURORAL identifier
+core-36,Dev_ops type Role,:Test4,A user can be associated to a role
+core-19,Sharq type Node,:Test40,"Examples of node types are: vicinity, sharq, auroral"
+core-19,Vicinity type Node,:Test41,"Examples of node types are: vicinity, sharq, auroral"
+core-18,Node belongsTo Organisation,:Test42,A node belongs to an organisation
+core-18,Node subclassOf hasID only string,:Test43,A node belongs to an organisation
+core-18,Node subclassOf hasUpdateDate only datetime,:Test44,A node belongs to an organisation
+core-18,Node subclassOf hasCreationDate only datetime,:Test45,A node belongs to an organisation
+core-18,Node subclassOf hasToken only string,:Test46,A node belongs to an organisation
+core-18,Node subclassOf hasKey only string,:Test47,A node belongs to an organisation
+core-18,Node subclassOf hasName only string,:Test48,A node belongs to an organisation
+core-14,ContractAcceptedNotification type Notification,:Test49,A notification can be read
+core-36,Infras_operator type Role,:Test5,A user can be associated to a role
+core-14,ContractRequestNotification type Notification,:Test50,A notification can be read
+core-14,ItemUpdatedNotification type Notification,:Test51,A notification can be read
+core-14,ItemDiscoveredNotification type Notification,:Test52,A notification can be read
+core-14,ItemDisabledNotification type Notification,:Test53,A notification can be read
+core-14,ItemEnabledNotification type Notification,:Test54,A notification can be read
+core-14,RegistrationRequestNotification type Notification,:Test55,A notification can be read
+core-14,Notification subclassOf isUnread only boolean,:Test56,A notification can be read
+core-14,Notification hasStatus NotificationStatus,:Test57,A notification can be read
+,RespondedNotificationStatus type NotificationStatus,:Test58,
+,RejectedNotificationStatus type NotificationStatus,:Test59,
+core-36,User type Role,:Test6,A user can be associated to a role
+,AcceptedNotificationStatus type NotificationStatus,:Test60,
+,InfoNotificationStatus type NotificationStatus,:Test61,
+,WaitingNotificationStatus type NotificationStatus,:Test62,
+core-14,Notification subClassOf hasObject only string,:Test63,A notification can be read
+core-14,Notification subClassOf hasActor only string,:Test64,A notification can be read
+core-14,Notification subClassOf hasCreationDate only Datetime,:Test65,A notification can be read
+core-14,Notification subClassOf hasTarget only string,:Test66,A notification can be read
+core-14,Notification subClassOf hasOwner only string,:Test67,A notification can be read
+core-14,Notification subClassOf hasID only string,:Test68,A notification can be read
+core-6,Organisation hasPartnershipRequestedTo Organisation,:Test69,An organisation can have a partnership with another organisation
+core-36,Admin type Role,:Test7,A user can be associated to a role
+core-6,Organisation hasPartnershipRequestedBy Organisation,:Test70,An organisation can have a partnership with another organisation
+core-6,Organisation knows Organisation,:Test71,An organisation can have a partnership with another organisation
+core-18,Organisation hasNode Node,:Test72,A node belongs to an organisation
+core-33,Organisation hasUser User,:Test73,A user belongs to an organisation
+core-39,Organisation hasAudit Audit,:Test74,A user can contain an audit
+core-6,Organisation hasNotification Notification,:Test75,An organisation can have a partnership with another organisation
+core-6,Organisation subclassOf hasCreationDate only DateTime,:Test76,An organisation can have a partnership with another organisation
+core-6,Organisation subclassOf hasLocation only string,:Test77,An organisation can have a partnership with another organisation
+core-6,Organisation subclassOf hasID only string,:Test78,An organisation can have a partnership with another organisation
+core-6,Organisation subclassOf hasSkinColor only string,:Test79,An organisation can have a partnership with another organisation
+core-36,User hasRole Role,:Test8,A user can be associated to a role
+,DeletedUserStatus type UserStatus,:Test9,
+core-29,Service subClassOf VirtualThing,https://w3id.org/def/vtc#Test80,An item can be a service
+,Commodity type ServiceType,https://w3id.org/def/vtc#Test81,
+,NotCommodity type ServiceType,https://w3id.org/def/vtc#Test82,
+core-29,Service language Language,https://w3id.org/def/vtc#Test83,An item can be a service
+core-29,Service applicableToGeographicalArea Place,https://w3id.org/def/vtc#Test84,An item can be a service
+,Dataset subClassOf VirtualThing,https://w3id.org/def/vtc#Test85,
+,Dataset subClassOf Dataset,https://w3id.org/def/vtc#Test86,
+core-29,Item hasDomain Domain,https://w3id.org/def/vtc#Test87,An item can be a service
+,Tourism type Domain,https://w3id.org/def/vtc#Test88,
+,Health type Domain,https://w3id.org/def/vtc#Test89,
+,Energy type Domain,https://w3id.org/def/vtc#Test90,
+,Mobility type Domain,https://w3id.org/def/vtc#Test91,
+,DairyFarming type Domain,https://w3id.org/def/vtc#Test92,
+,CircularEconomy type Domain,https://w3id.org/def/vtc#Test93,
+,PhysicalThing hasGeometry Geometry,https://w3id.org/def/vtc#Test94,
+,Measurement hasReadability Readability,https://w3id.org/def/vtc#Test95,
+,Measurement hasTemporalUnit TemporalUnit,https://w3id.org/def/vtc#Test96,

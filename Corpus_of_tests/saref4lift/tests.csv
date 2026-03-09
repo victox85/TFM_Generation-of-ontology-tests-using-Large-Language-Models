@@ -1,0 +1,122 @@
+Id;Requirement;Category;Test
+LIFT-TEST-1;LIFT-1;Car Signal;CurrentCarStop subClassOf CarSignal
+LIFT-TEST-2;LIFT-1;Car Signal;CurrentCarStop subclassOf hasValue some integer
+LIFT-TEST-3;LIFT-2;Car Signal;MovingUpwardDirection subClassOf CarSignal
+LIFT-TEST-4;LIFT-2;Car Signal;MovingUpwardDirection subclassOf hasValue some boolean
+LIFT-TEST-5;LIFT-3;Car Signal;MovingDownwardDirection subClassOf CarSignal
+LIFT-TEST-6;LIFT-3;Car Signal;MovingDownwardDirection subclassOf hasValue some boolean
+LIFT-TEST-7;LIFT-4;Car Signal;CarInUnlockingZone subClassOf CarSignal
+LIFT-TEST-8;LIFT-4;Car Signal;CarInUnlockingZone subclassOf hasValue some boolean
+LIFT-TEST-9;LIFT-5;Car Signal;TestRide subClassOf CarSignal
+LIFT-TEST-10;LIFT-5;Car Signal;TestRide subclassOf hasValue some boolean
+LIFT-TEST-11;LIFT-6;Car Signal;FaultSignal type Class
+LIFT-TEST-12;LIFT-7;Car Signal;OutOfService subClassOf CarSignal
+LIFT-TEST-13;LIFT-7;Car Signal;OutOfService subclassOf hasValue some boolean
+LIFT-TEST-14;LIFT-8;Car Signal;OutOfService subClassOf CarSignal
+LIFT-TEST-15;LIFT-8;Car Signal;OutOfService subclassOf hasValue some boolean
+LIFT-TEST-16;LIFT-9;Car Signal;Overload subClassOf CarSignal
+LIFT-TEST-17;LIFT-9;Car Signal;Overload subclassOf hasValue some boolean
+LIFT-TEST-18;LIFT-10;Car Signal;InspectionOperation subClassOf CarSignal
+LIFT-TEST-19;LIFT-10;Car Signal;InspectionOperation subclassOf hasValue some boolean
+LIFT-TEST-20;LIFT-11;Car Signal;FireOperation subClassOf CarSignal
+LIFT-TEST-21;LIFT-11;Car Signal;FireOperation subclassOf hasValue some boolean
+LIFT-TEST-22;LIFT-12;Car Signal;CarAlarm subClassOf CarSignal
+LIFT-TEST-23;LIFT-12;Car Signal;CarAlarm subclassOf hasValue some boolean
+LIFT-TEST-24;LIFT-13;Car Signal;CarEmpty subClassOf CarSignal
+LIFT-TEST-25;LIFT-13;Car Signal;CarEmpty subclassOf hasValue some boolean
+LIFT-TEST-26;LIFT-14;Car Signal;SmartLiftInstallation hasLimitLoad Load
+LIFT-TEST-27;LIFT-15;Car Signal;SmartLiftInstallation hasPowerSupply Power
+LIFT-TEST-28;LIFT-16;Car Signal;SmartLiftInstallation hasStandardPowerSupply Power
+LIFT-TEST-29;LIFT-17;Car Signal;SmartLiftInstallation subClassOf hasCarStops only integer
+LIFT-TEST-30;LIFT-18;Car Signal;SmartLiftInstallation subClassOf hasDoorsStatus some boolean
+LIFT-TEST-31;LIFT-19;Bidirectional Communication System Signal;TimeOfLastPeriodicTest72hAttempt subClassOf BCSSignal
+LIFT-TEST-32;LIFT-19;Bidirectional Communication System Signal;TimeOfLastPeriodicTest72hAttempt hasValue Time
+LIFT-TEST-33;LIFT-20;Bidirectional Communication System Signal;SmartLiftInstallation receives BCSSignal
+LIFT-TEST-34;LIFT-21;Bidirectional Communication System Signal;NetworkCoverage isMeasuredIn UnitOfMeasure
+LIFT-TEST-35;LIFT-22;Bidirectional Communication System Signal;RegisteredNetworkOperator subclassOf BCSSignal
+LIFT-TEST-36;LIFT-22;Bidirectional Communication System Signal;RegisteredNetworkOperator subclassOf hasValue some string
+LIFT-TEST-37;LIFT-23;Bidirectional Communication System Signal;TimeOfLastPeriodicTest72hAttempt subclassOf BCSSignal
+LIFT-TEST-38;LIFT-23;Bidirectional Communication System Signal;timeOfConfirmationOfLastPeriodicTest72hAttempt subclassOf BCSSignal
+LIFT-TEST-39;LIFT-23;Bidirectional Communication System Signal;registeredNetworkOperator subclassOf BCSSignal
+LIFT-TEST-40;LIFT-23;Bidirectional Communication System Signal;networkQualityRSSI subclassOf BCSSignal
+LIFT-TEST-41;LIFT-23;Bidirectional Communication System Signal;networkQualityBER subclassOf BCSSignal
+LIFT-TEST-42;LIFT-24;Bidirectional Communication System Signal;NetworkFixedLine type Network
+LIFT-TEST-43;LIFT-24;Bidirectional Communication System Signal;Network2G type Network
+LIFT-TEST-44;LIFT-24;Bidirectional Communication System Signal;Network3G type Network
+LIFT-TEST-45;LIFT-24;Bidirectional Communication System Signal;Network4G type Network
+LIFT-TEST-46;LIFT-24;Bidirectional Communication System Signal;Network5G type Network
+LIFT-TEST-47;LIFT-25;Bidirectional Communication System Signal;SmartLiftInstallation subClassOf hasTelephoneNumber some string
+LIFT-TEST-48;LIFT-26;Bidirectional Communication System Signal;SmartLiftInstallation subClassOf hasSecondaryEmergencyTelephoneNumber only string 
+LIFT-TEST-49;LIFT-27;Power Supply Signal;EmergencyPowerSupplySignal subClassOf Signal
+LIFT-TEST-50;LIFT-27;Power Supply Signal;EmergencyPowerSupplySignal subclassOf hasValue some boolean
+LIFT-TEST-51;LIFT-28;Power Supply Signal;StandardEmergencyPowerSupplySignal subClassOf Signal
+LIFT-TEST-52;LIFT-28;Power Supply Signal;StandardEmergencyPowerSupplySignal subclassOf hasValue some boolean
+LIFT-TEST-53;LIFT-29;Power Supply Signal;SmartLiftInstallation hasPowerSupply Power
+LIFT-TEST-54;LIFT-30;Power Supply Signal;OutOfService subclassOf CarSignal
+LIFT-TEST-55;LIFT-30;Power Supply Signal;OutOfService subclassOf hasValue some boolean
+LIFT-TEST-56;LIFT-31;Power Supply Signal;Overload subClassOf CarSignal
+LIFT-TEST-57;LIFT-31;Power Supply Signal;Overload subclassOf hasValue some boolean
+LIFT-TEST-58;LIFT-32;Power Supply Signal;InspectionOperation subClassOf Signal
+LIFT-TEST-59;LIFT-32;Power Supply Signal;InspectionOperation subclassOf hasValue some boolean
+LIFT-TEST-60;LIFT-33;Power Supply Signal;FireOperation subClassOf CarSignal
+LIFT-TEST-61;LIFT-33;Power Supply Signal;FireOperation subclassOf hasValue some boolean
+LIFT-TEST-62;LIFT-34;Fault Signal;DangerousFault subclassof FaultSignal
+LIFT-TEST-63;LIFT-35;Fault Signal;MinorFault subclassof FaultSignal
+LIFT-TEST-64;LIFT-36;Fault Signal;AudioFault subclassOf FaultSignal
+LIFT-TEST-65;LIFT-37;Statistic Signal;NumberOfCalls subClassOf StatisticSignal
+LIFT-TEST-66;LIFT-37;Statistic Signal;NumberOfCalls subclassOf hasValue some integer
+LIFT-TEST-67;LIFT-38;Statistic Signal;UpwardTravels subClassOf StatisticSignal
+LIFT-TEST-68;LIFT-38;Statistic Signal;UpwardTravels subclassOf hasValue some integer
+LIFT-TEST-69;LIFT-39;Statistic Signal;DownwardTravels subClassOf StatisticSignal
+LIFT-TEST-70;LIFT-39;Statistic Signal;DownwardTravels subclassOf hasValue some integer
+LIFT-TEST-71;LIFT-40;Statistic Signal;TotalFloorsCovered subClassOf StatisticSignal
+LIFT-TEST-72;LIFT-40;Statistic Signal;totalFloorsCovered subclassOf hasValue some integer
+LIFT-TEST-73;LIFT-41;Statistic Signal;TotalResetSequence subClassOf StatisticSignal
+LIFT-TEST-74;LIFT-41;Statistic Signal;TotalResetSequence subclassOf hasValue some integer
+LIFT-TEST-75;LIFT-42;Statistic Signal;TotalReversalDirection subClassOf StatisticSignal
+LIFT-TEST-76;LIFT-42;Statistic Signal;TotalReversalDirection subclassOf hasValue some integer
+LIFT-TEST-77;LIFT-43;Statistic Signal;TotalTimesOpened type StatisticSignal
+LIFT-TEST-78;LIFT-43;Statistic Signal;TotalTimesOpened subclassOf hasValue some integer
+LIFT-TEST-79;LIFT-44;Statistic Signal;CallsPerService type StatisticSignal
+LIFT-TEST-80;LIFT-44;Statistic Signal;CallsPerService subclassOf hasValue some integer
+LIFT-TEST-81;LIFT-45;Statistic Signal;NumberOfFaults type StatisticSignal
+LIFT-TEST-82;LIFT-45;Statistic Signal;NumberOfFaults subclassOf hasValue some integer
+LIFT-TEST-83;LIFT-46;Alarm;AlarmInTheCar subclassOf Alarm
+LIFT-TEST-84;LIFT-46;Alarm;CarAlarm subclassOf hasValue some boolean
+LIFT-TEST-85;LIFT-47;Alarm;AlarmInTheCar subclassOf Alarm
+LIFT-TEST-86;LIFT-47;Alarm;CarAlarm subclassOf hasValue some boolean
+LIFT-TEST-87;LIFT-48;Alarm;AlarmVoiceCommunication subclassOf Alarm 
+LIFT-TEST-88;LIFT-49;Alarm;AlarmInTheWell subclassOf Alarm
+LIFT-TEST-89;LIFT-50;Alarm;AlarmInTheMachinery subclassOf Alarm
+LIFT-TEST-90;LIFT-51;Alarm;FloodAlarm subclassOf Alarm
+LIFT-TEST-91;LIFT-52;Alarm;EmergencyPowerAlarm subclassOf Alarm
+LIFT-TEST-92;LIFT-53;Command;Function hasCommand Command
+LIFT-TEST-93;LIFT-54;Command;CallCarToSpecificFloorCommand a Command
+LIFT-TEST-94;LIFT-55;Command;SendCarToSpecificServiceCommand a Command
+LIFT-TEST-95;LIFT-56;Command;SmartLiftInstallationCommand hasDoorOpenTime Time
+LIFT-TEST-96;LIFT-57;Command;SmartLiftInstallationCommand hasDoorCloseTime Time
+LIFT-TEST-97;LIFT-58;Command;SetOutOfServiceCommand a Command
+LIFT-TEST-98;LIFT-59;Command;TestEmergencyNumberCommand a Command
+LIFT-TEST-99;LIFT-60;Command;TestRideCommand a Command
+LIFT-TEST-100;LIFT-61;Command;SetRealTimeModeCommand a Command
+LIFT-TEST-101;LIFT-62;Command;SmartLiftInstallation subclassOf hasMainEmergencyNumber only string
+LIFT-TEST-102;LIFT-63;Command;SmartLiftInstallation hasTraveledTime Time
+LIFT-TEST-103;LIFT-64;Command;BoardResetCommand a Command
+LIFT-TEST-104;LIFT-65;Command;EmergencyPowerSupplySignal subClassOf hasValue some string
+LIFT-TEST-105;LIFT-66;Command;StandardEmergencyPowerSupplySignal subClassOf hasValue some string
+LIFT-TEST-106;LIFT-67;Smart Lift System;SmartLiftInstallation hasSubsystem SmartLiftInstallation
+LIFT-TEST-107;LIFT-68;Smart Lift System;SmartLiftInstallation hasSubsystem SmartLiftEdgeControlUnit 
+LIFT-TEST-108;LIFT-69;Smart Lift System;Signal subClassOf SmartLiftmodule
+LIFT-TEST-109;LIFT-69;Smart Lift System;BidirectionalCommunicationSystem subClassOf SmartLiftmodule
+LIFT-TEST-110;LIFT-70;Smart Lift identification;SmartLiftInstallation type Class
+LIFT-TEST-111;LIFT-71;Smart Lift identification;SmartLiftsGroup type Class
+LIFT-TEST-112;LIFT-72;Smart Lift identification;SmartLiftInstallation subClassOf hasManufacturer only string
+LIFT-TEST-113;LIFT-73;Smart Lift identification;SmartLiftInstallation subClassOf hasInstallerLiftCompany only string
+LIFT-TEST-114;LIFT-74;Smart Lift administrative information;SmartLiftInstallation subClassOf hasMaintenanceCompany only string
+LIFT-TEST-115;LIFT-75;Smart Lift administrative information;SmartLiftInstallation subClassOf hasBuildingManager only string
+LIFT-TEST-116;LIFT-76;Smart Lift administrative information;SmartLiftInstallation subClassOf hasOwner only string
+LIFT-TEST-117;LIFT-77;Smart Lift administrative information;SmartLiftInstallation hasGeometry Point
+LIFT-TEST-118;LIFT-78;Smart Lift administrative information;SmartLiftInstallation subclassOf hasLocationValidator only string
+LIFT-TEST-119;LIFT-79;Smart Lift administrative information;GoodsLift a DeviceKind
+LIFT-TEST-120;LIFT-79;Smart Lift administrative information;GoodsOnlyLift a DeviceKind
+LIFT-TEST-121;LIFT-79;Smart Lift administrative information;FiremanLift a DeviceKind

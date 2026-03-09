@@ -1,0 +1,12 @@
+id,title,test_uri,requirement_text
+priv-7,Accessibility type Action,:Test1,There are two types of action: Visibility and Accessibility
+priv-7,Visibility type Action,:Test2,There are two types of action: Visibility and Accessibility
+priv-6,Rule hasAction Action,:Test3,A rule has an action
+priv-5,None type RuleTarget,:Test4,"There are two types of target: Friends, Eveyone or None"
+priv-5,All type RuleTarget,:Test5,"There are two types of target: Friends, Eveyone or None"
+priv-5,Friends type RuleTarget,:Test6,"There are two types of target: Friends, Eveyone or None"
+priv-4,Rule hasRuleTarget RuleTarget,:Test7,A rule can have a target
+priv-3,Policy definesRule Rule,:Test8,A policy contains rules
+priv-2,Item hasPolicy Policy,:Test9,An asset can have a policy
+priv-1,Prohibition subclassOf Rule,:Test10,There are two types of rules: Permission and Prohibition
+priv-1,Permission subClassOf Rule,:Test11,There are two types of rules: Permission and Prohibition

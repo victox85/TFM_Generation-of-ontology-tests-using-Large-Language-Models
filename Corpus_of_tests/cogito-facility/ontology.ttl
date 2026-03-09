@@ -1,0 +1,358 @@
+@prefix : <https://cogito.iot.linkeddata.es/def/facility#> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@prefix ns: <http://www.w3.org/2003/06/sw-vocab-status/ns#> .
+@prefix beo: <https://pi.pauwel.be/voc/buildingelement#> .
+@prefix bot: <https://w3id.org/bot#> .
+@prefix dtw: <https://w3id.org/def/dtw#> .
+@prefix geo: <http://www.opengis.net/ont/geosparql#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix vann: <http://purl.org/vocab/vann/> .
+@prefix saref: <https://saref.etsi.org/core#> .
+@prefix s4bldg: <https://saref.etsi.org/saref4bldg#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix facility: <https://cogito.iot.linkeddata.es/def/facility#> .
+@base <https://cogito.iot.linkeddata.es/def/facility#> .
+
+<https://cogito.iot.linkeddata.es/def/facility#> rdf:type owl:Ontology ;
+                                                  owl:imports <https://pi.pauwel.be/voc/buildingelement> ;
+                                                  dc:creator "María Poveda Villalón" ,
+                                                             "Raúl García Castro" ,
+                                                             "Socorro  Bernardos Galindo" ;
+                                                  dc:description "The COGITO Facility ontology aims at modelling facilities in the construction domain." ;
+                                                  dc:title "Facility Ontology" ;
+                                                  dcterms:license <http://purl.org/NET/rdflicense/cc-by4.0> ;
+                                                  owl:versionInfo "0.12.0" .
+
+#################################################################
+#    Annotation properties
+#################################################################
+
+###  http://purl.org/dc/elements/1.1/creator
+dc:creator rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/elements/1.1/description
+dc:description rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/elements/1.1/title
+dc:title rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/terms/license
+dcterms:license rdf:type owl:AnnotationProperty .
+
+
+#################################################################
+#    Object Properties
+#################################################################
+
+###  https://cogito.iot.linkeddata.es/def/facility#belongsToSpatialZone
+facility:belongsToSpatialZone rdf:type owl:ObjectProperty ;
+                              owl:inverseOf bot:containsElement ;
+                              rdfs:comment "A property relating an entity, especially a facility:Element to a facility:SpatialZone" ;
+                              rdfs:label "belongs to spatial zone" .
+
+
+###  https://cogito.iot.linkeddata.es/def/facility#hasFacility
+facility:hasFacility rdf:type owl:ObjectProperty ;
+                     rdfs:subPropertyOf bot:containsZone ;
+                     rdfs:comment "A property relating a facility:SpatialZone (especially a facility:Site) to a facility:Facility" ;
+                     rdfs:label "has facility" .
+
+
+###  https://cogito.iot.linkeddata.es/def/facility#hasFacilityPart
+facility:hasFacilityPart rdf:type owl:ObjectProperty ;
+                         rdfs:subPropertyOf bot:containsZone ;
+                         rdfs:domain facility:SpatialZone ;
+                         rdfs:range facility:FacilityPart ;
+                         rdfs:comment "A property relating a facility:SpatialZone (especially a facility:Facility or a facility:FacilityPart) to a facility:FacilityPart" ;
+                         rdfs:label "has facility part" .
+
+
+###  https://cogito.iot.linkeddata.es/def/facility#hasSubElement
+facility:hasSubElement rdf:type owl:ObjectProperty ;
+                       rdfs:domain facility:Element ;
+                       rdfs:range facility:Element ;
+                       rdfs:comment "A property that relates a facility:Element to another facility:Element it contains" ;
+                       rdfs:label "has sub-element" .
+
+
+###  https://cogito.iot.linkeddata.es/def/facility#isRelatedToSite
+facility:isRelatedToSite rdf:type owl:ObjectProperty ;
+                         rdfs:range facility:Site ;
+                         rdfs:comment "A property that relates an entity (especially, a facility:Project) to a facility:Site" ;
+                         rdfs:label "is related to site" .
+
+
+###  https://cogito.iot.linkeddata.es/def/facility#isRelatedToSpatialZone
+facility:isRelatedToSpatialZone rdf:type owl:ObjectProperty ;
+                                rdfs:comment "A property relating an entity (especially a facility:SpatialZone) to a facility:SpatialZone" ;
+                                rdfs:label "is related to spatial zone" .
+
+
+###  https://saref.etsi.org/saref4bldg#hasSpace
+s4bldg:hasSpace rdf:type owl:ObjectProperty ;
+                rdfs:range s4bldg:SpaceBuilding ;
+                rdfs:isDefinedBy s4bldg: ;
+                rdfs:label "has space" .
+
+
+###  https://w3id.org/bot#containsElement
+bot:containsElement rdf:type owl:ObjectProperty ;
+                    rdfs:domain bot:Zone ;
+                    rdfs:range facility:Element ;
+                    rdfs:isDefinedBy bot: ;
+                    rdfs:label "contains element" .
+
+
+###  https://w3id.org/bot#containsZone
+bot:containsZone rdf:type owl:ObjectProperty ;
+                 rdfs:domain bot:Zone ;
+                 rdfs:range bot:Zone ;
+                 rdfs:isDefinedBy bot: ;
+                 rdfs:label "contains zone" .
+
+
+###  https://w3id.org/bot#hasBuilding
+bot:hasBuilding rdf:type owl:ObjectProperty ;
+                rdfs:subPropertyOf bot:containsZone ;
+                rdfs:domain bot:Zone ;
+                rdfs:range facility:Building ;
+                rdfs:isDefinedBy bot: ;
+                rdfs:label "has building" .
+
+
+###  https://w3id.org/bot#hasSpace
+bot:hasSpace rdf:type owl:ObjectProperty ;
+             rdfs:subPropertyOf bot:containsZone ;
+             rdfs:domain bot:Zone ;
+             rdfs:range facility:Space ;
+             rdfs:isDefinedBy bot: ;
+             rdfs:label "has space" .
+
+
+###  https://w3id.org/bot#hasStorey
+bot:hasStorey rdf:type owl:ObjectProperty ;
+              rdfs:subPropertyOf bot:containsZone ;
+              rdfs:domain bot:Zone ;
+              rdfs:range facility:Storey ;
+              rdfs:isDefinedBy bot: ;
+              rdfs:label "has storey" .
+
+
+#################################################################
+#    Data properties
+#################################################################
+
+###  http://purl.org/dc/terms/description
+dcterms:description rdf:type owl:DatatypeProperty ;
+                    rdfs:isDefinedBy dcterms: ;
+                    rdfs:label "description" .
+
+
+###  http://purl.org/dc/terms/identifier
+dcterms:identifier rdf:type owl:DatatypeProperty ;
+                   rdfs:isDefinedBy dcterms: ;
+                   rdfs:label "identifier" .
+
+
+###  http://purl.org/dc/terms/title
+dcterms:title rdf:type owl:DatatypeProperty ;
+              rdfs:isDefinedBy dcterms: ;
+              rdfs:label "title" .
+
+
+###  https://cogito.iot.linkeddata.es/def/facility#codeUniclassElement
+facility:codeUniclassElement rdf:type owl:DatatypeProperty ;
+                             rdfs:comment "Property that refers to the Uniclass code corresponding to the element" ;
+                             rdfs:label "code Uniclass element" .
+
+
+###  https://cogito.iot.linkeddata.es/def/facility#codeUniclassMaterial
+facility:codeUniclassMaterial rdf:type owl:DatatypeProperty ;
+                              rdfs:comment "Property that refers to the outside material of an entity (especially a facility:Element) and is taken into account when processing visual quality. The corresponding Uniclass code is used" ;
+                              rdfs:label "code Uniclass material" .
+
+
+###  https://cogito.iot.linkeddata.es/def/facility#ifcType
+facility:ifcType rdf:type owl:DatatypeProperty ;
+                 rdfs:comment "Property that refers to the IFC type correspondign to the element" ;
+                 rdfs:label "IFC type" .
+
+
+#################################################################
+#    Classes
+#################################################################
+
+###  http://www.opengis.net/ont/geosparql#SpatialObject
+geo:SpatialObject rdf:type owl:Class ;
+                  rdfs:isDefinedBy geo: ;
+                  rdfs:label "Spatial Object" .
+
+
+###  https://cogito.iot.linkeddata.es/def/facility#Bridge
+facility:Bridge rdf:type owl:Class ;
+                rdfs:subClassOf facility:Facility ;
+                rdfs:comment "A structure spanning and providing passage over a river, chasm, road, or the like" ;
+                rdfs:label "Bridge" .
+
+
+###  https://cogito.iot.linkeddata.es/def/facility#Building
+facility:Building rdf:type owl:Class ;
+                  rdfs:subClassOf facility:Facility ,
+                                  s4bldg:Building ,
+                                  bot:Building ;
+                  rdfs:comment "An independent unit of the built environment with a characteristic spatial structure, intended to serve at least one function or user activity [ISO-12006]" ;
+                  rdfs:label "Building" .
+
+
+###  https://cogito.iot.linkeddata.es/def/facility#ConstructionZone
+facility:ConstructionZone rdf:type owl:Class ;
+                          rdfs:subClassOf facility:SpatialZone ;
+                          rdfs:comment "An entity used to represent zones used by the Health and Safety module" ;
+                          rdfs:label "Construction Zone" .
+
+
+###  https://cogito.iot.linkeddata.es/def/facility#Element
+facility:Element rdf:type owl:Class ;
+                 rdfs:subClassOf geo:SpatialObject ,
+                                 bot:Element ,
+                                 dtw:Entity ;
+                 rdfs:comment "A subclass or bot:Element and, as such, a constituent of a construction entity with a characteristic technical function, form, or position." ;
+                 rdfs:label "Element" .
+
+
+###  https://cogito.iot.linkeddata.es/def/facility#Facility
+facility:Facility rdf:type owl:Class ;
+                  rdfs:subClassOf facility:SpatialZone ;
+                  rdfs:comment "Something designed and built to serve a specific function providing a convenience or a service." ;
+                  rdfs:label "Facility" .
+
+
+###  https://cogito.iot.linkeddata.es/def/facility#FacilityPart
+facility:FacilityPart rdf:type owl:Class ;
+                      rdfs:subClassOf facility:SpatialZone ;
+                      rdfs:comment "Something that is contained n a facility:Zone (especially a facility:Facility) and can contain more facility parts" ;
+                      rdfs:label "Facility Part" .
+
+
+###  https://cogito.iot.linkeddata.es/def/facility#Project
+facility:Project rdf:type owl:Class ;
+                 rdfs:subClassOf dtw:Entity ;
+                 rdfs:comment "A large or major undertaking, especially one involving considerable money, personnel, and equipment." ;
+                 rdfs:label "Project" .
+
+
+###  https://cogito.iot.linkeddata.es/def/facility#Railway
+facility:Railway rdf:type owl:Class ;
+                 rdfs:subClassOf facility:Facility ;
+                 rdfs:comment "A permanent track composed of a line of parallel metal rails fixed to sleepers, for transport of passengers and goods in trains" ;
+                 rdfs:label "Railway" .
+
+
+###  https://cogito.iot.linkeddata.es/def/facility#Road
+facility:Road rdf:type owl:Class ;
+              rdfs:subClassOf facility:Facility ;
+              rdfs:comment """A long, narrow stretch with a smoothed or paved surface, made for traveling by motor vehicle, carriage, etc., between two or more points;
+street or highway""" ;
+              rdfs:label "Road" .
+
+
+###  https://cogito.iot.linkeddata.es/def/facility#Site
+facility:Site rdf:type owl:Class ;
+              rdfs:subClassOf facility:SpatialZone ,
+                              bot:Site ;
+              rdfs:comment "A part of the physical world or a virtual world that is inherently both located in this world and having a 3D spatial extent" ;
+              rdfs:label "Site" .
+
+
+###  https://cogito.iot.linkeddata.es/def/facility#Space
+facility:Space rdf:type owl:Class ;
+               rdfs:subClassOf facility:SpatialZone ,
+                               s4bldg:SpaceBuilding ,
+                               bot:Space ;
+               rdfs:comment "A subclass of bot:Space and, as such, a part of the physical world or a virtual world whose 3D spatial extent is bounded actually or theoretically and provides for certain functions within the zone it is contained in." ;
+               rdfs:label "Space" .
+
+
+###  https://cogito.iot.linkeddata.es/def/facility#SpatialZone
+facility:SpatialZone rdf:type owl:Class ;
+                     rdfs:subClassOf geo:SpatialObject ,
+                                     bot:Zone ,
+                                     dtw:Entity ;
+                     rdfs:comment "A subclass of bot:Zone and, as such, a part of the physical or a virtual world that is inherently both located in this world and has a 3D spatial extent." ;
+                     rdfs:label "Spatial Zone" .
+
+
+###  https://cogito.iot.linkeddata.es/def/facility#Storey
+facility:Storey rdf:type owl:Class ;
+                rdfs:subClassOf facility:SpatialZone ,
+                                bot:Storey ;
+                rdfs:comment "A subclass of bot:Storey and, as such, is contained (bot:hasStorey) in one facility:Building, and is intended to contain (bot:hasSpace) one or more facility:Space that are horizontally connected." ;
+                rdfs:label "Storey" .
+
+
+###  https://pi.pauwel.be/voc/buildingelement#BuildingElement
+beo:BuildingElement rdf:type owl:Class ;
+                    rdfs:subClassOf facility:Element .
+
+
+###  https://saref.etsi.org/saref4bldg#Building
+s4bldg:Building rdf:type owl:Class ;
+                rdfs:isDefinedBy s4bldg: ;
+                rdfs:label "Building" .
+
+
+###  https://saref.etsi.org/saref4bldg#SpaceBuilding
+s4bldg:SpaceBuilding rdf:type owl:Class ;
+                     rdfs:isDefinedBy s4bldg: ;
+                     rdfs:label "Space Building" .
+
+
+###  https://w3id.org/bot#Building
+bot:Building rdf:type owl:Class ;
+             rdfs:isDefinedBy bot: ;
+             rdfs:label "Building" .
+
+
+###  https://w3id.org/bot#Element
+bot:Element rdf:type owl:Class ;
+            rdfs:isDefinedBy bot: ;
+            rdfs:label "Element" .
+
+
+###  https://w3id.org/bot#Site
+bot:Site rdf:type owl:Class ;
+         rdfs:isDefinedBy bot: ;
+         rdfs:label "Site" .
+
+
+###  https://w3id.org/bot#Space
+bot:Space rdf:type owl:Class ;
+          rdfs:isDefinedBy bot: ;
+          rdfs:label "Space" .
+
+
+###  https://w3id.org/bot#Storey
+bot:Storey rdf:type owl:Class ;
+           rdfs:isDefinedBy bot: ;
+           rdfs:label "Storey" .
+
+
+###  https://w3id.org/bot#Zone
+bot:Zone rdf:type owl:Class ;
+         rdfs:label "Zone" .
+
+
+###  https://w3id.org/def/dtw#Entity
+dtw:Entity rdf:type owl:Class ;
+           rdfs:isDefinedBy dtw: ;
+           rdfs:label "Entity" .
+
+
+###  Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi

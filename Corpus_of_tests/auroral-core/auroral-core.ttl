@@ -1,0 +1,1724 @@
+@prefix : <https://auroral.iot.linkeddata.es/def/core#> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@prefix om: <http://www.ontology-of-units-of-measure.org/resource/om-2/> .
+@prefix geo: <http://www.w3.org/2003/01/geo/wgs84_pos#> .
+@prefix org: <https://www.w3.org/ns/org#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix wot: <https://www.w3.org/2019/wot/td#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix core: <https://auroral.iot.linkeddata.es/def/core#> .
+@prefix dcat: <http://www.w3.org/ns/dcat#> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix hctl: <https://www.w3.org/2019/wot/hypermedia#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix time: <https://www.w3.org/2006/time> .
+@prefix lexvo: <http://lexvo.org/ontology> .
+@prefix saref: <https://saref.etsi.org/core#> .
+@prefix geonames: <http://www.geonames.org/ontology#> .
+@prefix geosparql: <http://www.opengis.net/ont/geosparql#> .
+@base <https://auroral.iot.linkeddata.es/def/core#> .
+
+<https://auroral.iot.linkeddata.es/def/core#> rdf:type owl:Ontology ;
+                                               dc:contributor "David Buján Carballal", "Artur Romao (Dectechnologies, project ALICE4EU)", "Nuno Marques (Dectechnologies, project ALICE4EU)" ;
+                                               dc:creator "Ahlem Rhayem" ,
+                                                          "Alba Fernández Izquierdo" ,
+                                                          "Andrea Cimmino" ,
+                                                          "María Poveda-Villalón" ,
+                                                          "Raúl García Castro" ;
+                                               dc:description "This ontology aims at modelling the data related to users, items, notification and organisations for the AURORAL project." ;
+                                               dc:title "The AURORAL Core Ontology" ;
+                                               <http://purl.org/dc/terms/license> <http://purl.org/NET/rdflicense/cc-by4.0> ;
+                                               owl:versionInfo "0.0.3" .
+
+#################################################################
+#    Annotation properties
+#################################################################
+
+###  http://purl.org/dc/elements/1.1/contributor
+dc:contributor rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/elements/1.1/creator
+dc:creator rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/elements/1.1/description
+dc:description rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/elements/1.1/title
+dc:title rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/terms/license
+<http://purl.org/dc/terms/license> rdf:type owl:AnnotationProperty .
+
+
+###  http://www.w3.org/2003/01/geo/wgs84_pos#alt
+geo:alt rdf:type owl:AnnotationProperty .
+
+
+###  http://www.w3.org/2003/01/geo/wgs84_pos#lat
+geo:lat rdf:type owl:AnnotationProperty .
+
+
+###  http://www.w3.org/2003/01/geo/wgs84_pos#long
+geo:long rdf:type owl:AnnotationProperty .
+
+
+#################################################################
+#    Object Properties
+#################################################################
+
+###  http://lexvo.org/ontology#language
+<http://lexvo.org/ontology#language> rdf:type owl:ObjectProperty ;
+                                     rdfs:comment "A relationship between a service and its language" ;
+                                     rdfs:label "language" .
+
+
+###  http://www.opengis.net/ont/geosparql#hasGeometry
+geosparql:hasGeometry rdf:type owl:ObjectProperty ;
+                      rdfs:comment "A relationship specifying the geospatial information of a physical thing" ;
+                      rdfs:label "has geometry" .
+
+
+###  http://www.w3.org/2003/01/geo/wgs84_pos#location
+geo:location rdf:type owl:ObjectProperty ;
+             rdfs:comment "A relationship specfiying the geospatial location of an entity" ;
+             rdfs:label "location" .
+
+
+###  https://auroral.iot.linkeddata.es/def/core#applicableToGeographicalArea
+core:applicableToGeographicalArea rdf:type owl:ObjectProperty ;
+                                  rdfs:domain core:Service ;
+                                  rdfs:range core:Place ;
+                                  rdfs:comment "A service is applicable toa specific  geographical area: a particular place" ;
+                                  rdfs:label "applicable to geographical area" .
+
+
+###  https://auroral.iot.linkeddata.es/def/core#belongsTo
+core:belongsTo rdf:type owl:ObjectProperty ;
+               rdfs:comment "A relationship specifies that one part belongs to a second part" ;
+               rdfs:label "belongs to" .
+
+
+###  https://auroral.iot.linkeddata.es/def/core#containsItem
+core:containsItem rdf:type owl:ObjectProperty ;
+                  rdfs:range core:Item ;
+                  rdfs:comment "a relationship specifies that a node or a user has an item (virtual or physical thing)" ;
+                  rdfs:label "contains item" .
+
+
+###  https://auroral.iot.linkeddata.es/def/core#exposes
+core:exposes rdf:type owl:ObjectProperty ;
+             rdfs:comment "A relationship specifying that one part exposesthe second one" ;
+             rdfs:label "exposes" .
+
+
+###  https://auroral.iot.linkeddata.es/def/core#hasAudit
+core:hasAudit rdf:type owl:ObjectProperty ;
+              rdfs:range core:Audit ;
+              rdfs:comment "a relationship specifying that an organization or a user has an examinator or evaluator" ;
+              rdfs:label "has audit" .
+
+
+###  https://auroral.iot.linkeddata.es/def/core#hasInput
+core:hasInput rdf:type owl:ObjectProperty ;
+              rdfs:comment "A relationship specifying the input of a given class" ;
+              rdfs:label "has Input" .
+
+
+###  https://auroral.iot.linkeddata.es/def/core#hasNode
+core:hasNode rdf:type owl:ObjectProperty ;
+             rdfs:range core:Node ;
+             rdfs:comment "A relationship specifying that an organization or a user  has  a Node" ;
+             rdfs:label "has node" .
+
+
+###  https://auroral.iot.linkeddata.es/def/core#hasNotification
+core:hasNotification rdf:type owl:ObjectProperty ;
+                     rdfs:domain core:Organization ;
+                     rdfs:range core:Notification ;
+                     rdfs:comment "A relationship specifying that an organization has notifications" ;
+                     rdfs:label "has notification" .
+
+
+###  https://auroral.iot.linkeddata.es/def/core#hasOwner
+core:hasOwner rdf:type owl:ObjectProperty ;
+              rdfs:comment "A relationship specifying that an organization or a user are the owner of a notification" ;
+              rdfs:label "has owner" .
+
+
+###  https://auroral.iot.linkeddata.es/def/core#hasPartnershipRequestedBy
+core:hasPartnershipRequestedBy rdf:type owl:ObjectProperty ;
+                               owl:inverseOf core:hasPartnershipRequestedTo ;
+                               rdfs:domain core:Organization ;
+                               rdfs:range core:Organization ;
+                               rdfs:comment "A relationship specifying that an organization is requested by another organization" ;
+                               rdfs:label "has partnership requested by" .
+
+
+###  https://auroral.iot.linkeddata.es/def/core#hasPartnershipRequestedTo
+core:hasPartnershipRequestedTo rdf:type owl:ObjectProperty ;
+                               rdfs:domain core:Organization ;
+                               rdfs:range core:Organization ;
+                               rdfs:comment "A relationship specifying that an organization is requested to another organization" ;
+                               rdfs:label "has partnership requested to" .
+
+
+###  https://auroral.iot.linkeddata.es/def/core#hasReadability
+core:hasReadability rdf:type owl:ObjectProperty ;
+                    rdfs:domain saref:Measurement ;
+                    rdfs:range core:Readability ;
+                    rdfs:comment "A relationship specifying that if a measurement is readable or not" ;
+                    rdfs:label "has readability" .
+
+
+###  https://auroral.iot.linkeddata.es/def/core#hasRole
+core:hasRole rdf:type owl:ObjectProperty ;
+             rdfs:domain core:User ;
+             rdfs:range core:Role ;
+             rdfs:comment "A relationship user and its roles" ;
+             rdfs:label "has role" .
+
+
+###  https://auroral.iot.linkeddata.es/def/core#hasStatus
+core:hasStatus rdf:type owl:ObjectProperty ;
+               rdfs:comment "A relationship between an entity and its status" ;
+               rdfs:label "has status" .
+
+
+###  https://auroral.iot.linkeddata.es/def/core#hasTemporalUnit
+core:hasTemporalUnit rdf:type owl:ObjectProperty ;
+                     rdfs:domain saref:Measurement ;
+                     rdfs:range <https://www.w3.org/2006/time#TemporalUnit> ;
+                     rdfs:comment "A relationship specifying the temporal garnularity of a given measurement (hour, second, etc... )" ;
+                     rdfs:label "has temporal unit" .
+
+
+###  https://auroral.iot.linkeddata.es/def/core#hasUser
+core:hasUser rdf:type owl:ObjectProperty ;
+             rdfs:domain core:Organization ;
+             rdfs:range core:User ;
+             rdfs:comment "A relationship between an organization and its users" ;
+             rdfs:label "has user" .
+
+
+###  https://auroral.iot.linkeddata.es/def/core#isRepresentedByAvatar
+core:isRepresentedByAvatar rdf:type owl:ObjectProperty ;
+                           rdfs:range foaf:Image ;
+                           rdfs:comment "A relationship between the image and its avatar" ;
+                           rdfs:label "is represented by avatar" .
+
+
+###  https://auroral.iot.linkeddata.es/def/core#knows
+core:knows rdf:type owl:ObjectProperty ,
+                    owl:SymmetricProperty ;
+           rdfs:domain core:Organization ;
+           rdfs:range core:Organization ;
+           rdfs:comment "A relationship specifying that an organization knows another organization" ;
+           rdfs:label "knows" .
+
+
+###  https://auroral.iot.linkeddata.es/def/core#locatedIn
+core:locatedIn rdf:type owl:ObjectProperty ;
+               rdfs:domain saref:Device ;
+               rdfs:range core:Place ;
+               rdfs:comment "A relationship between the Device and its location" ;
+               rdfs:label "located in" .
+
+
+###  https://auroral.iot.linkeddata.es/def/core#performedBy
+core:performedBy rdf:type owl:ObjectProperty ;
+                 rdfs:comment "relation between a measurement and the agent performing it" ;
+                 rdfs:label "performed by" .
+
+
+###  https://auroral.iot.linkeddata.es/def/core#serviceType
+core:serviceType rdf:type owl:ObjectProperty ;
+                 rdfs:domain core:Service ;
+                 rdfs:range core:ServiceType ;
+                 rdfs:comment "A relationship between the service and its type" ;
+                 rdfs:label "service type" .
+
+
+###  https://saref.etsi.org/core#controlsProperty
+saref:controlsProperty rdf:type owl:ObjectProperty ;
+                       rdfs:comment "A relationship specifying the property that can be controlled by a certain device" ;
+                       rdfs:label "controls property" .
+
+
+###  https://saref.etsi.org/core#hasDomain
+saref:hasDomain rdf:type owl:ObjectProperty ;
+                rdfs:domain core:Item ;
+                rdfs:range core:Domain ;
+                rdfs:comment "A relationship specifying the domain where a physical or a virtual object is applied." ;
+                rdfs:label "has domain" .
+
+
+###  https://saref.etsi.org/core#hasMeasurement
+saref:hasMeasurement rdf:type owl:ObjectProperty ;
+                     rdfs:domain saref:FeatureOfInterest ;
+                     rdfs:range saref:Measurement ;
+                     rdfs:comment "A relationship specifying the detected measurement related to the feature of interest" ;
+                     rdfs:label "has measurement" .
+
+
+###  https://saref.etsi.org/core#hasProperty
+saref:hasProperty rdf:type owl:ObjectProperty ;
+                  owl:inverseOf saref:isPropertyOf ;
+                  rdfs:domain saref:FeatureOfInterest ;
+                  rdfs:range saref:Property ;
+                  rdfs:comment "A relationship between a feature of interest and a property of that feature" ;
+                  rdfs:label "has property" .
+
+
+###  https://saref.etsi.org/core#isMeasuredIn
+saref:isMeasuredIn rdf:type owl:ObjectProperty ;
+                   rdfs:domain saref:Measurement ;
+                   rdfs:range saref:UnitOfMeasure ;
+                   rdfs:comment "A relationship specifying that a measurement is measured in units" ;
+                   rdfs:label "is measured in" .
+
+
+###  https://saref.etsi.org/core#isPropertyOf
+saref:isPropertyOf rdf:type owl:ObjectProperty ;
+                   rdfs:subPropertyOf owl:topObjectProperty ;
+                   rdfs:domain saref:Property ;
+                   rdfs:range saref:FeatureOfInterest ;
+                   rdfs:comment "A relationship between a property and the feature of interest it belongs to" ;
+                   rdfs:label "is property of" .
+
+
+###  https://saref.etsi.org/core#makesMeasurement
+saref:makesMeasurement rdf:type owl:ObjectProperty ;
+                       rdfs:comment "A relation between a device and the measurements it makes. Such measurement will link together the value of the measurement, its unit of measure and the property to which it relates." ;
+                       rdfs:label "makes measurement" .
+
+
+###  https://saref.etsi.org/core#measurementMadeBy
+saref:measurementMadeBy rdf:type owl:ObjectProperty ;
+                        rdfs:domain saref:Measurement ;
+                        rdfs:comment "A relation between a measurement and the device that made it." ;
+                        rdfs:label "measurement made by" .
+
+
+###  https://saref.etsi.org/core#measuresProperty
+saref:measuresProperty rdf:type owl:ObjectProperty ;
+                       rdfs:comment "A relationship specifying the property that can be measured by a certain device" ;
+                       rdfs:label "measures property" .
+
+
+###  https://saref.etsi.org/core#relatesToMeasurement
+saref:relatesToMeasurement rdf:type owl:ObjectProperty ;
+                           owl:inverseOf saref:relatesToProperty ;
+                           rdfs:domain saref:Property ;
+                           rdfs:range saref:Measurement ;
+                           rdfs:comment "A relationship between a property and the measurements it relates to" ;
+                           rdfs:label "relates to measurement" .
+
+
+###  https://saref.etsi.org/core#relatesToProperty
+saref:relatesToProperty rdf:type owl:ObjectProperty ;
+                        rdfs:domain saref:Measurement ;
+                        rdfs:range saref:Property ;
+                        rdfs:comment "A relationship between a measurement and the property it relates to" ;
+                        rdfs:label "relates to property"@en .
+
+
+###  https://www.w3.org/2019/wot/td#hasInteractionAffordance
+wot:hasInteractionAffordance rdf:type owl:ObjectProperty ;
+                             rdfs:domain wot:Thing ;
+                             rdfs:range wot:InteractionAffordance ;
+                             rdfs:comment "Offers an affordance to interact with the Thing" ;
+                             rdfs:label "has interaction affordance" .
+
+
+###  https://www.w3.org/2019/wot/td#hasLink
+wot:hasLink rdf:type owl:ObjectProperty ;
+            rdfs:domain wot:Thing ;
+            rdfs:range hctl:Link ;
+            rdfs:comment "Provides Web links to arbitrary resources that relate to the specified Thing Description." ;
+            rdfs:label "has link" .
+
+
+#################################################################
+#    Data properties
+#################################################################
+
+###  http://purl.org/dc/elements/1.1/description
+dc:description rdf:type owl:DatatypeProperty .
+
+
+###  http://purl.org/dc/elements/1.1/license
+dc:license rdf:type owl:DatatypeProperty ;
+           rdfs:comment "The license of an entity" ;
+           rdfs:label "license" .
+
+
+###  http://purl.org/dc/elements/1.1/title
+dc:title rdf:type owl:DatatypeProperty .
+
+
+###  http://www.w3.org/ns/dcat#accessURL
+dcat:accessURL rdf:type owl:DatatypeProperty ;
+               rdfs:comment "The URL of an Entity" ;
+               rdfs:label "access url" .
+
+
+###  http://www.w3.org/ns/dcat#keyword
+dcat:keyword rdf:type owl:DatatypeProperty ;
+             rdfs:range xsd:string ;
+             rdfs:comment "The keyword of an entity" ;
+             rdfs:label "keyword" .
+
+
+###  https://auroral.iot.linkeddata.es/def/core#adapterId
+core:adapterId rdf:type owl:DatatypeProperty ;
+               rdfs:domain core:Item ;
+               rdfs:range xsd:string ;
+               rdfs:comment "The identifier of an adapter" ;
+               rdfs:label "adapter id" .
+
+
+###  https://auroral.iot.linkeddata.es/def/core#code
+core:code rdf:type owl:DatatypeProperty ;
+          rdfs:domain core:Place ;
+          rdfs:range xsd:string ;
+          rdfs:comment "The code of an entity" ;
+          rdfs:label "code" .
+
+
+###  https://auroral.iot.linkeddata.es/def/core#continentCode
+core:continentCode rdf:type owl:DatatypeProperty ;
+                   rdfs:domain core:Country ;
+                   rdfs:range xsd:string ;
+                   rdfs:comment "The code of a continent" ;
+                   rdfs:label "continent code" .
+
+
+###  https://auroral.iot.linkeddata.es/def/core#currentStatus
+core:currentStatus rdf:type owl:DatatypeProperty ;
+                   rdfs:domain core:Service ;
+                   rdfs:range xsd:string ;
+                   rdfs:comment "The current status of an entity" ;
+                   rdfs:label "current status" .
+
+
+###  https://auroral.iot.linkeddata.es/def/core#datasetProvider
+core:datasetProvider rdf:type owl:DatatypeProperty ;
+                     rdfs:domain core:Dataset ;
+                     rdfs:range xsd:string ;
+                     rdfs:comment "The provider of a dataset" ;
+                     rdfs:label "dataset provider" .
+
+
+###  https://auroral.iot.linkeddata.es/def/core#hasActor
+core:hasActor rdf:type owl:DatatypeProperty ;
+              rdfs:domain core:Notification ;
+              rdfs:range xsd:string ;
+              rdfs:comment "The actor of an entity" ;
+              rdfs:label "has actor" .
+
+
+###  https://auroral.iot.linkeddata.es/def/core#hasCode
+core:hasCode rdf:type owl:DatatypeProperty ;
+             rdfs:range xsd:string ;
+             rdfs:comment "alarm or notification code" ;
+             rdfs:label "has code" .
+
+
+###  https://auroral.iot.linkeddata.es/def/core#hasContactMail
+core:hasContactMail rdf:type owl:DatatypeProperty ;
+                    rdfs:domain core:User ;
+                    rdfs:range xsd:string ;
+                    rdfs:comment "The contact mail of a user" ;
+                    rdfs:label "has contact mail" .
+
+
+###  https://auroral.iot.linkeddata.es/def/core#hasCreationDate
+core:hasCreationDate rdf:type owl:DatatypeProperty ;
+                     rdfs:range xsd:dateTime ;
+                     rdfs:comment "The creation date of an entity" ;
+                     rdfs:label "has creation date" .
+
+
+###  https://auroral.iot.linkeddata.es/def/core#hasEmail
+core:hasEmail rdf:type owl:DatatypeProperty ;
+              rdfs:domain core:User ;
+              rdfs:range xsd:string ;
+              rdfs:comment "The e-mail of an entity" ;
+              rdfs:label "has email" .
+
+
+###  https://auroral.iot.linkeddata.es/def/core#hasFirstName
+core:hasFirstName rdf:type owl:DatatypeProperty ;
+                  rdfs:domain core:User ;
+                  rdfs:range xsd:string ;
+                  rdfs:comment "The first name of a user" ;
+                  rdfs:label "has first name" .
+
+
+###  https://auroral.iot.linkeddata.es/def/core#hasFunctionality
+core:hasFunctionality rdf:type owl:DatatypeProperty ;
+                      rdfs:domain core:Service ;
+                      rdfs:range xsd:string ;
+                      rdfs:comment "The functionality of a given entity" ;
+                      rdfs:label "has functionality" .
+
+
+###  https://auroral.iot.linkeddata.es/def/core#hasID
+core:hasID rdf:type owl:DatatypeProperty ;
+           rdfs:range xsd:string ;
+           rdfs:comment "The identifier of an entity" ;
+           rdfs:label "has i d" .
+
+
+###  https://auroral.iot.linkeddata.es/def/core#hasKey
+core:hasKey rdf:type owl:DatatypeProperty ;
+            rdfs:domain core:Node ;
+            rdfs:range xsd:string ;
+            rdfs:comment "The key of an entity" ;
+            rdfs:label "has key" .
+
+
+###  https://auroral.iot.linkeddata.es/def/core#hasLastName
+core:hasLastName rdf:type owl:DatatypeProperty ;
+                 rdfs:domain core:User ;
+                 rdfs:range xsd:string ;
+                 rdfs:comment "The last name of a user" ;
+                 rdfs:label "has last name" .
+
+
+###  https://auroral.iot.linkeddata.es/def/core#hasLocation
+core:hasLocation rdf:type owl:DatatypeProperty ;
+                 rdfs:range xsd:string ;
+                 rdfs:comment "The location of an entity" ;
+                 rdfs:label "has location" .
+
+
+###  https://auroral.iot.linkeddata.es/def/core#hasName
+core:hasName rdf:type owl:DatatypeProperty ;
+             rdfs:range xsd:string ;
+             rdfs:comment "The name of an entity" ;
+             rdfs:label "has name" .
+
+
+###  https://auroral.iot.linkeddata.es/def/core#hasNote
+core:hasNote rdf:type owl:DatatypeProperty ;
+             rdfs:range xsd:string ;
+             rdfs:comment "The node of a given entity" ;
+             rdfs:label "has note" .
+
+
+###  https://auroral.iot.linkeddata.es/def/core#hasObject
+core:hasObject rdf:type owl:DatatypeProperty ;
+               rdfs:domain core:Notification ;
+               rdfs:range xsd:string ;
+               rdfs:comment "The object of an entity" ;
+               rdfs:label "has object" .
+
+
+###  https://auroral.iot.linkeddata.es/def/core#hasOccupation
+core:hasOccupation rdf:type owl:DatatypeProperty ;
+                   rdfs:domain core:User ;
+                   rdfs:range xsd:string ;
+                   rdfs:comment "The occupation of an entity" ;
+                   rdfs:label "has occupation" .
+
+
+###  https://auroral.iot.linkeddata.es/def/core#hasRegistrationNumber
+core:hasRegistrationNumber rdf:type owl:DatatypeProperty ;
+                           rdfs:range xsd:string ;
+                           rdfs:comment "The registration number of an entity" ;
+                           rdfs:label "has registration number" .
+
+
+###  https://auroral.iot.linkeddata.es/def/core#hasRequirement
+core:hasRequirement rdf:type owl:DatatypeProperty ;
+                    rdfs:domain core:Service ;
+                    rdfs:range xsd:string ;
+                    rdfs:comment "The requirement of a service" ;
+                    rdfs:label "has requirement" .
+
+
+###  https://auroral.iot.linkeddata.es/def/core#hasSeverity
+core:hasSeverity rdf:type owl:DatatypeProperty ;
+                 rdfs:range xsd:string ;
+                 rdfs:comment "alarm or notification severity" ;
+                 rdfs:label "has severity" .
+
+
+###  https://auroral.iot.linkeddata.es/def/core#hasSkinColor
+core:hasSkinColor rdf:type owl:DatatypeProperty ;
+                  rdfs:range xsd:string ;
+                  rdfs:comment "The skin color of a user" ;
+                  rdfs:label "has skin color" .
+
+
+###  https://auroral.iot.linkeddata.es/def/core#hasSubDomain
+core:hasSubDomain rdf:type owl:DatatypeProperty ;
+                  rdfs:domain core:Service ;
+                  rdfs:range xsd:string ;
+                  rdfs:comment "The sub domain of an entity" ;
+                  rdfs:label "has sub domain" .
+
+
+###  https://auroral.iot.linkeddata.es/def/core#hasTarget
+core:hasTarget rdf:type owl:DatatypeProperty ;
+               rdfs:domain core:Notification ;
+               rdfs:range xsd:string ;
+               rdfs:comment "The target of a notification" ;
+               rdfs:label "has target" .
+
+
+###  https://auroral.iot.linkeddata.es/def/core#hasToken
+core:hasToken rdf:type owl:DatatypeProperty ;
+              rdfs:domain core:Node ;
+              rdfs:range xsd:string ;
+              rdfs:comment "The token of a notification" ;
+              rdfs:label "has token" .
+
+
+###  https://auroral.iot.linkeddata.es/def/core#hasType
+core:hasType rdf:type owl:DatatypeProperty ;
+             rdfs:comment "type of agent" ;
+             rdfs:label "has type" .
+
+
+###  https://auroral.iot.linkeddata.es/def/core#hasUpdateDate
+core:hasUpdateDate rdf:type owl:DatatypeProperty ;
+                   rdfs:domain core:Item ;
+                   rdfs:range xsd:dateTime ;
+                   rdfs:comment "The update date of an item" ;
+                   rdfs:label "has update date" .
+
+
+###  https://auroral.iot.linkeddata.es/def/core#isLastUpdated
+core:isLastUpdated rdf:type owl:DatatypeProperty ;
+                   rdfs:comment "The last update of an entity" ;
+                   rdfs:label "is last updated" .
+
+
+###  https://auroral.iot.linkeddata.es/def/core#isUnread
+core:isUnread rdf:type owl:DatatypeProperty ;
+              rdfs:domain core:Notification ;
+              rdfs:range xsd:boolean ;
+              rdfs:comment "The unread status of a notfication" ;
+              rdfs:label "is unread" .
+
+
+###  https://auroral.iot.linkeddata.es/def/core#isoCode
+core:isoCode rdf:type owl:DatatypeProperty ;
+             rdfs:domain core:Country ;
+             rdfs:range xsd:string ;
+             rdfs:comment "The iso code of a country" ;
+             rdfs:label "iso code" .
+
+
+###  https://auroral.iot.linkeddata.es/def/core#name
+core:name rdf:type owl:DatatypeProperty ;
+          rdfs:range xsd:string ;
+          rdfs:comment "The name of an entity" ;
+          rdfs:label "name" .
+
+
+###  https://auroral.iot.linkeddata.es/def/core#nameCountry
+core:nameCountry rdf:type owl:DatatypeProperty ;
+                 rdfs:domain core:Country ;
+                 rdfs:range xsd:string ;
+                 rdfs:comment "The name of a country" ;
+                 rdfs:label "name country" .
+
+
+###  https://auroral.iot.linkeddata.es/def/core#namePlace
+core:namePlace rdf:type owl:DatatypeProperty ;
+               rdfs:domain core:Place ;
+               rdfs:range xsd:string ;
+               rdfs:comment "The name of a place" ;
+               rdfs:label "name place" .
+
+
+###  https://auroral.iot.linkeddata.es/def/core#numberOfDownloads
+core:numberOfDownloads rdf:type owl:DatatypeProperty ;
+                       rdfs:domain core:Service ;
+                       rdfs:range xsd:string ;
+                       rdfs:comment "The number of downloads of a service" ;
+                       rdfs:label "number of downloads" .
+
+
+###  https://auroral.iot.linkeddata.es/def/core#receivedAt
+core:receivedAt rdf:type owl:DatatypeProperty ;
+                rdfs:range xsd:dateTime ;
+                rdfs:comment "time when a measurment is received" ;
+                rdfs:label "received at" .
+
+
+###  https://auroral.iot.linkeddata.es/def/core#sentAt
+core:sentAt rdf:type owl:DatatypeProperty ;
+            rdfs:range xsd:dateTime ;
+            rdfs:comment "time when a measurment is sent" ;
+            rdfs:label "sent at" .
+
+
+###  https://auroral.iot.linkeddata.es/def/core#serialNumber
+core:serialNumber rdf:type owl:DatatypeProperty ;
+                  rdfs:domain core:Device ;
+                  rdfs:range xsd:string ;
+                  rdfs:comment "The serial number of device" ;
+                  rdfs:label "serial number" .
+
+
+###  https://auroral.iot.linkeddata.es/def/core#serviceDescription
+core:serviceDescription rdf:type owl:DatatypeProperty ;
+                        rdfs:domain core:Service ;
+                        rdfs:range xsd:string ;
+                        rdfs:comment "The description of a service" ;
+                        rdfs:label "service description" .
+
+
+###  https://auroral.iot.linkeddata.es/def/core#serviceFree
+core:serviceFree rdf:type owl:DatatypeProperty ;
+                 rdfs:domain core:Service ;
+                 rdfs:range xsd:boolean ;
+                 rdfs:comment "It determines if a service is free or no" ;
+                 rdfs:label "service free" .
+
+
+###  https://auroral.iot.linkeddata.es/def/core#serviceProvider
+core:serviceProvider rdf:type owl:DatatypeProperty ;
+                     rdfs:domain core:Service ;
+                     rdfs:range xsd:string ;
+                     rdfs:comment "The provider of a service" ;
+                     rdfs:label "service provider" .
+
+
+###  https://auroral.iot.linkeddata.es/def/core#value
+core:value rdf:type owl:DatatypeProperty ;
+           rdfs:domain core:Readability ;
+           rdfs:range xsd:integer ;
+           rdfs:comment "The value of the readability of a measurement" ;
+           rdfs:label "value" .
+
+
+###  https://auroral.iot.linkeddata.es/def/core#versionNumber
+core:versionNumber rdf:type owl:DatatypeProperty ;
+                   rdfs:domain core:Device ;
+                   rdfs:range xsd:string ;
+                   rdfs:comment "The version number of  a device" ;
+                   rdfs:label "version number" .
+
+
+###  https://auroral.iot.linkeddata.es/def/core#versionOfService
+core:versionOfService rdf:type owl:DatatypeProperty ;
+                      rdfs:domain core:Service ;
+                      rdfs:range xsd:string ;
+                      rdfs:comment "The version of a service" ;
+                      rdfs:label "version of service" .
+
+
+###  https://auroral.iot.linkeddata.es/def/core#visibility
+core:visibility rdf:type owl:DatatypeProperty ;
+                rdfs:domain core:Dataset ;
+                rdfs:range xsd:boolean ;
+                rdfs:comment "The visibility of a dataset" ;
+                rdfs:label "visibility" .
+
+
+###  https://saref.etsi.org/core#deviceId
+saref:deviceId rdf:type owl:DatatypeProperty ;
+               rdfs:domain core:Device ;
+               rdfs:range xsd:string ;
+               rdfs:comment "The identifier of a device" ;
+               rdfs:label "device id" .
+
+
+###  https://saref.etsi.org/core#hasManufacturer
+saref:hasManufacturer rdf:type owl:DatatypeProperty ;
+                      rdfs:domain core:Device ;
+                      rdfs:range xsd:string ;
+                      rdfs:comment "The manufacturer of a device" ;
+                      rdfs:label "has manufacturer" .
+
+
+###  https://saref.etsi.org/core#hasModel
+saref:hasModel rdf:type owl:DatatypeProperty ;
+               rdfs:domain core:Device ;
+               rdfs:range xsd:string ;
+               rdfs:comment "The model of a device" ;
+               rdfs:label "has model" .
+
+
+###  https://saref.etsi.org/core#hasTimeStamp
+saref:hasTimeStamp rdf:type owl:DatatypeProperty ,
+                            owl:FunctionalProperty ;
+                   rdfs:range xsd:dateTime ;
+                   rdfs:comment "The timestamp of an entity" ;
+                   rdfs:label "has time stamp" .
+
+
+###  https://saref.etsi.org/core#hasValue
+saref:hasValue rdf:type owl:DatatypeProperty ;
+               rdfs:comment "The value related to an entity" ;
+               rdfs:label "has value" .
+
+
+#################################################################
+#    Classes
+#################################################################
+
+###  http://lexvo.org/ontology#Language
+<http://lexvo.org/ontology#Language> rdf:type owl:Class ;
+                                     rdfs:comment "The used languages for services (english, arabic, spanich, etc)" ;
+                                     rdfs:label "Language" .
+
+
+###  http://www.geonames.org/ontology#Feature
+geonames:Feature rdf:type owl:Class ;
+                 rdfs:comment "Refers to a specific location" ;
+                 rdfs:label "Feature" .
+
+
+###  http://www.opengis.net/ont/geosparql#Geometry
+geosparql:Geometry rdf:type owl:Class ;
+                   rdfs:subClassOf geo:SpatialThing ;
+                   rdfs:comment "A Geometry consists of a set of coordinates and a specification on how the coordinates should be interpreted." ;
+                   rdfs:label "Geometry" .
+
+
+###  http://www.w3.org/2003/01/geo/wgs84_pos#SpatialThing
+geo:SpatialThing rdf:type owl:Class ;
+                 rdfs:subClassOf geo:SpatialThing ;
+                 rdfs:comment "Anything with spatial extent, i.e. size, shape, or position. e.g. people, places, bowling balls, as well as abstract areas like cubes." ;
+                 rdfs:label "Spatial Thing" .
+
+
+###  http://www.w3.org/ns/dcat#Dataset
+dcat:Dataset rdf:type owl:Class ;
+             rdfs:comment "A collection of data, published or curated by a single agent, and available for access or download in one or more representations" ;
+             rdfs:label "Dataset" .
+
+
+###  http://xmlns.com/foaf/0.1/Agent
+foaf:Agent rdf:type owl:Class ;
+           rdfs:comment "An agent (eg. person, group, software or physical artifact)." ;
+           rdfs:label "Agent" .
+
+
+###  http://xmlns.com/foaf/0.1/Image
+foaf:Image rdf:type owl:Class ;
+           rdfs:comment "Digital images (such as JPEG, PNG, GIF bitmaps, SVG diagrams etc.)  of users" ;
+           rdfs:label "Image" .
+
+
+###  http://xmlns.com/foaf/0.1/Person
+foaf:Person rdf:type owl:Class ;
+            rdfs:subClassOf foaf:Agent ;
+            rdfs:comment "The Person class represents people." ;
+            rdfs:label "Person" .
+
+
+###  https://auroral.iot.linkeddata.es/def/core#Actuator
+core:Actuator rdf:type owl:Class ;
+              rdfs:subClassOf core:Device ,
+                              saref:Actuator ;
+              rdfs:comment "a device that causes a machine or other device to operate." ;
+              rdfs:label "Actuator" .
+
+
+###  https://auroral.iot.linkeddata.es/def/core#Audit
+core:Audit rdf:type owl:Class ;
+           rdfs:comment "It correponds to the  examination  and  evaluation  of  organisations or users." ;
+           rdfs:label "Audit" .
+
+
+###  https://auroral.iot.linkeddata.es/def/core#Building
+core:Building rdf:type owl:Class ;
+              rdfs:subClassOf saref:FeatureOfInterest ;
+              rdfs:comment "Building is a feature of Interest." ;
+              rdfs:label "Building" .
+
+
+###  https://auroral.iot.linkeddata.es/def/core#City
+core:City rdf:type owl:Class ;
+          rdfs:subClassOf saref:FeatureOfInterest ;
+          rdfs:comment "City is a feature of Interest." ;
+          rdfs:label "City" .
+
+
+###  https://auroral.iot.linkeddata.es/def/core#Country
+core:Country rdf:type owl:Class ;
+             rdfs:subClassOf geonames:Feature ;
+             rdfs:comment "Refers to the country where a service is applied" ;
+             rdfs:label "Country" .
+
+
+###  https://auroral.iot.linkeddata.es/def/core#Dataset
+core:Dataset rdf:type owl:Class ;
+             rdfs:subClassOf dcat:Dataset ,
+                             core:VirtualThing ,
+                             [ rdf:type owl:Restriction ;
+                               owl:onProperty dc:description ;
+                               owl:someValuesFrom xsd:string
+                             ] ,
+                             [ rdf:type owl:Restriction ;
+                               owl:onProperty dc:title ;
+                               owl:someValuesFrom xsd:string
+                             ] ,
+                             [ rdf:type owl:Restriction ;
+                               owl:onProperty dcat:accessURL ;
+                               owl:someValuesFrom xsd:anyURI
+                             ] ,
+                             [ rdf:type owl:Restriction ;
+                               owl:onProperty dcat:keyword ;
+                               owl:someValuesFrom xsd:string
+                             ] ,
+                             [ rdf:type owl:Restriction ;
+                               owl:onProperty core:datasetProvider ;
+                               owl:someValuesFrom xsd:string
+                             ] ,
+                             [ rdf:type owl:Restriction ;
+                               owl:onProperty core:visibility ;
+                               owl:someValuesFrom xsd:boolean
+                             ] ;
+             rdfs:comment "A collection of data, published or curated by a single agent, and available for access or download in one or more representations" ;
+             rdfs:label "Dataset" .
+
+
+###  https://auroral.iot.linkeddata.es/def/core#Device
+core:Device rdf:type owl:Class ;
+            rdfs:subClassOf core:PhysicalThing ,
+                            saref:Device ;
+            rdfs:comment "A tangible object designed to accomplish a particular task. In order to accomplish this task, the device performs one or more functions. For example, a washing machine is designed to wash (task) and to accomplish this task it performs a start and stop function" ;
+            rdfs:label "Device" .
+
+
+###  https://auroral.iot.linkeddata.es/def/core#Domain
+core:Domain rdf:type owl:Class ;
+            rdfs:comment "refers to the domains in the AURORAL project (Farming, mobility, energy, health, tourism)" ;
+            rdfs:label "Domain" .
+
+
+###  https://auroral.iot.linkeddata.es/def/core#Item
+core:Item rdf:type owl:Class ;
+          rdfs:subClassOf wot:Thing ,
+                          [ rdf:type owl:Restriction ;
+                            owl:onProperty core:hasStatus ;
+                            owl:someValuesFrom core:ItemStatus
+                          ] ,
+                          [ rdf:type owl:Restriction ;
+                            owl:onProperty saref:hasDomain ;
+                            owl:someValuesFrom core:Domain
+                          ] ,
+                          [ rdf:type owl:Restriction ;
+                            owl:onProperty core:hasCreationDate ;
+                            owl:allValuesFrom xsd:dateTime
+                          ] ,
+                          [ rdf:type owl:Restriction ;
+                            owl:onProperty core:hasName ;
+                            owl:allValuesFrom xsd:string
+                          ] ,
+                          [ rdf:type owl:Restriction ;
+                            owl:onProperty core:hasUpdateDate ;
+                            owl:allValuesFrom xsd:dateTime
+                          ] ;
+          rdfs:comment "Is defined as the physical or a virtual things" ;
+          rdfs:label "Item" .
+
+
+###  https://auroral.iot.linkeddata.es/def/core#ItemStatus
+core:ItemStatus rdf:type owl:Class ;
+                rdfs:subClassOf core:Status ;
+                rdfs:comment "Presents the possible status of item: enabled, disabled, deleted" ;
+                rdfs:label "Item status" .
+
+
+###  https://auroral.iot.linkeddata.es/def/core#Municipality
+core:Municipality rdf:type owl:Class ;
+                  rdfs:subClassOf saref:FeatureOfInterest ;
+                  rdfs:comment "Municipality is a  feature of Interest." ;
+                  rdfs:label "Municipality" .
+
+
+###  https://auroral.iot.linkeddata.es/def/core#Node
+core:Node rdf:type owl:Class ;
+          rdfs:subClassOf [ rdf:type owl:Restriction ;
+                            owl:onProperty core:containsItem ;
+                            owl:allValuesFrom core:Item
+                          ] ,
+                          [ rdf:type owl:Restriction ;
+                            owl:onProperty core:hasStatus ;
+                            owl:allValuesFrom core:NodeStatus
+                          ] ,
+                          [ rdf:type owl:Restriction ;
+                            owl:onProperty core:hasCreationDate ;
+                            owl:someValuesFrom xsd:dateTime
+                          ] ,
+                          [ rdf:type owl:Restriction ;
+                            owl:onProperty core:hasID ;
+                            owl:someValuesFrom xsd:string
+                          ] ,
+                          [ rdf:type owl:Restriction ;
+                            owl:onProperty core:hasLocation ;
+                            owl:someValuesFrom xsd:string
+                          ] ,
+                          [ rdf:type owl:Restriction ;
+                            owl:onProperty core:hasName ;
+                            owl:someValuesFrom xsd:string
+                          ] ;
+          rdfs:comment "Is defined as the way to organise the users into distinct groups" ;
+          rdfs:label "Node" .
+
+
+###  https://auroral.iot.linkeddata.es/def/core#NodeStatus
+core:NodeStatus rdf:type owl:Class ;
+                rdfs:subClassOf core:Status ;
+                rdfs:comment "Presents the status of the Node: active, deleted, etc." ;
+                rdfs:label "Node status" .
+
+
+###  https://auroral.iot.linkeddata.es/def/core#Notification
+core:Notification rdf:type owl:Class ;
+                  rdfs:subClassOf [ rdf:type owl:Restriction ;
+                                    owl:onProperty core:hasStatus ;
+                                    owl:allValuesFrom core:NotificationStatus
+                                  ] ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty core:hasCreationDate ;
+                                    owl:someValuesFrom xsd:dateTime
+                                  ] ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty core:hasID ;
+                                    owl:someValuesFrom xsd:string
+                                  ] ;
+                  rdfs:comment "Is defined  as  the  act of reporting a message to a set of users" ;
+                  rdfs:label "Notification" .
+
+
+###  https://auroral.iot.linkeddata.es/def/core#NotificationStatus
+core:NotificationStatus rdf:type owl:Class ;
+                        rdfs:subClassOf core:Status ;
+                        rdfs:comment "Presents the possible status of the notificationÑ rejected, accepted, waiting, etc." ;
+                        rdfs:label "Notification status" .
+
+
+###  https://auroral.iot.linkeddata.es/def/core#Organization
+core:Organization rdf:type owl:Class ;
+                  rdfs:subClassOf org:Organization ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty geo:location ;
+                                    owl:allValuesFrom geo:SpatialThing
+                                  ] ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty core:hasAudit ;
+                                    owl:allValuesFrom core:Audit
+                                  ] ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty core:hasNode ;
+                                    owl:allValuesFrom core:Node
+                                  ] ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty core:hasNotification ;
+                                    owl:allValuesFrom core:Notification
+                                  ] ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty core:hasUser ;
+                                    owl:allValuesFrom core:User
+                                  ] ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty core:isRepresentedByAvatar ;
+                                    owl:allValuesFrom foaf:Image
+                                  ] ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty core:hasCreationDate ;
+                                    owl:someValuesFrom xsd:dateTime
+                                  ] ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty core:hasID ;
+                                    owl:someValuesFrom xsd:string
+                                  ] ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty core:hasLocation ;
+                                    owl:someValuesFrom xsd:string
+                                  ] ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty core:hasName ;
+                                    owl:someValuesFrom xsd:string
+                                  ] ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty core:hasRegistrationNumber ;
+                                    owl:someValuesFrom xsd:string
+                                  ] ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty core:hasSkinColor ;
+                                    owl:someValuesFrom xsd:string
+                                  ] ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty core:isLastUpdated ;
+                                    owl:someValuesFrom xsd:dateTime
+                                  ] ;
+                  rdfs:comment "Represents a collection of people organized together into a community or other social, commercial or political structure. The group has some common purpose or reason for existence which goes beyond the set of people belonging to it and can act as an Agent. Organizations are often decomposable into hierarchical structures.  It is recommended that SKOS lexical labels should be used to label the Organization." ;
+                  rdfs:label "Organization" .
+
+
+###  https://auroral.iot.linkeddata.es/def/core#PhysicalThing
+core:PhysicalThing rdf:type owl:Class ;
+                   rdfs:subClassOf core:Item ;
+                   rdfs:comment "Refers to the objects in real word, that could be a sensor or an actuator" ;
+                   rdfs:label "Physical Thing" .
+
+
+###  https://auroral.iot.linkeddata.es/def/core#Place
+core:Place rdf:type owl:Class ;
+           rdfs:subClassOf geonames:Feature ;
+           rdfs:comment "It is a place in general that could be a city, a home, etc. where the service is located" ;
+           rdfs:label "Place" .
+
+
+###  https://auroral.iot.linkeddata.es/def/core#Readability
+core:Readability rdf:type owl:Class ;
+                 rdfs:comment "Represents the status of the detected measurement, that could be redable or not." ;
+                 rdfs:label "Readability" .
+
+
+###  https://auroral.iot.linkeddata.es/def/core#Role
+core:Role rdf:type owl:Class ;
+          rdfs:comment "Is defined  as  the  function assumed by a user inside the organisation." ;
+          rdfs:label "Role" .
+
+
+###  https://auroral.iot.linkeddata.es/def/core#Sensor
+core:Sensor rdf:type owl:Class ;
+            rdfs:subClassOf core:Device ,
+                            saref:Sensor ;
+            rdfs:comment "A device which detects or measures a physical property and records, indicates, or otherwise responds to it." ;
+            rdfs:label "Sensor" .
+
+
+###  https://auroral.iot.linkeddata.es/def/core#Service
+core:Service rdf:type owl:Class ;
+             rdfs:subClassOf core:VirtualThing ,
+                             [ rdf:type owl:Restriction ;
+                               owl:onProperty <http://lexvo.org/ontology#language> ;
+                               owl:someValuesFrom <http://lexvo.org/ontology#Language>
+                             ] ,
+                             [ rdf:type owl:Restriction ;
+                               owl:onProperty core:hasInput ;
+                               owl:someValuesFrom saref:Property
+                             ] ,
+                             [ rdf:type owl:Restriction ;
+                               owl:onProperty dc:license ;
+                               owl:someValuesFrom xsd:string
+                             ] ,
+                             [ rdf:type owl:Restriction ;
+                               owl:onProperty core:hasFunctionality ;
+                               owl:someValuesFrom xsd:string
+                             ] ,
+                             [ rdf:type owl:Restriction ;
+                               owl:onProperty core:hasRequirement ;
+                               owl:someValuesFrom xsd:string
+                             ] ,
+                             [ rdf:type owl:Restriction ;
+                               owl:onProperty core:hasSubDomain ;
+                               owl:someValuesFrom xsd:string
+                             ] ,
+                             [ rdf:type owl:Restriction ;
+                               owl:onProperty core:numberOfDownloads ;
+                               owl:someValuesFrom xsd:integer
+                             ] ,
+                             [ rdf:type owl:Restriction ;
+                               owl:onProperty core:serviceFree ;
+                               owl:someValuesFrom xsd:boolean
+                             ] ,
+                             [ rdf:type owl:Restriction ;
+                               owl:onProperty core:currentStatus ;
+                               owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                               owl:onDataRange xsd:string
+                             ] ,
+                             [ rdf:type owl:Restriction ;
+                               owl:onProperty core:serviceProvider ;
+                               owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                               owl:onDataRange xsd:string
+                             ] ;
+             rdfs:comment "The service that coul dbe provided with the device" ;
+             rdfs:label "Service" .
+
+
+###  https://auroral.iot.linkeddata.es/def/core#ServiceType
+core:ServiceType rdf:type owl:Class ;
+                 rdfs:comment "Defines the service types that could be a Commidity service or a not commidity service" ;
+                 rdfs:label "Service Type" .
+
+
+###  https://auroral.iot.linkeddata.es/def/core#Status
+core:Status rdf:type owl:Class ;
+            rdfs:comment "Presents the status of item, node, user and notification" ;
+            rdfs:label "Status" .
+
+
+###  https://auroral.iot.linkeddata.es/def/core#User
+core:User rdf:type owl:Class ;
+          rdfs:subClassOf foaf:Person ,
+                          [ rdf:type owl:Restriction ;
+                            owl:onProperty core:hasNode ;
+                            owl:someValuesFrom core:Node
+                          ] ,
+                          [ rdf:type owl:Restriction ;
+                            owl:onProperty core:belongsTo ;
+                            owl:allValuesFrom core:Organization
+                          ] ,
+                          [ rdf:type owl:Restriction ;
+                            owl:onProperty core:containsItem ;
+                            owl:allValuesFrom core:Item
+                          ] ,
+                          [ rdf:type owl:Restriction ;
+                            owl:onProperty core:hasAudit ;
+                            owl:allValuesFrom core:Audit
+                          ] ,
+                          [ rdf:type owl:Restriction ;
+                            owl:onProperty core:hasStatus ;
+                            owl:allValuesFrom core:UserStatus
+                          ] ,
+                          [ rdf:type owl:Restriction ;
+                            owl:onProperty core:isRepresentedByAvatar ;
+                            owl:allValuesFrom foaf:Image
+                          ] ,
+                          [ rdf:type owl:Restriction ;
+                            owl:onProperty core:hasContactMail ;
+                            owl:someValuesFrom xsd:string
+                          ] ,
+                          [ rdf:type owl:Restriction ;
+                            owl:onProperty core:hasCreationDate ;
+                            owl:someValuesFrom xsd:dateTime
+                          ] ,
+                          [ rdf:type owl:Restriction ;
+                            owl:onProperty core:hasID ;
+                            owl:someValuesFrom xsd:string
+                          ] ,
+                          [ rdf:type owl:Restriction ;
+                            owl:onProperty core:hasLocation ;
+                            owl:someValuesFrom xsd:string
+                          ] ,
+                          [ rdf:type owl:Restriction ;
+                            owl:onProperty core:hasName ;
+                            owl:someValuesFrom xsd:string
+                          ] ,
+                          [ rdf:type owl:Restriction ;
+                            owl:onProperty core:hasUpdateDate ;
+                            owl:someValuesFrom xsd:dateTime
+                          ] .
+
+
+###  https://auroral.iot.linkeddata.es/def/core#UserStatus
+core:UserStatus rdf:type owl:Class ;
+                rdfs:subClassOf core:Status ;
+                rdfs:comment "Presents the Status of the  user : delected or active" ;
+                rdfs:label "User status" .
+
+
+###  https://auroral.iot.linkeddata.es/def/core#VirtualThing
+core:VirtualThing rdf:type owl:Class ;
+                  rdfs:subClassOf core:Item ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty core:exposes ;
+                                    owl:someValuesFrom core:PhysicalThing
+                                  ] ;
+                  rdfs:comment "Presents virtual things which are  the service and the dataset" ;
+                  rdfs:label "Virtual Thing" .
+
+
+###  https://saref.etsi.org/core#Actuator
+saref:Actuator rdf:type owl:Class ;
+               rdfs:comment "A device that causes a machine or other device to operate." ;
+               rdfs:label "Actuator" .
+
+
+###  https://saref.etsi.org/core#Device
+saref:Device rdf:type owl:Class ;
+             rdfs:subClassOf [ rdf:type owl:Restriction ;
+                               owl:onProperty saref:hasManufacturer ;
+                               owl:someValuesFrom xsd:string
+                             ] ,
+                             [ rdf:type owl:Restriction ;
+                               owl:onProperty saref:hasModel ;
+                               owl:someValuesFrom xsd:string
+                             ] ;
+             rdfs:comment "A tangible object designed to accomplish a particular task. In order to accomplish this task, the device performs one or more functions. For example, a washing machine is designed to wash (task) and to accomplish this task it performs a start and stop function" ;
+             rdfs:label "Device" .
+
+
+###  https://saref.etsi.org/core#FeatureOfInterest
+saref:FeatureOfInterest rdf:type owl:Class ;
+                        rdfs:comment "A feature of interest is an abstraction of a real world phenomena (thing, person, event, etc)" ;
+                        rdfs:label "Feature of interest" .
+
+
+###  https://saref.etsi.org/core#Measurement
+saref:Measurement rdf:type owl:Class ;
+                  rdfs:comment "Measurement is the quantification of attributes of an object or event" ;
+                  rdfs:label "Measurement" .
+
+
+###  https://saref.etsi.org/core#Property
+saref:Property rdf:type owl:Class ;
+               rdfs:comment "Anything that can be sensed, measured or controlled in households, common public buildings or offices. We propose here a list of properties that are relevant for the purpose of SAREF, but this list can be extended." ;
+               rdfs:label "Property" .
+
+
+###  https://saref.etsi.org/core#Sensor
+saref:Sensor rdf:type owl:Class ;
+             rdfs:comment "A device which detects or measures a physical property and records, indicates, or otherwise responds to it." ;
+             rdfs:label "Sensor" .
+
+
+###  https://saref.etsi.org/core#UnitOfMeasure
+saref:UnitOfMeasure rdf:type owl:Class ;
+                    rdfs:comment "Defines the unit of each mesurement dtected by a sensor" ;
+                    rdfs:label "Unit of measure" .
+
+
+###  https://www.w3.org/2006/time#TemporalUnit
+<https://www.w3.org/2006/time#TemporalUnit> rdf:type owl:Class ;
+                                            rdfs:comment "A standard duration, which provides a scale factor for a time extent, or the granularity or precision for a time position." ;
+                                            rdfs:label "Temporal Unit" .
+
+
+###  https://www.w3.org/2019/wot/hypermedia#Link
+hctl:Link rdf:type owl:Class ;
+          rdfs:comment "A link can be viewed as a statement of the form \"link context has a relation type resource at link target\", where the optional target attributes may further describe the resource." ;
+          rdfs:label "Link" .
+
+
+###  https://www.w3.org/2019/wot/td#InteractionAffordance
+wot:InteractionAffordance rdf:type owl:Class ;
+                          rdfs:comment "It is the ability of an object or system to evoke its use and function." ;
+                          rdfs:label "Interaction Affordance" .
+
+
+###  https://www.w3.org/2019/wot/td#Thing
+wot:Thing rdf:type owl:Class ;
+          rdfs:comment "An abstraction of a physical or a virtual entity whose metadata and interfaces are described by a WoT Thing Description, whereas a virtual entity is the composition of one or more Things." ;
+          rdfs:label "Thing" .
+
+
+###  https://www.w3.org/ns/org#Organization
+org:Organization rdf:type owl:Class ;
+                 rdfs:comment "Represents a collection of people organized together into a community or other social, commercial or political structure. The group has some common purpose or reason for existence which goes beyond the set of people belonging to it and can act as an Agent. Organizations are often decomposable into hierarchical structures.  It is recommended that SKOS lexical labels should be used to label the Organization." ;
+                 rdfs:label "Organization" .
+
+
+#################################################################
+#    Individuals
+#################################################################
+
+###  http://www.ontology-of-units-of-measure.org/page/om-2#centimetre
+<http://www.ontology-of-units-of-measure.org/page/om-2#centimetre> rdf:type owl:NamedIndividual ,
+                                                                            saref:UnitOfMeasure .
+
+
+###  http://www.ontology-of-units-of-measure.org/page/om-2#hectopascal
+<http://www.ontology-of-units-of-measure.org/page/om-2#hectopascal> rdf:type owl:NamedIndividual ,
+                                                                             saref:UnitOfMeasure .
+
+
+###  http://www.ontology-of-units-of-measure.org/page/om-2#kelvin
+<http://www.ontology-of-units-of-measure.org/page/om-2#kelvin> rdf:type owl:NamedIndividual ,
+                                                                        saref:UnitOfMeasure .
+
+
+###  http://www.ontology-of-units-of-measure.org/page/om-2#kilowatt
+<http://www.ontology-of-units-of-measure.org/page/om-2#kilowatt> rdf:type owl:NamedIndividual ,
+                                                                          saref:UnitOfMeasure .
+
+
+###  http://www.ontology-of-units-of-measure.org/page/om-2#litre
+<http://www.ontology-of-units-of-measure.org/page/om-2#litre> rdf:type owl:NamedIndividual ,
+                                                                       saref:UnitOfMeasure .
+
+
+###  http://www.ontology-of-units-of-measure.org/page/om-2#millimetre
+<http://www.ontology-of-units-of-measure.org/page/om-2#millimetre> rdf:type owl:NamedIndividual ,
+                                                                            saref:UnitOfMeasure .
+
+
+###  http://www.ontology-of-units-of-measure.org/page/om-2#wattSquareMetre
+<http://www.ontology-of-units-of-measure.org/page/om-2#wattSquareMetre> rdf:type owl:NamedIndividual ,
+                                                                                 saref:UnitOfMeasure .
+
+
+###  http://www.ontology-of-units-of-measure.org/resource/om-2/Percentage
+om:Percentage rdf:type owl:NamedIndividual ,
+                       saref:UnitOfMeasure .
+
+
+###  http://www.ontology-of-units-of-measure.org/resource/om-2/ampere
+om:ampere rdf:type owl:NamedIndividual ,
+                   saref:UnitOfMeasure .
+
+
+###  http://www.ontology-of-units-of-measure.org/resource/om-2/centimetre
+om:centimetre rdf:type owl:NamedIndividual .
+
+
+###  http://www.ontology-of-units-of-measure.org/resource/om-2/cubicMetre
+om:cubicMetre rdf:type owl:NamedIndividual ,
+                       saref:UnitOfMeasure .
+
+
+###  http://www.ontology-of-units-of-measure.org/resource/om-2/degree
+om:degree rdf:type owl:NamedIndividual ,
+                   saref:UnitOfMeasure .
+
+
+###  http://www.ontology-of-units-of-measure.org/resource/om-2/degreeCelsius
+om:degreeCelsius rdf:type owl:NamedIndividual ,
+                          saref:UnitOfMeasure .
+
+
+###  http://www.ontology-of-units-of-measure.org/resource/om-2/degreeFahrenheit
+om:degreeFahrenheit rdf:type owl:NamedIndividual ,
+                             saref:UnitOfMeasure .
+
+
+###  http://www.ontology-of-units-of-measure.org/resource/om-2/hectopascal
+om:hectopascal rdf:type owl:NamedIndividual ,
+                        saref:UnitOfMeasure .
+
+
+###  http://www.ontology-of-units-of-measure.org/resource/om-2/kilogram
+om:kilogram rdf:type owl:NamedIndividual ,
+                     saref:UnitOfMeasure .
+
+
+###  http://www.ontology-of-units-of-measure.org/resource/om-2/kilowatt
+om:kilowatt rdf:type owl:NamedIndividual .
+
+
+###  http://www.ontology-of-units-of-measure.org/resource/om-2/kilowattHour
+om:kilowattHour rdf:type owl:NamedIndividual ,
+                         saref:UnitOfMeasure .
+
+
+###  http://www.ontology-of-units-of-measure.org/resource/om-2/lux
+om:lux rdf:type owl:NamedIndividual ,
+                saref:UnitOfMeasure .
+
+
+###  http://www.ontology-of-units-of-measure.org/resource/om-2/metersPerSecond-TimeSquared
+om:metersPerSecond-TimeSquared rdf:type owl:NamedIndividual ,
+                                        saref:UnitOfMeasure .
+
+
+###  http://www.ontology-of-units-of-measure.org/resource/om-2/millimetre
+om:millimetre rdf:type owl:NamedIndividual ,
+                       saref:UnitOfMeasure .
+
+
+###  http://www.ontology-of-units-of-measure.org/resource/om-2/partsPerMillion
+om:partsPerMillion rdf:type owl:NamedIndividual ,
+                            saref:UnitOfMeasure .
+
+
+###  http://www.ontology-of-units-of-measure.org/resource/om-2/volt
+om:volt rdf:type owl:NamedIndividual ,
+                 saref:UnitOfMeasure .
+
+
+###  http://www.ontology-of-units-of-measure.org/resource/om-2/watt
+om:watt rdf:type owl:NamedIndividual ,
+                 saref:UnitOfMeasure .
+
+
+###  https://auroral.iot.linkeddata.es/def/core#AcceptedNotificationStatus
+core:AcceptedNotificationStatus rdf:type owl:NamedIndividual ,
+                                         core:NotificationStatus ;
+                                rdfs:label "Accepted notification status" .
+
+
+###  https://auroral.iot.linkeddata.es/def/core#ActiveNodeStatus
+core:ActiveNodeStatus rdf:type owl:NamedIndividual ,
+                               core:NodeStatus ;
+                      rdfs:label "Active node status" .
+
+
+###  https://auroral.iot.linkeddata.es/def/core#ActiveUserStatus
+core:ActiveUserStatus rdf:type owl:NamedIndividual ,
+                               core:UserStatus ;
+                      rdfs:label "Active user status" .
+
+
+###  https://auroral.iot.linkeddata.es/def/core#Admin
+core:Admin rdf:type owl:NamedIndividual ,
+                    core:Role ;
+           rdfs:label "admin" .
+
+
+###  https://auroral.iot.linkeddata.es/def/core#AmpereHour
+core:AmpereHour rdf:type owl:NamedIndividual ,
+                         saref:UnitOfMeasure .
+
+
+###  https://auroral.iot.linkeddata.es/def/core#AngularDegree
+core:AngularDegree rdf:type owl:NamedIndividual ,
+                            saref:UnitOfMeasure .
+
+
+###  https://auroral.iot.linkeddata.es/def/core#Auroral
+core:Auroral rdf:type owl:NamedIndividual ,
+                      core:Node ;
+             rdfs:label "Auroral" .
+
+
+###  https://auroral.iot.linkeddata.es/def/core#Commodity
+core:Commodity rdf:type owl:NamedIndividual ,
+                        core:ServiceType ;
+               rdfs:label "commodity" .
+
+
+###  https://auroral.iot.linkeddata.es/def/core#ContractAcceptedNotification
+core:ContractAcceptedNotification rdf:type owl:NamedIndividual ,
+                                           core:Notification ;
+                                  rdfs:label "Contract accepted notification" .
+
+
+###  https://auroral.iot.linkeddata.es/def/core#ContractRequestNotification
+core:ContractRequestNotification rdf:type owl:NamedIndividual ,
+                                          core:Notification ;
+                                 rdfs:label "Contract request notification" .
+
+
+###  https://auroral.iot.linkeddata.es/def/core#CyclingEconomy
+core:CyclingEconomy rdf:type owl:NamedIndividual ,
+                             core:Domain ;
+                    rdfs:label "cycling economy" .
+
+
+###  https://auroral.iot.linkeddata.es/def/core#DairyFarming
+core:DairyFarming rdf:type owl:NamedIndividual ,
+                           core:Domain ;
+                  rdfs:label "dairy farming" .
+
+
+###  https://auroral.iot.linkeddata.es/def/core#Decibel
+core:Decibel rdf:type owl:NamedIndividual ,
+                      saref:UnitOfMeasure .
+
+
+###  https://auroral.iot.linkeddata.es/def/core#DeletedItemStatus
+core:DeletedItemStatus rdf:type owl:NamedIndividual ,
+                                core:ItemStatus ;
+                       rdfs:label "Deleted item status" .
+
+
+###  https://auroral.iot.linkeddata.es/def/core#DeletedNodeStatus
+core:DeletedNodeStatus rdf:type owl:NamedIndividual ,
+                                core:NodeStatus ;
+                       rdfs:label "Deleted node status" .
+
+
+###  https://auroral.iot.linkeddata.es/def/core#DeletedUserStatus
+core:DeletedUserStatus rdf:type owl:NamedIndividual ,
+                                core:UserStatus ;
+                       rdfs:label "Deleted user status" .
+
+
+###  https://auroral.iot.linkeddata.es/def/core#Dev_ops
+core:Dev_ops rdf:type owl:NamedIndividual ,
+                      core:Role ;
+             rdfs:label "dev ops" .
+
+
+###  https://auroral.iot.linkeddata.es/def/core#Dev_owner
+core:Dev_owner rdf:type owl:NamedIndividual ,
+                        core:Role ;
+               rdfs:label "dev owner" .
+
+
+###  https://auroral.iot.linkeddata.es/def/core#DisabledItemStatus
+core:DisabledItemStatus rdf:type owl:NamedIndividual ,
+                                 core:ItemStatus ;
+                        rdfs:label "Disabled item status" .
+
+
+###  https://auroral.iot.linkeddata.es/def/core#EnabledItemStatus
+core:EnabledItemStatus rdf:type owl:NamedIndividual ,
+                                core:ItemStatus ;
+                       rdfs:label "Enabled item status" .
+
+
+###  https://auroral.iot.linkeddata.es/def/core#Energy
+core:Energy rdf:type owl:NamedIndividual ,
+                     core:Domain ;
+            rdfs:label "energy" .
+
+
+###  https://auroral.iot.linkeddata.es/def/core#Health
+core:Health rdf:type owl:NamedIndividual ,
+                     core:Domain ;
+            rdfs:label "health" .
+
+
+###  https://auroral.iot.linkeddata.es/def/core#InfoNotificationStatus
+core:InfoNotificationStatus rdf:type owl:NamedIndividual ,
+                                     core:NotificationStatus ;
+                            rdfs:label "Info notification status" .
+
+
+###  https://auroral.iot.linkeddata.es/def/core#Infras_operator
+core:Infras_operator rdf:type owl:NamedIndividual ,
+                              core:Role ;
+                     rdfs:label "Infrastructure operator" .
+
+
+###  https://auroral.iot.linkeddata.es/def/core#ItemDisabledNotification
+core:ItemDisabledNotification rdf:type owl:NamedIndividual ,
+                                       core:Notification ;
+                              rdfs:label "Item disabled notification" .
+
+
+###  https://auroral.iot.linkeddata.es/def/core#ItemDiscoveredNotification
+core:ItemDiscoveredNotification rdf:type owl:NamedIndividual ,
+                                         core:Notification ;
+                                rdfs:label "Item discovered notification" .
+
+
+###  https://auroral.iot.linkeddata.es/def/core#ItemEnabledNotification
+core:ItemEnabledNotification rdf:type owl:NamedIndividual ,
+                                      core:Notification ;
+                             rdfs:label "Item enabled notification" .
+
+
+###  https://auroral.iot.linkeddata.es/def/core#ItemUpdatedNotification
+core:ItemUpdatedNotification rdf:type owl:NamedIndividual ,
+                                      core:Notification ;
+                             rdfs:label "Item update notification" .
+
+
+###  https://auroral.iot.linkeddata.es/def/core#MilliAmpereHour
+core:MilliAmpereHour rdf:type owl:NamedIndividual ,
+                              saref:UnitOfMeasure .
+
+
+###  https://auroral.iot.linkeddata.es/def/core#Mobility
+core:Mobility rdf:type owl:NamedIndividual ,
+                       core:Domain ;
+              rdfs:label "mobility" .
+
+
+###  https://auroral.iot.linkeddata.es/def/core#NotCommodity
+core:NotCommodity rdf:type owl:NamedIndividual ,
+                           core:ServiceType ;
+                  rdfs:label "not commodity" .
+
+
+###  https://auroral.iot.linkeddata.es/def/core#RegistrationRequestNotification
+core:RegistrationRequestNotification rdf:type owl:NamedIndividual ,
+                                              core:Notification ;
+                                     rdfs:label "Registration request notification" .
+
+
+###  https://auroral.iot.linkeddata.es/def/core#RejectedNotificationStatus
+core:RejectedNotificationStatus rdf:type owl:NamedIndividual ,
+                                         core:NotificationStatus ;
+                                rdfs:label "Rejected notification status" .
+
+
+###  https://auroral.iot.linkeddata.es/def/core#RespondedNotificationStatus
+core:RespondedNotificationStatus rdf:type owl:NamedIndividual ,
+                                          core:NotificationStatus ;
+                                 rdfs:label "Responded notification status" .
+
+
+###  https://auroral.iot.linkeddata.es/def/core#Sev_provider
+core:Sev_provider rdf:type owl:NamedIndividual ,
+                           core:Role ;
+                  rdfs:label "service provider" .
+
+
+###  https://auroral.iot.linkeddata.es/def/core#Sharq
+core:Sharq rdf:type owl:NamedIndividual ,
+                    core:Node ;
+           rdfs:label "Sharql" .
+
+
+###  https://auroral.iot.linkeddata.es/def/core#Super_user
+core:Super_user rdf:type owl:NamedIndividual ,
+                         core:Role ;
+                rdfs:label "super user" .
+
+
+###  https://auroral.iot.linkeddata.es/def/core#Sys_integrator
+core:Sys_integrator rdf:type owl:NamedIndividual ,
+                             core:Role ;
+                    rdfs:label "system integrator" .
+
+
+###  https://auroral.iot.linkeddata.es/def/core#Tourism
+core:Tourism rdf:type owl:NamedIndividual ,
+                      core:Domain ;
+             rdfs:label "tourism" .
+
+
+###  https://auroral.iot.linkeddata.es/def/core#User
+core:User rdf:type owl:NamedIndividual ,
+                   core:Role .
+
+
+###  https://auroral.iot.linkeddata.es/def/core#Vicinity
+core:Vicinity rdf:type owl:NamedIndividual ,
+                       core:Node ;
+              rdfs:label "Vicinity" .
+
+
+###  https://auroral.iot.linkeddata.es/def/core#WaitingNotificationStatus
+core:WaitingNotificationStatus rdf:type owl:NamedIndividual ,
+                                        core:NotificationStatus ;
+                               rdfs:label "Waiting notification status" .
+
+
+###  https://auroral.iot.linkeddata.es/def/core#WattHour
+core:WattHour rdf:type owl:NamedIndividual ,
+                       saref:UnitOfMeasure ;
+              rdfs:comment "watt Hour" .
+
+
+###  https://auroral.iot.linkeddata.es/def/core#kilowattHourSquareMeter
+core:kilowattHourSquareMeter rdf:type owl:NamedIndividual ,
+                                      saref:UnitOfMeasure .
+
+
+###  https://auroral.iot.linkeddata.es/def/core#kilowattHourYear
+core:kilowattHourYear rdf:type owl:NamedIndividual ,
+                               saref:UnitOfMeasure .
+
+
+###  https://www.w3.org/2006/time#unitHour
+<https://www.w3.org/2006/time#unitHour> rdf:type owl:NamedIndividual ,
+                                                 <https://www.w3.org/2006/time#TemporalUnit> ;
+                                        rdfs:label "unit Hour" .
+
+
+###  https://www.w3.org/2006/time#unitMinute
+<https://www.w3.org/2006/time#unitMinute> rdf:type owl:NamedIndividual ,
+                                                   <https://www.w3.org/2006/time#TemporalUnit> .
+
+
+#################################################################
+#    Annotations
+#################################################################
+
+dc:description rdfs:comment "A description of an entity" ;
+               rdfs:label "description" .
+
+
+dc:title rdfs:comment "The title of  an entity" ;
+         rdfs:label "title" .
+
+
+core:User rdfs:comment "Is a person who belongs to an organisation." ;
+          rdfs:label "User" .
+
+
+###  Generated by the OWL API (version 4.5.29.2024-05-13T12:11:03Z) https://github.com/owlcs/owlapi
