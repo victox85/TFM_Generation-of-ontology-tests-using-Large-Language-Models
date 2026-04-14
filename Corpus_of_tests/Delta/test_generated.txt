@@ -1,0 +1,72 @@
+```
+// delta-2 — There is a power provider and recipient
+PowerProvider type Entity
+Recipient type Entity
+
+// delta-25 — A virtual node calculates teh flexibility up/down indicator through the devices
+VirtualNode SubClassOf calculatesFlexibility some Device
+
+// delta-28 — The electric parameters include Load, Voltage and Frequency
+ElectricParameter type Parameter
+Load type Parameter
+Voltage type Parameter
+Frequency type Parameter
+
+// delta-33 — Each node uses scheduled flexibility capacity
+Node SubClassOf usesScheduledFlexibilityCapacity some Capacity
+
+// delta-35 — Each device measures the real time flexibility values
+Device SubClassOf measuresRealTimeFlexibilityValue some FlexibilityValue
+
+// delta-36 — Each medium voltage assets measures the real time generation values
+MediumVoltageAssetSubClassOf SubClassOf measuresRealTimeGenerationValue some GenerationValue
+
+// delta-37 — Each medium voltage assets measures the real time consumtion values
+MediumVoltageAssetSubClassOf SubClassOf measuresRealTimeConsumptionValue some ConsumptionValue
+
+// delta-41 — A device is a spatial thing
+Device SubClassOf SpatialThing
+
+// delta-43 — Each prosumer has associated its consumption
+Prosumer SubClassOf hasAssociatedConsumption some Consumption
+
+// delta-44 — Each prosumer has associated its generation
+Prosumer SubClassOf hasAssociatedGeneration some Generation
+
+// delta-47 — A virtual node belongs to a cluster
+VirtualNode SubClassOf belongsToCluster some Cluster
+
+// delta-50 — A profiles is needed to assess the DVN and devices
+ProfileSubClassOf assessesDvnAndDevices some Device
+
+// delta-56 — There are two types of constraints rleated to the grid: Voltage and Frequency
+Voltage type ConstraintType
+Frequency type ConstraintType
+
+// delta-57 — The profile can be related to generation or to consumption
+Profile SubClassOf relatedToGeneration some Generation
+Profile SubClassOf relatedToConsumption some Consumption
+
+// delta-59 — The profile has a granularity
+ProfileSubClassOf hasGranularity literal
+
+// delta-60 — The virtual node send action signals
+VirtualNode SubClassOf sendsActionSignal some Signal
+
+// delta-65 — A type of signal can be the offer of energy
+SignalType SubClassOf offersEnergy some EnergyOffer
+
+// delta-66 — A type of signal can be the request of energy
+SignalType SubClassOf requestsEnergy some EnergyRequest
+
+// delta-53 — Device in DELTA belongs to a customer
+Device SubClassOf belongsToCustomer some Customer
+
+// delta-54 — Customer has incentives based on the social interaction and cooperation
+Customer SubClassOf hasIncentivesBasedOn some SocialInteraction
+Customer SubClassOf hasIncentivesBasedOn some Cooperation
+
+// delta-55 — A device can belong to a prosumer or a consumer
+Device SubClassOf belongsToProsumer some Prosumer
+Device SubClassOf belongsToConsumer some Consumer
+```

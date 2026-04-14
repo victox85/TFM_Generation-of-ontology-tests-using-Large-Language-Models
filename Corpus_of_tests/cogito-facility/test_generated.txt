@@ -1,0 +1,64 @@
+// FACI-1 — A project is related to a site
+Project SubClassOf relatedTo some Site
+
+// FACI-2 — Spatial zones (especially sites) can have facility ► sintácticamente mas acertado seria SpatialZone SubClassOf hasFacility only Facility
+SpatialZone SubClassOf hasFacility some Facility    
+
+// FACI-3 — Facilities include buildings, railways, bridges and roads
+Building SubClassOf Facility
+Railway SubClassOf Facility
+Bridge SubClassOf Facility
+Road SubClassOf Facility
+
+// FACI-4 — Spatial zones (especially facilities and facility parts) can have facility parts 
+SpatialZone SubClassOf hasFacilityPart some FacilityPart
+Facility SubClassOf hasFacilityPart some FacilityPart
+FacilityPart SubClassOf hasFacilityPart some FacilityPart
+
+// FACI-5 — Spatial zones (especially buildings) can have storeys
+SpatialZone SubClassOf hasStorey some Storey
+Building SubClassOf hasStorey some Storey
+
+// FACI-6 — Spatial zones can have spaces
+SpatialZone SubClassOf hasSpace some Space
+
+// FACI-7 — Spatial zones can contain elements and other spatial zones
+SpatialZone SubClassOf containsElement some Element
+SpatialZone SubClassOf containsOtherSpatialZone some SpatialZone
+
+// FACI-8 — Elements include walls, slabs, columns, etc. (building elements)
+Wall SubClassOf Element
+Slab SubClassOf Element
+Column SubClassOf Element
+
+// FACI-9 — An element can have other elements
+Element SubClassOf hasOtherElement some Element
+
+// FACI-10 — Spatial zones include sites, facilities, facility parts, storeys and spaces
+Site SubClassOf SpatialZone
+Facility SubClassOf SpatialZone
+Facility PartSubClassOf SpatialZone
+Storey SubClassOf SpatialZone
+Space SubClassOf SpatialZone
+
+// FACI-11 — Spatial zones include construction zones (which are defined in the IFC file)
+ConstructionZone SubClassOf SpatialZone
+
+// FACI-12 — A spatial zone has an identifier, a name and a description 
+SpatialZone identifier literal
+SpatialZone name literal
+SpatialZone description literal
+
+// FACI-13 — An element has an identifier and a name. It also includes its material (Uniclass code), and its type (Uniclass code and IFC type)
+Element identifier literal
+Element name literal
+Element hasMaterial some UniclassCode
+Element hasType some UniclassCode
+Element hasIFCType some Literal
+
+// FACI-14 — A project has an identifier and a name
+Project identifier literal
+Project name literal
+
+// FACI-15 — An element belongs to a SpatialZone
+Element SubClassOf belongsTo some SpatialZone
