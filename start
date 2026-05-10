@@ -1,0 +1,13 @@
+source ~/llama-env/bin/activate
+
+python -m llama_cpp.server \
+  --model /mnt/c/Users/alejanro/.lmstudio/models/lmstudio-community/gemma-4-E4B-it-GGUF/gemma-4-E4B-it-Q4_K_M.gguf \
+  --n_ctx 16384 \
+  --n_gpu_layers -1 \
+  --n_threads 6 \
+  --n_batch 512 \
+  --flash_attn true \
+  --use_mmap true \
+  --use_mlock true \
+  --host 127.0.0.1 \
+  --port 1234

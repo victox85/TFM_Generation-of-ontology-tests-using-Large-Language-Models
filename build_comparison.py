@@ -16,7 +16,7 @@ import re
 import sys
 import tkinter as tk
 from pathlib import Path
-from tkinter import filedialog, messagebox
+from tkinter import filedialog
 
 
 # ── folder picker ─────────────────────────────────────────────────────────────
@@ -171,30 +171,24 @@ def build_rows(blocks: list[dict], good_tests: dict[str, list[str]]) -> list[dic
 
 # ── entry point ───────────────────────────────────────────────────────────────
 
-def main() -> None:
-    if len(sys.argv) > 1:
-        folder = Path(sys.argv[1])
-    else:
-        folder = pick_folder()
-
+def run(folder: Path) -> None:
+    """Build comparison.csv for the given folder. Returns without raising on soft errors."""
     if not folder or not folder.is_dir():
-        print("No valid folder selected.")
+        print(f"No valid folder: {folder}")
         return
 
     txt_path = find_txt(folder)
     csv_path = find_csv(folder)
 
     if not txt_path:
-        msg = f"No test_generated / +terminology .txt found in:\n{folder}"
-        _alert(msg)
+        print(f"  [skip] No test_generated / +terminology .txt found in: {folder}")
         return
     if not csv_path:
-        msg = f"No themis_tests / tests .csv found in:\n{folder}"
-        _alert(msg)
+        print(f"  [skip] No themis_tests / tests .csv found in: {folder}")
         return
 
-    print(f"TXT : {txt_path.name}")
-    print(f"CSV : {csv_path.name}")
+    print(f"  TXT : {txt_path.name}")
+    print(f"  CSV : {csv_path.name}")
 
     blocks     = parse_txt(txt_path)
     good_tests = load_good_tests(csv_path)
@@ -209,18 +203,16 @@ def main() -> None:
         writer.writeheader()
         writer.writerows(rows)
 
-    print(f"Done — {len(rows)} rows → {out_path}")
+    print(f"  Done — {len(rows)} rows → {out_path}")
 
 
-def _alert(msg: str) -> None:
-    print(msg)
-    try:
-        root = tk.Tk()
-        root.withdraw()
-        messagebox.showerror("build_comparison", msg)
-        root.destroy()
-    except Exception:
-        pass
+def main() -> None:
+    if len(sys.argv) > 1:
+        folder = Path(sys.argv[1])
+    else:
+        folder = pick_folder()
+
+    run(folder)
 
 
 if __name__ == "__main__":

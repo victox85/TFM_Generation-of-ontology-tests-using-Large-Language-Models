@@ -3,10 +3,31 @@ from tkinter import filedialog, scrolledtext, messagebox
 import csv
 import io
 import json
+import re
 import urllib.request
 import urllib.error
 import threading
 import os
+import subprocess
+
+
+def _get_lm_studio_url(port: int = 1234) -> str:
+    """Resolve correct LM Studio host: Windows IP when running inside WSL2."""
+    try:
+        with open("/proc/version") as f:
+            if "microsoft" in f.read().lower():
+                result = subprocess.run(
+                    ["ip", "route", "show"],
+                    capture_output=True, text=True, timeout=2
+                )
+                for line in result.stdout.splitlines():
+                    if line.startswith("default"):
+                        host_ip = line.split()[2]
+                        return f"http://{host_ip}:{port}/v1/chat/completions"
+    except Exception:
+        pass
+    return f"http://127.0.0.1:{port}/v1/chat/completions"
+
 
 LM_STUDIO_URL = "http://127.0.0.1:1234/v1/chat/completions"
 CHUNK_SIZE = 20    # rows per request (excluding header)
@@ -836,6 +857,15 @@ def split_csv_chunks_by_type(file_content, chunk_size=CHUNK_SIZE):
     return rows_to_chunks(declarative_rows), rows_to_chunks(interrogative_rows)
 
 
+def _fix_lm_output(text: str) -> str:
+    """Fix concatenated tokens like 'XSubClassOf B' → 'X SubClassOf B' produced by the LM."""
+    # Insert missing space: "XSubClassOf" → "X SubClassOf"
+    text = re.sub(r'(?<=\w)SubClassOf', ' SubClassOf', text)
+    # Collapse accidental double: "X SubClassOf SubClassOf B" → "X SubClassOf B"
+    text = re.sub(r'SubClassOf(\s+SubClassOf)+', 'SubClassOf', text)
+    return text
+
+
 def send_chunk(system_prompt, chunk_content, file_name):
     """Send one chunk to LM Studio synchronously. Returns (answer, error)."""
     messages = [
@@ -863,6 +893,34 @@ def send_chunk(system_prompt, chunk_content, file_name):
         return None, f"Connection error: {e.reason}"
     except Exception as e:
         return None, str(e)
+
+
+def process_csv_file(csv_path: str) -> str:
+    """Process a requirements CSV and return the merged Themis test output."""
+    with open(csv_path, "r", encoding="utf-8", errors="replace") as f:
+        file_content = f.read()
+
+    file_name = os.path.basename(csv_path)
+    dec_chunks, int_chunks = split_csv_chunks_by_type(file_content)
+
+    work = []
+    for i, c in enumerate(dec_chunks, 1):
+        work.append((SYSTEM_PROMPT_DECLARATIVE, c, f"declarative {i}/{len(dec_chunks)}"))
+    for i, c in enumerate(int_chunks, 1):
+        work.append((SYSTEM_PROMPT_INTERROGATIVE, c, f"interrogative {i}/{len(int_chunks)}"))
+
+    if not work:
+        return ""
+
+    results = []
+    for idx, (sys_prompt, chunk, label) in enumerate(work, 1):
+        print(f"  Chunk {idx}/{len(work)} ({label})…")
+        answer, error = send_chunk(sys_prompt, chunk, file_name)
+        if error:
+            raise RuntimeError(f"LM Studio error on chunk {idx}: {error}")
+        results.append(answer)
+
+    return _fix_lm_output("\n\n".join(results))
 
 
 class App(tk.Tk):
@@ -1011,7 +1069,7 @@ class App(tk.Tk):
                     return
                 results.append(answer)
 
-            merged = "\n\n".join(results)
+            merged = _fix_lm_output("\n\n".join(results))
             self.after(0, self._handle_response, merged, None)
 
         threading.Thread(target=worker, daemon=True).start()

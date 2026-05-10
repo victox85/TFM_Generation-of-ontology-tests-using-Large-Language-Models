@@ -1,0 +1,20 @@
+Requirement identifier,Competency question,Good test,Generated test,Advises
+priv-1,There are two types of rules: Permission and Prohibition.,"Prohibition subclassOf Rule
+Permission subClassOf Rule","Permission SubClassOf Rule
+Prohibition SubClassOf Rule","⚠ class `RuleType` not in terminology; ⚠ class `RuleType` not in terminology
+⚠ class `RuleType` not in terminology"
+priv-2,An asset can have a policy.,Item hasPolicy Policy,Item hasPolicy Policy,⚠ class `Asset` not in terminology
+priv-3,A policy contains rules.,Policy definesRule Rule,Policy definesRule Rule,
+priv-4,A rule can have a target.,Rule hasRuleTarget RuleTarget,Rule hasRuleTarget RuleTarget,"⚠ property `hasTarget` used with domain Rule, range Target; terminology has domain Rule, range RuleTarget"
+priv-5,"There are two types of target: Friends, Eveyone or None.","None type RuleTarget
+All type RuleTarget
+Friends type RuleTarget","Friends SubClassOf RuleTarget
+Everyone SubClassOf RuleTarget
+NoneSubClassOf RuleTarget","⚠ class `TargetType` not in terminology
+⚠ class `TargetType` not in terminology
+⚠ class `TargetType` not in terminology"
+priv-6,A rule has an action.,Rule hasAction Action,Rule hasAction Action,
+priv-7,There are two types of action: Visibility and Accessibility.,"Accessibility type Action
+Visibility type Action","Visibility SubClassOf Action
+Accessibility SubClassOf Action","⚠ class `ActionType` not in terminology
+⚠ class `ActionType` not in terminology"

@@ -1,0 +1,36 @@
+Requirement identifier,Competency question,Good test,Generated test,Advises
+delta-2,There is a power provider and recipient,"Consumer subclassOf Customer
+Prosumer type Class","Producer type Class
+Consumer type Class",
+delta-25,A virtual node calculates the flexibility up/down indicator through the devices,FEID subclassOf measuresProperty some UpFlexibility or DownFlexibility,"VirtualNode hasEnergyUpFlexibility (""Energy up flexibility"") Device",
+delta-28,"The electric parameters include Load, Voltage and Frequency","Frequency subclassOf core:Property
+Load subclassOf core:Property
+Voltage subclassOf core:Property","ElectricParameter type Class
+Load SubClassOf ElectricParameter
+Voltage SubClassOf ElectricParameter
+Frequency SubClassOf ElectricParameter",
+delta-33,Each node uses scheduled flexibility capacity,Asset subclassOf measuresProperty some EnergyUpFlexibility,"VirtualNode hasEstimatedMeasurement (""Key performance indicator assessment"")",
+delta-35,Each device measures the real time flexibility values,Device subclassOf measuresProperty some EnergyUpFlexibility,"Device makesMeasurement ""hasValue""",
+delta-36,Each medium voltage assets measures the real time generation values,Asset subclassOf measuresProperty some EnergyGeneration,"MediumVoltageAsset makesMeasurement ""PowerGenerationForecast""",
+delta-37,Each medium voltage assets measures the real time consumtion values,Device subclassOf measuresProperty some EnergyConsumption,"MediumVoltageAsset makesMeasurement ""EnergyConsumption""",
+delta-41,A device is a spatial thing,Prosumer subclassOf SpatialObject,Device SubClassOf SpatialThing,
+delta-43,Each prosumer has associated its consumption,"Asset isOwnedBy Prosumer
+Asset subclassOf measuresProperty some EnergyConsumption","Prosumer hasReward ""PowerConsumption""",
+delta-44,Each prosumer has associated its generation,"Asset isOwnedBy Prosumer
+Asset subclassOf measuresProperty some EnergyGeneration","Prosumer hasReward ""PowerGeneration""",
+delta-47,A virtual node belongs to a cluster,VirtualNode subclassOf belongsToCluster only Cluster,VirtualNode belongsToCluster Cluster,
+delta-50,A profiles is needed to assess the DVN and devices,Profile type Class,Profile hasSystemConstraint VirtualNode Device,
+delta-56,There are two types of constraints rleated to the grid: Voltage and Frequency,"Frequency subclassOf core:Property
+Voltage subclassOf core:Property","Constraint type Class
+VoltageSubClassOf Constraint
+FrequencySubClassOf Constraint",
+delta-57,The profile can be related to generation or to consumption,Profile relatesToProperty core:Property,"Profile relatesTo ""EnergyGeneration"" Profile relatesTo ""EnergyConsumption""",
+delta-59,The profile has a granularity,Profile subclassOf hasGranularity only string,Profile hasGranularity,
+delta-60,The virtual node send action signals,VirtualNode subclassOf sends some Event,VirtualNode sendsEvent Signal,⚠ object property `sendsActionSignal` not in terminology; ⚠ class `Signal` not in terminology
+delta-65,A type of signal can be the offer of energy,DemandChargeSignal subclassOf Signal,Signal hasReward EnergyGenerationForecast,⚠ class `Signal` not in terminology; ⚠ object property `offersEnergy` not in terminology; ⚠ named individual `EnergyOffer` not in terminology
+delta-66,A type of signal can be the request of energy,BidEnergySignal subclassOf Signal,Signal hasReward EnergyLoadForecast,⚠ class `Signal` not in terminology; ⚠ object property `requestsEnergy` not in terminology; ⚠ named individual `EnergyRequest` not in terminology
+delta-53,Device in DELTA belongs to a customer,Asset subclassOf isOwnedBy some Customer,Device belongsTo Customer,"⚠ object property `belongsToCluster` used with domain Device, range Customer; terminology has domain VirtualNode, range Cluster"
+delta-54,Customer has incentives based on the social interaction and cooperation,Customer subclassOf hasReward only Reward,Customer hasIncentive SocialInteraction Cooperation,⚠ named individual `SocialInteraction` not in terminology; ⚠ named individual `Cooperation` not in terminology
+delta-55,A device can belong to a prosumer or a consumer,"Consumer subclassOf owns some Asset
+Prosumer subclassOf owns some Asset","Device SubClassOf Prosumer
+Device SubClassOf Consumer","⚠ class `Prosumer` is a subclass of Customer, but the test implies direct relationship; ⚠ class `Consumer` is a subclass of Customer"

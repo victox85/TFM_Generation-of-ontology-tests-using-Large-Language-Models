@@ -1,0 +1,92 @@
+Requirement identifier,Competency question,Good test,Generated test,Advises
+PROC-1,A project is related to one or more processes,Project isRelatedToProcess Process;,Project isRelatedToProcess Process,
+PROC-2,"A process can reflect the as-planned original process, the as-planned enriched process and the as-is process","AsIsProcess subClassOf Process;
+AsPlannedEnrichedProcess subClassOf Process;
+AsPlannedOriginalProcess subClassOf Process;","AsPlannedOriginalProcess SubClassOf Process
+AsPlannedEnrichedProcess SubClassOf Process
+AsIsProcess SubClassOf Process",
+PROC-3,"A project includes data about its identifier, name, author, creation date, planned start and end dates, actual start and end dates, time step and time window","Process identifier literal;
+Process title literal;
+Process creator literal;
+Process created dateTime;
+Process plannedStartDate dateTime;
+Process plannedEndDate dateTime;
+Process actualStartDate dateTime;
+Process actualEndDate dateTime;
+Process timeStep integer;
+Process timeWindow integer;","Project identifier literal
+Project title literal
+Project creator literal
+Project created literal
+Project plannedStartDate dateTime
+Project plannedEndDate dateTime
+Project actualStartDate literal
+Project actualEndDate literal
+Project timeStep float
+Project timeWindow float",
+PROC-4,"A process has a cost, which is measured in a certain currency","Process hasCost Cost;
+Cost isMeasuredIn UnitOfCurrency;","Process hasCost float
+Process isMeasuredIn UnitOfCurrency",
+PROC-5,"A task has a cost, which is measured in a certain currency",Task hasCost Cost;,"Task hasCost float
+Task isMeasuredIn UnitOfCurrency",
+PROC-6,A task belongs to a certain process,Task belongsToProcess Process;,Task belongsToProcess Process,
+PROC-7,"A task can add, remove, control or repair elements","Task addsElement Element;
+Task removesElement Element;
+Task controlsElement Element;",Task controlsElement Element,
+PROC-8,"A task includes result, progress and priority information","Task result literal;
+Task progress float;
+Task priority integer;","Task hasResult literal
+Task progress float
+Task priority integer",
+PROC-9,"A task can have a date of creation, of planned and actual beginnings, and of planned and actual ends","Task created dateTime;
+Task plannedStartDate dateTime;
+Task plannedEndDate dateTime;
+Task actualStartDate dateTime;
+Task actualEndDate dateTime;","Task created literal
+Task plannedStartDate dateTime
+Task actualStartDate literal
+Task plannedEndDate dateTime
+Task actualEndDate literal",
+PROC-10,A task can have sub-tasks,Task hasSubTask Task;,Task hasSubTask Task,
+PROC-11,A task can have optimisation-related data: duration,Task duration integer,Task duration float,
+PROC-12,A task can have optimisation-related data: early start and end dates,"Task plannedEarlyStartDate dateTime;
+Task plannedEarlyEndDate dateTime;","Task plannedEarlyStartDate dateTimeStamp
+Task plannedEarlyEndDate dateTimeStamp",
+PROC-13,A task can have optimisation-related data: late start and end dates,"Task plannedLateStartDate dateTime;
+Task plannedLateEndDate dateTime;","Task plannedLateStartDate dateTimeStamp
+Task plannedLateEndDate dateTimeStamp",
+PROC-14,A task can have optimisation-related data: total float/slack,Task totalFloat integer;,Task totalFloat nonNegativeInteger,
+PROC-15,A task can have optimisation-related data: is critical or not,Task isCritical boolean;,Task isCritical boolean,
+PROC-16,A task can have optimisation-related data: crew productivity,Task crewProductivity integer;,Task crewProductivity literal,
+PROC-17,A task can have optimisation-related data: crew number,Task crewNumber integer;,Task crewNumber literal,
+PROC-18,A task can have optimisation-related data: crew productivity penalty,Task crewProductivityPenalty integer;,Task crewProductivityPenalty literal,
+PROC-19,A task can have optimisation-related data: work quantity,Task workQuantity float;,Task workQuantity literal,
+PROC-20,A task can have optimisation-related data: work quantity unit,Task workQuantityUnit literal;,Task workQuantityUnit literal,
+PROC-21,A task can have a description,Task description string;,Task description literal,
+PROC-22,"A tasks can be related to typical construction activities, geometric quality activities, visual quality activities, and safety adding or removing activities","ConstructionTask subClassOf Task;
+GeometricQualityTask subClassOf Task;
+VisualTask subClassOf Task;
+SafetyAddingTask subClassOf Task;
+SafetyRemovingTask subClassOf Task;","TypicalConstructionActivity SubClassOf Task
+GeometricQualityTask SubClassOf Task
+VisualQualityTask SubClassOf Task
+SafetyAddingTask SubClassOf Task
+SafetyRemovingTask SubClassOf Task",⚠ class `TypicalConstructionActivity` not in terminology
+PROC-23,A tasks can have a status,Task status literal;,Task status literal,
+PROC-24,A tasks can have a validation message,Task validationMessage ttring;,Task validationMessage literal,
+PROC-25,A work order is made up of tasks,WorkOrder hasComponentTask Task;,WorkOrder hasComponentTask Task,
+PROC-26,"A work order can have a date of creation, of planned and actual beginnings, and of planned and actual ends","WorkOrder created dataTime;
+WorkOrder plannedStartDate dateTime;
+WorkOrder plannedEndDate dateTime;
+WorkOrder actualStartDate dateTime;
+WorkOrder actualEndDate dateTime;","WorkOrder created literal
+WorkOrder plannedStartDate dateTime
+WorkOrder actualStartDate literal
+WorkOrder plannedEndDate dateTime
+WorkOrder actualEndDate literal",
+PROC-26,A work order has an identifier and a status,"WorkOrder created dataTime;
+WorkOrder plannedStartDate dateTime;
+WorkOrder plannedEndDate dateTime;
+WorkOrder actualStartDate dateTime;
+WorkOrder actualEndDate dateTime;","WorkOrder identifier literal
+WorkOrder status literal",

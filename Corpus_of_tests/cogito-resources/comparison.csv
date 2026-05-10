@@ -1,0 +1,26 @@
+Requirement identifier,Competency question,Good test,Generated test,Advises
+RESO-1,Human workers and equipment are resources,"Worker subClassOf Resource;
+Equipment subClassOf Resource;","Worker SubClassOf Resource
+Equipment SubClassOf Resource",
+RESO-2,A resource belongs to a resource type,Resource belongsToType ResourceType;,Resource belongsToType ResourceType,
+RESO-3,Types of resources include human roles and equipment types,"WorkerRole subClassOf ResourceType;
+EquipmentType subClassOf ResourceType;","WorkerRole SubClassOf ResourceType
+EquipmentType SubClassOf ResourceType",
+RESO-4,A type of resource has an identifier  a name  the maximum quantity and a cost per hour,"ResourceType identifier literal;
+ResourceType title string;
+ResourceType maxUnit integer;
+ResourceType costPerHour float;","ResourceType identifier literal
+ResourceType title string
+ResourceType maxUnit integer
+ResourceType costPerHour float",
+RESO-5,A resource has an identifier and a status,"Resource identifier literal;
+Resource status string;","Resource identifier literal
+Resource status string",
+RESO-6,Human workers have an email  first name and last name  and pieces of equipment have a name,"Worker email string;
+Worker firstName string;
+Worker lastName string;","Worker email literal
+Worker firstName literal
+Worker lastName literal
+Equipment title literal",
+RESO-7,Resources can have a tracking tag assigned,Resource hasTrackingTag TrackingTag;,Resource hasTackingTag TrackingTag,
+RESO-8,A resource can have a tracking tag,,Resource hasTackingTag TrackingTag,

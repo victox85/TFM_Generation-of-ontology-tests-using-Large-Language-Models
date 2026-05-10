@@ -12,8 +12,10 @@ Step 2 — Pick the generated-tests file and click "Send to LM Studio".
 Requires: rdflib  (pip install rdflib)
 """
 
+import difflib
 import json
 import os
+import subprocess
 import threading
 import urllib.error
 import urllib.request
@@ -23,6 +25,25 @@ from tkinter import filedialog, messagebox, scrolledtext
 from rdflib import Graph, RDF, RDFS, OWL, XSD
 from rdflib.namespace import SKOS
 from rdflib.term import URIRef, BNode
+
+
+def _get_lm_studio_url(port: int = 1234) -> str:
+    """Resolve correct LM Studio host: Windows IP when running inside WSL2."""
+    try:
+        with open("/proc/version") as f:
+            if "microsoft" in f.read().lower():
+                result = subprocess.run(
+                    ["ip", "route", "show"],
+                    capture_output=True, text=True, timeout=2
+                )
+                for line in result.stdout.splitlines():
+                    if line.startswith("default"):
+                        host_ip = line.split()[2]
+                        return f"http://{host_ip}:{port}/v1/chat/completions"
+    except Exception:
+        pass
+    return f"http://127.0.0.1:{port}/v1/chat/completions"
+
 
 # ── LM Studio settings ────────────────────────────────────────────────────────
 LM_STUDIO_URL  = "http://127.0.0.1:1234/v1/chat/completions"
@@ -103,7 +124,12 @@ Use the Themis pattern to know each token's role:
 
 ---
 
-## Resolution procedure — silent unless genuinely off
+## Resolution procedure — semantic-first, silent unless genuinely off
+
+**Primary goal: find the correct terminology term semantically.** Before
+declaring a token "not found", exhaustively search the terminology for any
+entry that expresses the same concept, relationship, or entity — even if
+the name differs considerably. Only alert when no semantic match exists.
 
 For each token, walk this list and stop at the first hit:
 
@@ -126,16 +152,35 @@ For each token, walk this list and stop at the first hit:
    matches that signature).
    → **Silently rewrite** to the terminology's property name. No alert.
 
-5. **LEXICAL near-match with strong evidence** — singular/plural,
-   obvious abbreviation, or a clear synonym, AND no other candidate
-   competes. Be conservative: only commit if you would bet on it.
-   → **Silently rewrite**. No alert.
+5. **SEMANTIC EQUIVALENCE** — the token is not literally present in the
+   terminology, but a terminology entry represents the **same concept**:
+   a synonym, a near-synonym, a domain-specific rephrasing, or a concept
+   that is normally expressed by this word in this ontology's domain.
+   This step must be applied **aggressively before alerting**.
 
-6. **LEXICAL weak or ambiguous** — some string similarity but multiple
-   plausible candidates, or similarity without supporting evidence.
-   → **Do not rewrite.** Alert as "not found" with a suggestion.
+   Strategy:
+   - Consider what real-world concept the token names.
+   - Scan **all** terminology entries of the appropriate kind for any
+     that could represent that concept in the context of this ontology.
+   - If the token is a verb or relationship (property), look for a
+     terminology property whose semantics covers the same action or
+     association, even if the surface form is very different
+     (e.g., `contains` → `definesRule`, `assigns` → `hasAssignment`).
+   - If the token is a noun (class or individual), look for a terminology
+     class or individual that represents the same real-world entity or
+     category (e.g., `Worker` → `Employee`, `Device` → `Sensor`).
+   - If only one terminology entry is plausible and no other candidate
+     competes, commit to it.
 
-7. **NONE** — nothing plausible in the terminology.
+   → **Silently rewrite** to the semantically equivalent term. No alert.
+
+6. **LEXICAL near-match, ambiguous** — high string similarity but
+   multiple plausible candidates, or weak semantic evidence.
+   → **Silently rewrite** to the best candidate if the match is
+   reasonably clear. Alert with a suggestion only if genuinely ambiguous.
+
+7. **NONE** — after exhaustive semantic search, nothing in the
+   terminology represents this concept.
    → **Alert**: `⚠ <kind> `<n>` not in terminology`.
 
 ## Structural checks — always alert (never silently "fix")
@@ -211,7 +256,7 @@ Policy definesRule Rule
 
 ---
 
-### Example B — Shape match → silent rewrite
+### Example B — Semantic equivalence + shape match → silent rewrite
 Input:
 ```
 // REQ-2 — A policy contains rules
@@ -222,8 +267,11 @@ Output:
 // REQ-2 — A policy contains rules
 Policy definesRule Rule
 ```
-(`containsRule` silently rewritten to `definesRule` because that is the
-only property in the terminology with domain Policy, range Rule.)
+(`containsRule` silently rewritten to `definesRule`: semantically, "contains
+rules" and "defines rules" express the same ontological relationship in
+this domain; additionally, `definesRule` is the only property in the
+terminology with domain Policy, range Rule — both semantic and shape
+evidence converge.)
 
 ---
 
@@ -442,7 +490,15 @@ def xsd_label(uri) -> str:
 
 def extract_terminology(ontology_path: str) -> dict:
     g = Graph()
-    g.parse(ontology_path)
+    with open(ontology_path, "rb") as _f:
+        _header = _f.read(512).lstrip()
+    if _header.startswith(b"<?xml") or _header.startswith(b"<rdf:"):
+        _fmt = "xml"
+    elif _header.startswith(b"{"):
+        _fmt = "json-ld"
+    else:
+        _fmt = None  # let rdflib detect from extension
+    g.parse(ontology_path, format=_fmt)
 
     # Classes
     classes = {}
@@ -625,6 +681,84 @@ def split_test_chunks(tests_content: str, chunk_size: int = CHUNK_SIZE) -> list:
     return chunks if chunks else [tests_content]
 
 
+# ── Similarity pre-processing ─────────────────────────────────────────────────
+
+SIMILARITY_THRESHOLD = 0.82   # tokens scoring above this are silently replaced
+
+_THEMIS_KEYWORDS = {
+    "type", "Class", "Property", "SubClassOf", "some", "only",
+    "min", "max", "exactly", "disjointWith", "equivalentTo",
+    "characteristic", "symmetricProperty", "domain", "range",
+    "literal", "string", "integer", "float", "double", "decimal",
+    "boolean", "date", "dateTime", "time", "anyURI",
+}
+
+
+def _term_candidates(terminology: dict) -> list[tuple[str, str]]:
+    """All (canonical_name, kind) pairs from a terminology dict."""
+    out = []
+    for n in terminology["classes"]:
+        out.append((n, "class"))
+    for n in terminology["object_properties"]:
+        out.append((n, "object_property"))
+    for n in terminology["data_properties"]:
+        out.append((n, "data_property"))
+    for n in terminology["individuals"]:
+        out.append((n, "individual"))
+    return out
+
+
+def _str_similarity(a: str, b: str) -> float:
+    return difflib.SequenceMatcher(None, a.lower(), b.lower()).ratio()
+
+
+def _best_term_match(token: str, candidates: list[tuple[str, str]],
+                     threshold: float) -> str | None:
+    """Return the canonical name whose similarity to *token* exceeds *threshold*.
+
+    Returns None when the token already matches exactly or no candidate
+    clears the threshold.
+    """
+    for name, _ in candidates:
+        if name == token:
+            return None  # exact match — nothing to replace
+    best_name, best_score = None, threshold
+    for name, _ in candidates:
+        score = _str_similarity(token, name)
+        if score > best_score:
+            best_score, best_name = score, name
+    return best_name
+
+
+def preprocess_tests_with_similarity(tests_content: str, terminology: dict,
+                                     threshold: float = SIMILARITY_THRESHOLD) -> str:
+    """Replace tokens in test lines with the closest terminology name when the
+    string similarity exceeds *threshold*.  Comment lines and Themis keywords
+    are left untouched."""
+    candidates = _term_candidates(terminology)
+    result = []
+    for line in tests_content.splitlines():
+        if line.startswith("//") or not line.strip():
+            result.append(line)
+            continue
+        tokens = line.split()
+        new_tokens = []
+        for tok in tokens:
+            if tok in _THEMIS_KEYWORDS:
+                new_tokens.append(tok)
+                continue
+            try:
+                float(tok)
+                new_tokens.append(tok)
+                continue
+            except ValueError:
+                pass
+            replacement = _best_term_match(tok, candidates, threshold)
+            new_tokens.append(replacement if replacement else tok)
+        result.append(" ".join(new_tokens))
+    return "\n".join(result)
+
+
 # ── LM Studio call ────────────────────────────────────────────────────────────
 
 def send_to_lm(terminology_text: str, tests_content: str, tests_filename: str):
@@ -656,6 +790,37 @@ def send_to_lm(terminology_text: str, tests_content: str, tests_filename: str):
         return None, f"Connection error: {e.reason}"
     except Exception as e:
         return None, str(e)
+
+
+def process_ontology_and_tests(ontology_path: str, tests_path: str) -> str:
+    """Extract terminology from ontology, validate tests, return merged LM response."""
+    terminology = extract_terminology(ontology_path)
+    terminology_txt = terminology_to_text(terminology)
+
+    base = os.path.splitext(ontology_path)[0]
+    with open(base + "_terminology.json", "w", encoding="utf-8") as f:
+        json.dump(terminology, f, indent=2, ensure_ascii=False)
+    with open(base + "_terminology.txt", "w", encoding="utf-8") as f:
+        f.write(terminology_txt)
+
+    with open(tests_path, "r", encoding="utf-8", errors="replace") as f:
+        tests_content = f.read()
+
+    tests_content = preprocess_tests_with_similarity(tests_content, terminology)
+
+    tests_filename = os.path.basename(tests_path)
+    chunks = split_test_chunks(tests_content)
+    total = len(chunks)
+
+    results = []
+    for i, chunk in enumerate(chunks, 1):
+        print(f"  Chunk {i}/{total}…")
+        answer, error = send_to_lm(terminology_txt, chunk, tests_filename)
+        if error:
+            raise RuntimeError(f"LM Studio error on chunk {i}: {error}")
+        results.append(answer)
+
+    return "\n\n".join(results)
 
 
 # ── GUI ───────────────────────────────────────────────────────────────────────
@@ -819,6 +984,10 @@ class App(tk.Tk):
         except Exception as e:
             messagebox.showerror("File error", str(e))
             return
+
+        if self._terminology:
+            tests_content = preprocess_tests_with_similarity(
+                tests_content, self._terminology)
 
         tests_filename = os.path.basename(self._tests_path)
         chunks = split_test_chunks(tests_content)
