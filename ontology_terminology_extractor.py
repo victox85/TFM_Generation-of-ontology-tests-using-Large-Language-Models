@@ -27,22 +27,6 @@ from rdflib.namespace import SKOS
 from rdflib.term import URIRef, BNode
 
 
-def _get_lm_studio_url(port: int = 1234) -> str:
-    """Resolve correct LM Studio host: Windows IP when running inside WSL2."""
-    try:
-        with open("/proc/version") as f:
-            if "microsoft" in f.read().lower():
-                result = subprocess.run(
-                    ["ip", "route", "show"],
-                    capture_output=True, text=True, timeout=2
-                )
-                for line in result.stdout.splitlines():
-                    if line.startswith("default"):
-                        host_ip = line.split()[2]
-                        return f"http://{host_ip}:{port}/v1/chat/completions"
-    except Exception:
-        pass
-    return f"http://127.0.0.1:{port}/v1/chat/completions"
 
 
 # ── LM Studio settings ────────────────────────────────────────────────────────
