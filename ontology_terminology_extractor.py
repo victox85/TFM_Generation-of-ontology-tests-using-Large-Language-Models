@@ -391,7 +391,6 @@ Resource status string    // ⚠ class `Resource` not in terminology; ⚠ data p
 4. For each token, run the resolution procedure.
 5. Emit the (possibly rewritten) line, followed by any alerts.
 6. Preserve all original `// REQ-…` comments and blank lines.
-7. At the end, append the SUMMARY block.
 
 ---
 
@@ -401,23 +400,13 @@ Resource status string    // ⚠ class `Resource` not in terminology; ⚠ data p
 <test line 1, possibly rewritten>
 <test line 2, possibly rewritten>    // ⚠ … (only if a real issue)
 <test line 3, possibly rewritten>
-…
 
-// ─── SUMMARY ───────────────────────────────
-// Total test lines checked: N
-// Fully matched (no change needed): N
-// Silently normalised:              N
-// Not-found alerts:                 N
-// Kind-mismatch alerts:             N
-// Domain/range-mismatch alerts:     N
 ```
 
 - "Fully matched" counts lines that needed no rewrite AND had no alert.
 - "Silently normalised" counts lines that were rewritten but had no alert.
 - If a line has both a rewrite (e.g., fixing the property) AND an alert
   (e.g., the class is missing), count it under the alert category only.
-- The summary goes at the very end, separated by one blank line from
-  the last test.
 
 """
 # ─────────────────────────────────────────────────────────────────────────────
