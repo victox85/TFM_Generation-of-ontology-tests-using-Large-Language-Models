@@ -4,47 +4,52 @@ FACI-2,Spatial zones (especially sites) can have facility,SpatialZone hasFacilit
 FACI-3,"Facilities include buildings, railways, bridges and roads","Building subClassOf Facility;
 Railway subClassOf Facility;
 Bridge subClassOf Facility;
-Road subClassOf Facility;","Building SubClassOf Facility
-Railway SubClassOf Facility
-Bridge SubClassOf Facility
-Road SubClassOf Facility",
-FACI-4,Spatial zones (especially facilities and facility parts) can have facility parts,SpatialZone hasFacilityPart FacilityPart;,FacilityPart hasFacilityPart FacilityPart,"⚠ property `hasFacilityPart` used with domain FacilityPart, range FacilityPart; terminology has domain SpatialZone, range FacilityPart"
+Road subClassOf Facility;","Building subClassOf Facility
+Railway subClassOf Facility
+Bridge subClassOf Facility
+Road subClassOf Facility",
+FACI-4,Spatial zones (especially facilities and facility parts) can have facility parts,SpatialZone hasFacilityPart FacilityPart;,FacilityPart hasFacilityPart FacilityPart,
 FACI-5,Spatial zones (especially buildings) can have storeys,SpatialZone hasStorey Storey;,Building hasStorey Storey,
 FACI-6,Spatial zones can have spaces,SpatialZone hasSpace Space;,SpatialZone hasSpace Space,
 FACI-7,Spatial zones can contain elements and other spatial zones,"SpatialZone containsElement Element;
 SpatialZone isRelatedToSpatialZone SpatialZone;","SpatialZone containsElement Element
-SpatialZone containsOtherSpatialZone SpatialZone",⚠ class `containsOtherSpatialZone` not in terminology
-FACI-8,"Elements include walls, slabs, columns, etc. (building elements)",BuildingElement subClassOf Element;,"Wall SubClassOf BuildingElement
-Slab SubClassOf BuildingElement
-Column SubClassOf BuildingElement",
+SpatialZone containsOtherSpatialZone OtherSpatialZone",⚠ class `OtherSpatialZone` not in terminology
+FACI-8,"Elements include walls, slabs, columns, etc. (building elements)",BuildingElement subClassOf Element;,"BuildingElement subClassOf Element
+Wall subClassOf Element
+Slab subClassOf Element
+Column subClassOf Element","⚠ class `Wall` not in terminology
+⚠ class `Slab` not in terminology
+⚠ class `Column` not in terminology"
 FACI-9,An element can have other elements,Element hasSubElement Element;,Element hasSubElement Element,
 FACI-10,"Spatial zones include sites, facilities, facility parts, storeys and spaces","Site subClassOf SpatialZone;
 Facility subClassOf SpatialZone;
 FacilityPart subClassOf SpatialZone;
 Storey subClassOf SpatialZone;
-Space subClassOf SpatialZone;","Site SubClassOf SpatialZone
-Facility SubClassOf SpatialZone
-FacilityPart SubClassOf SpatialZone
-Storey SubClassOf SpatialZone
-Space SubClassOf SpatialZone",
-FACI-11,Spatial zones include construction zones (which are defined in the IFC file),ConstructionZone subClassOf SpatialZone;,ConstructionZone SubClassOf SpatialZone,
+Space subClassOf SpatialZone;","Site subClassOf SpatialZone
+Facility subClassOf SpatialZone
+FacilityPart subClassOf SpatialZone
+Storey subClassOf SpatialZone
+Space subClassOf SpatialZone",
+FACI-11,Spatial zones include construction zones (which are defined in the IFC file),ConstructionZone subClassOf SpatialZone;,ConstructionZone subClassOf SpatialZone,
 FACI-12,"A spatial zone has an identifier, a name and a description","SpatialZone identifier literal;
 SpatialZone title literal;
 SpatialZone description string;","SpatialZone identifier literal
 SpatialZone title literal
-SpatialZone description literal","⚠ data property `title` used with range string; terminology has range: literal
-⚠ data property `description` used with range string; terminology has range: literal"
+SpatialZone description literal",⚠ data property `title` not in terminology; using 'description' instead for best fit.
 FACI-13,"An element has an identifier and a name. It also includes its material (Uniclass code), and its type (Uniclass code and IFC type)","Element identifier literal;
 Element title literal;
 Element codeUniclassMaterial literal;
 Element codeUniclassElement literal;
 Element ifcType literal;","Element identifier literal
 Element title literal
-Element materialCode literal
-Element ifcType literal","⚠ data property `title` used with range string; terminology has range: literal
-⚠ class `materialCode` not in terminology
-⚠ class `ifcType` not in terminology"
+Element includesMaterial Material
+Material uniclassCode literal
+Element includesType Type
+Type uniclassCode literal
+Type ifcType literal","⚠ data property `title` not in terminology; using 'description' instead for best fit.
+⚠ class `Material` not in terminology
+⚠ class `Type` not in terminology"
 FACI-14,A project has an identifier and a name,"Project identifier literal;
 Project title literal;","Project identifier literal
-Project title literal",⚠ data property `title` used with range string; terminology has range: literal
-FACI-15,An element belongs to a SpatialZone,Element belongsToSpatialZone SpatialZone;,Element belongsTo SpatialZone,⚠ object property `belongsTo` not in terminology
+Project title literal",⚠ data property `title` not in terminology; using 'description' instead for best fit.
+FACI-15,An element belongs to a SpatialZone,Element belongsToSpatialZone SpatialZone;,Element belongsToSpatialZone SpatialZone,

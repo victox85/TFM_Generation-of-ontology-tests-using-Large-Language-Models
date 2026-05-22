@@ -1,169 +1,186 @@
 Requirement identifier,Competency question,Good test,Generated test,Advises
 LIFT-19,Signal related to the periodic test run every 72h has been received.,"TimeOfLastPeriodicTest72hAttempt subClassOf BCSSignal
-TimeOfLastPeriodicTest72hAttempt hasValue Time",Signal hasReceivedStatus boolean,⚠ data property `hasReceivedStatus` not in terminology
-LIFT-20,The bidirectional communication system signal has been received.,SmartLiftInstallation receives BCSSignal,Signal hasReceivedStatus boolean,⚠ data property `hasReceivedStatus` not in terminology
+TimeOfLastPeriodicTest72hAttempt hasValue Time",Signal hasReceived PeriodicTestRun,⚠ object property `hasReceived` not in terminology; ⚠ class `PeriodicTestRun` not in terminology
+LIFT-20,The bidirectional communication system signal has been received.,SmartLiftInstallation receives BCSSignal,Signal hasBeenReceived BidirectionalCommunicationSystemSignal,⚠ object property `hasBeenReceived` not in terminology; ⚠ class `BidirectionalCommunicationSystemSignal` not in terminology
 LIFT-23,"The types of signals that can be sent by the Bidirectional Communication System are: timeOfLastPeriodicTest72hAttempt, timeOfConfirmationOfLastPeriodicTest72hAttempt, registeredNetworkOperator, networkQualityRSSI and networkQualityBER","TimeOfLastPeriodicTest72hAttempt subclassOf BCSSignal
 timeOfConfirmationOfLastPeriodicTest72hAttempt subclassOf BCSSignal
 registeredNetworkOperator subclassOf BCSSignal
 networkQualityRSSI subclassOf BCSSignal
-networkQualityBER subclassOf BCSSignal","TimeOfLastPeriodicTest72hAttempt SubClassOf SignalType
-TimeOfConfirmationOfLastPeriodicTest72hAttempt SubClassOf SignalType
-RegisteredNetworkOperator SubClassOf SignalType
-NetworkQualityRSSI SubClassOf SignalType
-NetworkQualityBER SubClassOf SignalType","⚠ class `SignalType` not in terminology; ⚠ class `TimeOfLastPeriodicTest72hAttempt` not in terminology
-⚠ class `SignalType` not in terminology; ⚠ class `TimeOfConfirmationOfLastPeriodicTest72hAttempt` not in terminology
-⚠ class `SignalType` not in terminology; ⚠ class `RegisteredNetworkOperator` not in terminology
-⚠ class `SignalType` not in terminology; ⚠ class `NetworkQualityRSSI` not in terminology
-⚠ class `SignalType` not in terminology; ⚠ class `NetworkQualityBER` not in terminology"
+networkQualityBER subclassOf BCSSignal","BidirectionalCommunicationSystemSignal sendsSignal SignalType
+timeOfLastPeriodicTest72hAttempt type SignalType
+timeOfConfirmationOfLastPeriodicTest72hAttempt type SignalType
+registeredNetworkOperator type SignalType
+networkQualityRSSI type SignalType
+networkQualityBER type SignalType",⚠ object property `sendsSignal` not in terminology; ⚠ class `SignalType` not in terminology
 LIFT-24,"Examples of network technologies supported by the Bidirectional Communication System of the lift are: Fixed_line, 2G, 3G, 4G or 5G","NetworkFixedLine type Network
 Network2G type Network
 Network3G type Network
 Network4G type Network
-Network5G type Network","FixedLine SubClassOf NetworkTechnology
-TwoG SubClassOf NetworkTechnology
-ThreeG SubClassOf NetworkTechnology
-FourG SubClassOf NetworkTechnology
-FiveG SubClassOf NetworkTechnology","⚠ class `NetworkTechnology` not in terminology; ⚠ class `FixedLine` not in terminology
-⚠ class `NetworkTechnology` not in terminology; ⚠ class `TwoG` not in terminology
-⚠ class `NetworkTechnology` not in terminology; ⚠ class `ThreeG` not in terminology
-⚠ class `NetworkTechnology` not in terminology; ⚠ class `FourG` not in terminology
-⚠ class `NetworkTechnology` not in terminology; ⚠ class `FiveG` not in terminology"
-LIFT-34,The lift has a dangerous fault.,DangerousFault subclassof FaultSignal,Lift hasFault DangerousFault,⚠ class `DangerousFault` not in terminology; ⚠ property `hasFault` not in terminology
-LIFT-35,The lift has a minor fault.,MinorFault subclassof FaultSignal,Lift hasFault MinorFault,⚠ class `MinorFault` not in terminology; ⚠ property `hasFault` not in terminology
-LIFT-36,The lift has an audio fault.,AudioFault subclassOf FaultSignal,Lift hasFault AudioFault,⚠ class `AudioFault` not in terminology; ⚠ property `hasFault` not in terminology
+Network5G type Network","NetworkTechnology subClassOf NetworkTechnology
+Fixed_line type NetworkTechnology
+TwoG type NetworkTechnology
+ThreeG type NetworkTechnology
+FourG type NetworkTechnology
+FiveG type NetworkTechnology",⚠ class `NetworkTechnology` not in terminology
+LIFT-34,The lift has a dangerous fault.,DangerousFault subclassof FaultSignal,Lift hasFault DangerousFault,⚠ object property `hasFault` not in terminology; ⚠ class `DangerousFault` not in terminology
+LIFT-35,The lift has a minor fault.,MinorFault subclassof FaultSignal,Lift hasFault MinorFault,⚠ object property `hasFault` not in terminology; ⚠ class `MinorFault` not in terminology
+LIFT-36,The lift has an audio fault.,AudioFault subclassOf FaultSignal,Lift hasFault AudioFault,⚠ object property `hasFault` not in terminology; ⚠ class `AudioFault` not in terminology
 LIFT-46,Alarm button has been pressed.,"AlarmInTheCar subclassOf Alarm
-CarAlarm subclassOf hasValue some boolean",AlarmButtonPress Signal,⚠ class `AlarmButtonPress` not in terminology
+CarAlarm subclassOf hasValue some boolean",AlarmButton hasBeenPressed,⚠ object property `hasBeenPressed` not in terminology; ⚠ class `AlarmButton` not in terminology
 LIFT-47,Alarm has been initiated.,"AlarmInTheCar subclassOf Alarm
-CarAlarm subclassOf hasValue some boolean",AlarmInitiated Signal,⚠ class `AlarmInitiated` not in terminology
-LIFT-48,Alarm voice communication has been activated.,AlarmVoiceCommunication subclassOf Alarm,AlarmVoiceCommunicationActivated Signal,⚠ class `AlarmVoiceCommunicationActivated` not in terminology
-LIFT-49,Alarm in the well is active.,AlarmInTheWell subclassOf Alarm,WellAlarmActive Signal,⚠ class `WellAlarmActive` not in terminology
-LIFT-50,Alarm in the machinery is active.,AlarmInTheMachinery subclassOf Alarm,MachineryAlarmActive Signal,⚠ class `MachineryAlarmActive` not in terminology
-LIFT-51,Flood alarm is active.,FloodAlarm subclassOf Alarm,FloodAlarmActive Signal,⚠ class `FloodAlarmActive` not in terminology
-LIFT-52,Emergency power alarm is active.,EmergencyPowerAlarm subclassOf Alarm,EmergencyPowerAlarmActive Signal,⚠ class `EmergencyPowerAlarmActive` not in terminology
-LIFT-53,A lift sends commands,Function hasCommand Command,Lift sendsCommand Command,⚠ property `sendsCommand` not in terminology; ⚠ class `Command` not in terminology
-LIFT-54,A command can call to a specific floor.,CallCarToSpecificFloorCommand a Command,Command callsToFloor Floor,⚠ class `Command` not in terminology; ⚠ class `Floor` not in terminology
+CarAlarm subclassOf hasValue some boolean",Alarm hasBeenInitiated,⚠ object property `hasBeenInitiated` not in terminology; ⚠ class `Alarm` not in terminology
+LIFT-48,Alarm voice communication has been activated.,AlarmVoiceCommunication subclassOf Alarm,AlarmVoiceCommunication hasBeenActivated,⚠ object property `hasBeenActivated` not in terminology; ⚠ class `AlarmVoiceCommunication` not in terminology
+LIFT-49,Alarm in the well is active.,AlarmInTheWell subclassOf Alarm,WellAlarm active,"⚠ object property `active` used with domain WellAlarm, range literal; terminology has no such property"
+LIFT-50,Alarm in the machinery is active.,AlarmInTheMachinery subclassOf Alarm,MachineryAlarm active,"⚠ object property `active` used with domain MachineryAlarm, range literal; terminology has no such property"
+LIFT-51,Flood alarm is active.,FloodAlarm subclassOf Alarm,FloodAlarm active,"⚠ object property `active` used with domain FloodAlarm, range literal; terminology has no such property"
+LIFT-52,Emergency power alarm is active.,EmergencyPowerAlarm subclassOf Alarm,EmergencyPowerAlarm active,"⚠ object property `active` used with domain EmergencyPowerAlarm, range literal; terminology has no such property"
+LIFT-53,A lift sends commands,Function hasCommand Command,Lift sendsCommand Command,⚠ object property `sendsCommand` not in terminology; ⚠ class `Command` not in terminology
+LIFT-54,A command can call to a specific floor.,CallCarToSpecificFloorCommand a Command,Command callsFloor Floor,⚠ object property `callsFloor` not in terminology; ⚠ class `Floor` not in terminology
 LIFT-55,A command can send a car to a specific floor.,SendCarToSpecificServiceCommand a Command,Command sendsCarTo Floor,⚠ class `Command` not in terminology; ⚠ class `Floor` not in terminology
-LIFT-56,A command can set the lift to out of service.,SmartLiftInstallationCommand hasDoorOpenTime Time,Command setsLiftOutOfService ServiceStatus,⚠ class `Command` not in terminology; ⚠ class `ServiceStatus` not in terminology
-LIFT-59,A command can test the emergency number.,TestEmergencyNumberCommand a Command,Command testsEmergencyNumber TestAction,⚠ class `Command` not in terminology; ⚠ class `TestAction` not in terminology
-LIFT-60,A command can test the ride,TestRideCommand a Command,Command testsRide RideTest,⚠ class `Command` not in terminology; ⚠ class `RideTest` not in terminology
-LIFT-61,A command can start the real time mode,SetRealTimeModeCommand a Command,Command startsRealTimeMode RealTimeMode,⚠ class `Command` not in terminology; ⚠ class `RealTimeMode` not in terminology
-LIFT-64,A command can initiate the board reset,BoardResetCommand a Command,Command initiatesBoardReset BoardReset,⚠ class `Command` not in terminology; ⚠ class `BoardReset` not in terminology
-LIFT-65,"There are four emergency battery power status: good, warn, critical and insufficient",EmergencyPowerSupplySignal subClassOf hasValue some string,Good SubClassOf EmergencyBatteryPowerStatus,⚠ class `EmergencyBatteryPowerStatus` not in terminology
-LIFT-66,"There are four alarm SOS battery power status: good, warn, critical and insufficient",StandardEmergencyPowerSupplySignal subClassOf hasValue some string,Good SubClassOf AlarmSOSBatteryPowerStatus,⚠ class `AlarmSOSBatteryPowerStatus` not in terminology
-LIFT-67,A Smart Lift Installation is contained into a Smart Lift System,SmartLiftInstallation hasSubsystem SmartLiftInstallation,SmartLiftInstallation containsIn SmartLiftSystem,"⚠ object property `containsIn` used with domain SmartLiftInstallation, range SmartLiftSystem; terminology has no such property."
+LIFT-56,A command can set the lift to out of service.,SmartLiftInstallationCommand hasDoorOpenTime Time,Command setsLiftServiceStatus OutOfService,⚠ class `Command` not in terminology; ⚠ class `OutOfService` not in terminology
+LIFT-59,A command can test the emergency number.,TestEmergencyNumberCommand a Command,Command testsEmergencyNumber,⚠ class `Command` not in terminology
+LIFT-61,A command can start the real time mode,SetRealTimeModeCommand a Command,Command startsRealTimeMode,⚠ class `Command` not in terminology; ⚠ class `RealTimeMode` not in terminology
+LIFT-64,A command can initiate the board reset,BoardResetCommand a Command,Command initiatesBoardReset,⚠ class `Command` not in terminology; ⚠ class `BoardReset` not in terminology
+LIFT-65,"There are four emergency battery power status: good, warn, critical and insufficient",EmergencyPowerSupplySignal subClassOf hasValue some string,"Good type BatteryPowerStatus
+Warn type BatteryPowerStatus
+Critical type BatteryPowerStatus
+Insufficient type BatteryPowerStatus","⚠ class `BatteryPowerStatus` not in terminology
+⚠ class `BatteryPowerStatus` not in terminology
+⚠ class `BatteryPowerStatus` not in terminology
+⚠ class `BatteryPowerStatus` not in terminology"
+LIFT-66,"There are four alarm SOS battery power status: good, warn, critical and insufficient",StandardEmergencyPowerSupplySignal subClassOf hasValue some string,"Good type AlarmSOSBatteryPowerStatus
+Warn type AlarmSOSBatteryPowerStatus
+Critical type AlarmSOSBatteryPowerStatus
+Insufficient type AlarmSOSBatteryPowerStatus","⚠ class `AlarmSOSBatteryPowerStatus` not in terminology
+⚠ class `AlarmSOSBatteryPowerStatus` not in terminology
+⚠ class `AlarmSOSBatteryPowerStatus` not in terminology
+⚠ class `AlarmSOSBatteryPowerStatus` not in terminology"
+LIFT-67,A Smart Lift Installation is contained into a Smart Lift System,SmartLiftInstallation hasSubsystem SmartLiftInstallation,SmartLiftInstallation containsSystem SmartLiftSystem,"⚠ object property `containsSystem` used with domain SmartLiftInstallation, range SmartLiftSystem; terminology has no such property."
 LIFT-68,A Smart Lift Edge Control Unit hosts the different Smart Lift modules,SmartLiftInstallation hasSubsystem SmartLiftEdgeControlUnit,SmartLiftEdgeControlUnit hostsModule SmartLiftModule,"⚠ object property `hostsModule` used with domain SmartLiftEdgeControlUnit, range SmartLiftModule; terminology has no such property."
 LIFT-69,Examples of Smart Lift modules are signals or bidirectional communication systems,"Signal subClassOf SmartLiftmodule
-BidirectionalCommunicationSystem subClassOf SmartLiftmodule","Signal SubClassOf SmartLiftModule
-BidirectionalCommunicationSystem SubClassOf SmartLiftModule","⚠ class `SmartLiftModule` not in terminology
+BidirectionalCommunicationSystem subClassOf SmartLiftmodule","Signal subClassOf SmartLiftModule
+BidirectionalCommunicationSystem subClassOf SmartLiftModule","⚠ class `SmartLiftModule` not in terminology
 ⚠ class `SmartLiftModule` not in terminology"
-LIFT-70,Each Smart Lift Installation should be globally and uniquely identified,SmartLiftInstallation type Class,SmartLiftInstallation identifier literal,"⚠ data property `identifier` used with domain SmartLiftInstallation, range literal; terminology has no such data property."
-LIFT-71,Each Smart Lifts Group should be globally and uniquely identified,SmartLiftsGroup type Class,SmartLiftGroup identifier literal,"⚠ data property `identifier` used with domain SmartLiftGroup, range literal; terminology has no such data property."
-LIFT-77,A lift is installed in a geographic location,SmartLiftInstallation hasGeometry Point,Lift hasLocation Location,"⚠ class `Lift` not in terminology; ⚠ object property `hasLocation` used with domain Lift, range Location; terminology has no such property."
-LIFT-78,The lift geographic location is provided by the geographic location validator,SmartLiftInstallation subclassOf hasLocationValidator only string,Location providedBy GeoLocationValidator,⚠ class `GeoLocationValidator` not in terminology
+LIFT-70,Each Smart Lift Installation should be globally and uniquely identified,SmartLiftInstallation type Class,SmartLiftInstallation type Class,"No change, no alert"
+LIFT-71,Each Smart Lifts Group should be globally and uniquely identified,SmartLiftsGroup type Class,SmartLiftGroup type Class,"No change, no alert"
+LIFT-77,A lift is installed in a geographic location,SmartLiftInstallation hasGeometry Point,Lift hasLocation GeographicLocation,"⚠ object property `hasLocation` used with domain Lift, range GeographicLocation; terminology has no such property."
+LIFT-78,The lift geographic location is provided by the geographic location validator,SmartLiftInstallation subclassOf hasLocationValidator only string,GeographicLocation providedBy hasGeographicLocationValidator,⚠ data property `providedBy` not in terminology
 LIFT-79,"Examples of types of use of a lift are: Lift, Goods lift, Goods only lift, or Fireman lift","GoodsLift a DeviceKind
 GoodsOnlyLift a DeviceKind
-FiremanLift a DeviceKind","LiftUse SubClassOf Signal
-GoodsLift SubClassOf Signal
-GoodsOnlyLift SubClassOf Signal
-FiremanLift SubClassOf Signal","⚠ class `LiftUse` not in terminology; ⚠ class `Signal` is used as superclass for usage types, but no specific type found.
-⚠ class `GoodsLift` not in terminology; ⚠ class `Signal` is used as superclass for usage types, but no specific type found.
-⚠ class `GoodsOnlyLift` not in terminology; ⚠ class `Signal` is used as superclass for usage types, but no specific type found.
-⚠ class `FiremanLift` not in terminology; ⚠ class `Signal` is used as superclass for usage types, but no specific type found."
+FiremanLift a DeviceKind","LiftUse subClassOf LiftPurpose
+GoodsLift subClassOf LiftPurpose
+GoodsOnlyLift subClassOf LiftPurpose
+FiremanLift subClassOf LiftPurpose","⚠ class `LiftUse` not in terminology; ⚠ class `LiftPurpose` not in terminology
+⚠ class `GoodsLift` not in terminology
+⚠ class `GoodsOnlyLift` not in terminology
+⚠ class `FiremanLift` not in terminology"
 LIFT-1,"Which is the car position? (Floor Number i.e.: -2, -1, 0, 1,...)","CurrentCarStop subClassOf CarSignal
-CurrentCarStop subclassOf hasValue some integer","CurrentCarStop SubClassOf Signal
-CurrentCarStop SubClassOf hasValue some integer","⚠ class `CurrentCarStop` not in terminology; ⚠ class `Signal` is used as superclass for status signals, but no specific type found."
+CurrentCarStop subclassOf hasValue some integer","CurrentCarStop SubClassOf CarSignal
+CurrentCarStop SubClassOf hasValue some integer","⚠ class `CurrentCarStop` not in terminology; ⚠ class `CarSignal` not in terminology
+⚠ class `CurrentCarStop` not in terminology"
 LIFT-2,Is the lift direction upward? Yes/No,"MovingUpwardDirection subClassOf CarSignal
-MovingUpwardDirection subclassOf hasValue some boolean","MovingUpwardDirection SubClassOf Signal
-MovingUpwardDirection SubClassOf hasValue some boolean","⚠ class `MovingUpwardDirection` not in terminology; ⚠ class `Signal` is used as superclass for status signals, but no specific type found."
+MovingUpwardDirection subclassOf hasValue some boolean","MovingUpwardDirection SubClassOf AlarmSignal
+MovingUpwardDirection SubClassOf hasAlarmMonitoringCentre some boolean",
 LIFT-3,Is the lift direction downward? Yes/No,"MovingDownwardDirection subClassOf CarSignal
-MovingDownwardDirection subclassOf hasValue some boolean","MovingDownwardDirection SubClassOf Signal
-MovingDownwardDirection SubClassOf hasValue some boolean","⚠ class `MovingDownwardDirection` not in terminology; ⚠ class `Signal` is used as superclass for status signals, but no specific type found."
+MovingDownwardDirection subclassOf hasValue some boolean","MovingDownwardDirection SubClassOf AlarmSignal
+MovingDownwardDirection SubClassOf hasAlarmMonitoringCentre some boolean",
 LIFT-4,Is the car in an unlocking zone? Yes/No,"CarInUnlockingZone subClassOf CarSignal
-CarInUnlockingZone subclassOf hasValue some boolean","InUnlockingZoneStatus SubClassOf Signal
-InUnlockingZoneStatus SubClassOf hasValue some boolean","⚠ class `InUnlockingZoneStatus` not in terminology; ⚠ class `Signal` is used as superclass for status signals, but no specific type found."
+CarInUnlockingZone subclassOf hasValue some boolean","CarInUnlockingZone SubClassOf AlarmSignal
+CarInUnlockingZone SubClassOf hasAlarmMonitoringCentre some boolean",
 LIFT-5,Is there a test ride in execution? Yes/No,"TestRide subClassOf CarSignal
-TestRide subclassOf hasValue some boolean","TestRideInProgress SubClassOf Signal
-TestRideInProgress SubClassOf hasValue some boolean","⚠ class `TestRideInProgress` not in terminology; ⚠ class `Signal` is used as superclass for status signals, but no specific type found."
-LIFT-6,Is there any fault? Yes/No,FaultSignal type Class,"FaultDetectedStatus SubClassOf Signal
-FaultDetectedStatus SubClassOf hasValue some boolean","⚠ class `FaultDetectedStatus` not in terminology; ⚠ class `Signal` is used as superclass for status signals, but no specific type found."
+TestRide subclassOf hasValue some boolean","TestRide SubClassOf AlarmSignal
+TestRide SubClassOf hasAlarmMonitoringCentre some boolean",
+LIFT-6,Is there any fault? Yes/No,FaultSignal type Class,"FaultDetected SubClassOf FaultSignal
+FaultDetected SubClassOf hasAlarmMonitoringCentre some boolean",
 LIFT-7,Is the lift out of service? Yes/No,"OutOfService subClassOf CarSignal
-OutOfService subclassOf hasValue some boolean","OutOfServiceStatus SubClassOf Signal
-OutOfServiceStatus SubClassOf hasValue some boolean","⚠ class `OutOfServiceStatus` not in terminology; ⚠ class `Signal` is used as superclass for status signals, but no specific type found."
+OutOfService subclassOf hasValue some boolean","OutOfService SubClassOf AlarmSignal
+OutOfService SubClassOf hasAlarmMonitoringCentre some boolean",
 LIFT-8,Is the lift overloaded? Yes/No,"OutOfService subClassOf CarSignal
-OutOfService subclassOf hasValue some boolean","OverloadedStatus SubClassOf Signal
-OverloadedStatus SubClassOf hasValue some boolean","⚠ class `OverloadedStatus` not in terminology; ⚠ class `Signal` is used as superclass for status signals, but no specific type found."
+OutOfService subclassOf hasValue some boolean","Overload SubClassOf AlarmSignal
+Overload SubClassOf hasAlarmMonitoringCentre some boolean",
 LIFT-9,Are there ongoing inspection operations? Yes/No,"Overload subClassOf CarSignal
-Overload subclassOf hasValue some boolean","InspectionOperationInProgress SubClassOf Signal
-InspectionOperationInProgress SubClassOf hasValue some boolean","⚠ class `InspectionOperationInProgress` not in terminology; ⚠ class `Signal` is used as superclass for status signals, but no specific type found."
+Overload subclassOf hasValue some boolean","InspectionOperation SubClassOf AlarmSignal
+InspectionOperation SubClassOf hasAlarmMonitoringCentre some boolean",
 LIFT-10,Are there fire operations? Yes/No,"InspectionOperation subClassOf CarSignal
-InspectionOperation subclassOf hasValue some boolean","FireOperationActiveStatus SubClassOf Signal
-FireOperationActiveStatus SubClassOf hasValue some boolean","⚠ class `FireOperationActiveStatus` not in terminology; ⚠ class `Signal` is used as superclass for status signals, but no specific type found."
+InspectionOperation subclassOf hasValue some boolean","FireOperation SubClassOf AlarmSignal
+FireOperation SubClassOf hasAlarmMonitoringCentre some boolean",
 LIFT-11,Is the car alarm activated? Yes/No,"FireOperation subClassOf CarSignal
-FireOperation subclassOf hasValue some boolean","CarAlarmActivatedStatus SubClassOf Signal
-CarAlarmActivatedStatus SubClassOf hasValue some boolean","⚠ class `CarAlarmActivatedStatus` not in terminology; ⚠ class `Signal` is used as superclass for status signals, but no specific type found."
+FireOperation subclassOf hasValue some boolean","CarAlarm SubClassOf AlarmSignal
+CarAlarm SubClassOf hasAlarmMonitoringCentre some boolean",
 LIFT-12,Is the car empty? Yes/No,"CarAlarm subClassOf CarSignal
-CarAlarm subclassOf hasValue some boolean","CarEmptyStatus SubClassOf Signal
-CarEmptyStatus SubClassOf hasValue some boolean","⚠ class `CarEmptyStatus` not in terminology; ⚠ class `Signal` is used as superclass for status signals, but no specific type found."
+CarAlarm subclassOf hasValue some boolean","CarEmpty SubClassOf AlarmSignal
+CarEmpty SubClassOf hasAlarmMonitoringCentre some boolean",
 LIFT-13,What is the limit load of the lift? 90 kg,"CarEmpty subClassOf CarSignal
-CarEmpty subclassOf hasValue some boolean","Lift hasProperty LoadCapacityProperty
-LoadCapacityType type LoadCapacityProperty",⚠ class `Lift` not in terminology; ⚠ property `hasProperty` not in terminology; ⚠ data property `LoadCapacityProperty` not in terminology
-LIFT-14,What is the power supply voltage of a lift? 380 volts,SmartLiftInstallation hasLimitLoad Load,"Lift hasProperty PowerSupplyVoltageProperty
-PowerSupplyVoltageType type PowerSupplyVoltageProperty",⚠ class `Lift` not in terminology; ⚠ property `hasProperty` not in terminology; ⚠ data property `PowerSupplyVoltageProperty` not in terminology
-LIFT-15,What is the value of the standard power supply of a lift? 12 volts,SmartLiftInstallation hasPowerSupply Power,"Lift hasProperty StandardPowerSupplyProperty
-hasStandardPowerSupply type StandardPowerSupplyProperty",⚠ class `Lift` not in terminology; ⚠ property `hasProperty` not in terminology; ⚠ data property `StandardPowerSupplyProperty` not in terminology
+CarEmpty subclassOf hasValue some boolean","SmartLiftInstallation hasProperty core:Property
+LimitLoad type core:Property",⚠ property `core:Property` not in terminology; ⚠ class `core:Property` not in terminology
+LIFT-14,What is the power supply voltage of a lift? 380 volts,SmartLiftInstallation hasLimitLoad Load,"SmartLiftInstallation hasProperty core:Property
+PowerSupplyVoltage type core:Property",⚠ property `core:Property` not in terminology; ⚠ class `core:Property` not in terminology
+LIFT-15,What is the value of the standard power supply of a lift? 12 volts,SmartLiftInstallation hasPowerSupply Power,"SmartLiftInstallation hasProperty core:Property
+StandardPowerSupplyVoltage type core:Property",⚠ property `core:Property` not in terminology; ⚠ class `core:Property` not in terminology
 LIFT-16,How many car stops has the lift? 8,SmartLiftInstallation hasStandardPowerSupply Power,SmartLiftInstallation SubClassOf hasStops only integer,
-LIFT-17,How many doors are installed in the lift? 2,SmartLiftInstallation subClassOf hasCarStops only integer,SmartLiftInstallation SubClassOf hasDoors only integer,⚠ Data Property `hasDoorsCount` not in terminology; ⚠ Data Property `hasServicesAvailable` not in terminology
+LIFT-17,How many doors are installed in the lift? 2,SmartLiftInstallation subClassOf hasCarStops only integer,SmartLiftInstallation SubClassOf hasDoors only integer,
 LIFT-18,How many car services are available in the lift? 8,SmartLiftInstallation subClassOf hasDoorsStatus some boolean,SmartLiftInstallation SubClassOf hasCarServices only integer,
-LIFT-21,Which is the network coverage? 87%,NetworkCoverage isMeasuredIn UnitOfMeasure,NetworkCoverage type StatisticSignal,⚠ class `NetworkCoverage` not in terminology; ⚠ data property `isMeasuredIn` not in terminology; ⚠ class `UnitOfMeasure` not in terminology
+LIFT-21,Which is the network coverage? 87%,NetworkCoverage isMeasuredIn UnitOfMeasure,"NetworkCoverage SubClassOf AlarmSignal
+NetworkCoverage SubClassOf hasValue some float",⚠ class `AlarmSignal` not in terminology; ⚠ data property `hasValue` not in terminology
 LIFT-22,Which is the home network operator of the lift? 289-88,"RegisteredNetworkOperator subclassOf BCSSignal
-RegisteredNetworkOperator subclassOf hasValue some string",Lift hasLegalOwner literal,⚠ class `Lift` not in terminology; ⚠ data property `hasHomeOperator` not in terminology
+RegisteredNetworkOperator subclassOf hasValue some string","HomeOperatorIdentifier SubClassOf AlarmSignal
+HomeOperatorIdentifier SubClassOf hasValue some string",⚠ class `AlarmSignal` not in terminology; ⚠ data property `hasValue` not in terminology
 LIFT-25,Which is the telephone number of the lift? 85-755-28568888.,SmartLiftInstallation subClassOf hasTelephoneNumber some string,SmartLiftInstallation SubClassOf hasTelephoneNumber some string,
-LIFT-26,"Which are the secondary emergency numbers of the lift? 85-755-28568889, 85-755-28568890, 85-755-28568891",SmartLiftInstallation subClassOf hasSecondaryEmergencyTelephoneNumber only string,SmartLiftInstallation hasSecondaryEmergencyTelephoneNumber some string,
+LIFT-26,"Which are the secondary emergency numbers of the lift? 85-755-28568889, 85-755-28568890, 85-755-28568891.",SmartLiftInstallation subClassOf hasSecondaryEmergencyTelephoneNumber only string,SmartLiftInstallation SubClassOf hasSecondaryEmergencyTelephoneNumber only string,
 LIFT-27,Is the emergency power supply signal active? Yes/No,"EmergencyPowerSupplySignal subClassOf Signal
-EmergencyPowerSupplySignal subclassOf hasValue some boolean",ActiveEmergencyPower SubClassOf AlarmSignal,"⚠ class `ActiveEmergencyPower` not in terminology; ⚠ object property `hasValue` used with domain ActiveEmergencyPower, range some boolean; terminology has domain: —, range: —"
+EmergencyPowerSupplySignal subclassOf hasValue some boolean","EmergencyPowerSupplyActive SubClassOf FaultSignal
+EmergencyPowerSupplyActive SubClassOf hasValue some boolean",⚠ class `FaultSignal` not in terminology; ⚠ data property `hasValue` not in terminology
 LIFT-28,Is the standard power supply signal active? Yes/No,"StandardEmergencyPowerSupplySignal subClassOf Signal
-StandardEmergencyPowerSupplySignal subclassOf hasValue some boolean",ActiveStandardPower SubClassOf AlarmSignal,"⚠ class `ActiveStandardPower` not in terminology; ⚠ object property `hasValue` used with domain ActiveStandardPower, range some boolean; terminology has domain: —, range: —"
-LIFT-29,Which is the voltage of emergency power?  330 volts,SmartLiftInstallation hasPowerSupply Power,EmergencyVoltage type MeasuredValue,⚠ class `EmergencyVoltage` not in terminology; ⚠ data property `isMeasuredIn` not in terminology; ⚠ class `MeasuredValue` not in terminology
+StandardEmergencyPowerSupplySignal subclassOf hasValue some boolean","StandardPowerSupplyActive SubClassOf StatusSignal
+StandardPowerSupplyActive SubClassOf hasValue some boolean",⚠ class `StatusSignal` not in terminology; ⚠ data property `hasValue` not in terminology
+LIFT-29,Which is the voltage of emergency power?  330 volts,SmartLiftInstallation hasPowerSupply Power,"EmergencyVoltage SubClassOf FaultSignal
+EmergencyVoltage SubClassOf hasValue some float",⚠ class `FaultSignal` not in terminology; ⚠ data property `hasValue` not in terminology
 LIFT-30,Is the lift out of service? Yes/No,"OutOfService subclassOf CarSignal
-OutOfService subclassOf hasValue some boolean",OutOfServiceStatus SubClassOf StatusSignal,"⚠ class `OutOfServiceStatus` not in terminology; ⚠ object property `hasValue` used with domain OutOfServiceStatus, range some boolean; terminology has domain: —, range: —"
+OutOfService subclassOf hasValue some boolean","OutOfService SubClassOf StatusSignal
+OutOfService SubClassOf hasValue some boolean",⚠ class `StatusSignal` not in terminology; ⚠ data property `hasValue` not in terminology
 LIFT-31,Is the lift overloaded? Yes/No,"Overload subClassOf CarSignal
-Overload subclassOf hasValue some boolean",OverloadedStatus SubClassOf StatusSignal,"⚠ class `OverloadedStatus` not in terminology; ⚠ object property `hasValue` used with domain OverloadedStatus, range some boolean; terminology has domain: —, range: —"
+Overload subclassOf hasValue some boolean","Overload SubClassOf StatusSignal
+Overload SubClassOf hasValue some boolean",⚠ class `StatusSignal` not in terminology; ⚠ data property `hasValue` not in terminology
 LIFT-32,Are there ongoing inspection operations? Yes/No,"InspectionOperation subClassOf Signal
-InspectionOperation subclassOf hasValue some boolean",InspectionOperationStatus SubClassOf StatusSignal,"⚠ class `InspectionOperationStatus` not in terminology; ⚠ object property `hasValue` used with domain InspectionOperationStatus, range some boolean; terminology has domain: —, range: —"
+InspectionOperation subclassOf hasValue some boolean","InspectionOperation SubClassOf StatusSignal
+InspectionOperation SubClassOf hasValue some boolean",⚠ class `StatusSignal` not in terminology; ⚠ data property `hasValue` not in terminology
 LIFT-33,Are there fire operations? Yes/No,"FireOperation subClassOf CarSignal
-FireOperation subclassOf hasValue some boolean",FireOperationStatus SubClassOf AlarmSignal,"⚠ class `FireOperationStatus` not in terminology; ⚠ object property `hasValue` used with domain FireOperationStatus, range some boolean; terminology has domain: —, range: —"
+FireOperation subclassOf hasValue some boolean","FireOperation SubClassOf AlarmSignal
+FireOperation SubClassOf hasValue some boolean",⚠ class `AlarmSignal` not in terminology; ⚠ data property `hasValue` not in terminology
 LIFT-37,How many times the lift has been called? 245,"NumberOfCalls subClassOf StatisticSignal
-NumberOfCalls subclassOf hasValue some integer",LiftCallCount SubClassOf StatisticSignal,"⚠ class `LiftCallCount` not in terminology; ⚠ object property `hasValue` used with domain LiftCallCount, range some integer; terminology has domain: —, range: —"
+NumberOfCalls subclassOf hasValue some integer","NumberOfCalls SubClassOf StatisticSignal
+NumberOfCalls SubClassOf hasValue some integer",
 LIFT-38,How many upward travel the lift did? 167,"UpwardTravels subClassOf StatisticSignal
-UpwardTravels subclassOf hasValue some integer",UpwardTravelCount SubClassOf StatisticSignal,"⚠ class `UpwardTravelCount` not in terminology; ⚠ object property `hasValue` used with domain UpwardTravelCount, range some integer; terminology has domain: —, range: —"
+UpwardTravels subclassOf hasValue some integer","UpwardTravels SubClassOf StatisticSignal
+UpwardTravels SubClassOf hasValue some integer",
 LIFT-39,How many downward travel the lift did? 153,"DownwardTravels subClassOf StatisticSignal
-DownwardTravels subclassOf hasValue some integer","DownwardTravelCount SubClassOf StatisticSignal
-DownwardTravelCount SubClassOf hasValue some integer",
+DownwardTravels subclassOf hasValue some integer","DownwardTravels SubClassOf StatisticSignal
+DownwardTravels SubClassOf hasValue some integer",
 LIFT-40,Which is the total number of floors covered? 94,"TotalFloorsCovered subClassOf StatisticSignal
-totalFloorsCovered subclassOf hasValue some integer","TotalFloorCoverage SubClassOf StatisticSignal
-TotalFloorCoverage SubClassOf hasValue some integer",
+totalFloorsCovered subclassOf hasValue some integer","TotalFloorsCovered SubClassOf StatisticSignal
+TotalFloorsCovered SubClassOf hasValue some integer",
 LIFT-41,How many times have been executed the reset sequence? 26,"TotalResetSequence subClassOf StatisticSignal
-TotalResetSequence subclassOf hasValue some integer","ResetSequenceCount SubClassOf StatisticSignal
-ResetSequenceCount SubClassOf hasValue some integer",
+TotalResetSequence subclassOf hasValue some integer","TotalResetSequence SubClassOf StatisticSignal
+TotalResetSequence SubClassOf hasValue some integer",
 LIFT-42,How many times the lift adopted the reversal direction? 4,"TotalReversalDirection subClassOf StatisticSignal
-TotalReversalDirection subclassOf hasValue some integer","ReversalDirectionCount SubClassOf StatisticSignal
-ReversalDirectionCount SubClassOf hasValue some integer",
+TotalReversalDirection subclassOf hasValue some integer","NumberOfReversalDirections SubClassOf StatisticSignal
+NumberOfReversalDirections SubClassOf hasValue some integer",
 LIFT-43,How many times the door has been opened? 362,"TotalTimesOpened type StatisticSignal
-TotalTimesOpened subclassOf hasValue some integer","DoorOpenCount SubClassOf StatisticSignal
-DoorOpenCount SubClassOf hasValue some integer",
+TotalTimesOpened subclassOf hasValue some integer","TotalTimesOpened SubClassOf StatisticSignal
+TotalTimesOpened SubClassOf hasValue some integer",
 LIFT-44,How many times the lift has been called from the floor X? 46,"CallsPerService type StatisticSignal
-CallsPerService subclassOf hasValue some integer","CallFromFloorXCount SubClassOf StatisticSignal
-CallFromFloorXCount SubClassOf hasValue some integer",
+CallsPerService subclassOf hasValue some integer","CallsPerService SubClassOf StatisticSignal
+CallsPerService SubClassOf hasValue some integer",
 LIFT-45,How many times the fault event X occurred? 12,"NumberOfFaults type StatisticSignal
-NumberOfFaults subclassOf hasValue some integer","FaultEventXCount SubClassOf StatisticSignal
-FaultEventXCount SubClassOf hasValue some integer",
-LIFT-57,Which is the opening door time?,SmartLiftInstallationCommand hasDoorCloseTime Time,OpeningDoorTime type TimeReading,
-LIFT-58,Which is the closing door time?,SetOutOfServiceCommand a Command,ClosingDoorTime type TimeReading,
-LIFT-62,What is the emergency number?,SmartLiftInstallation subclassOf hasMainEmergencyNumber only string,SmartLiftInstallation hasMainEmergencyTelephoneNumber literal,
-LIFT-63,Which is the current total travel time?,SmartLiftInstallation hasTraveledTime Time,"CurrentTravelTime SubClassOf StatusSignal
-CurrentTravelTime SubClassOf hasValue some float",
-LIFT-72,Which is the manufacturing lift company? Company1,SmartLiftInstallation subClassOf hasManufacturer only string,SmartLiftInstallation SubClassOf hasManufacturingCompanyRepresentative some string,
-LIFT-73,Which is the installer lift company? Company2,SmartLiftInstallation subClassOf hasInstallerLiftCompany only string,SmartLiftInstallation SubClassOf hasInstallerCompany some string,
-LIFT-74,Which is the maintenance lift company? Company3,SmartLiftInstallation subClassOf hasMaintenanceCompany only string,SmartLiftInstallation SubClassOf hasMaintenanceCompany some string,
-LIFT-75,Who is the building manager of a lift? Company4,SmartLiftInstallation subClassOf hasBuildingManager only string,SmartLiftInstallation hasBuildingManager some string,
-LIFT-76,Who is the legal owner of a lift? Company5,SmartLiftInstallation subClassOf hasOwner only string,SmartLiftInstallation hasLegalOwner some string,
+NumberOfFaults subclassOf hasValue some integer","NumberOfFaults SubClassOf FaultSignal
+NumberOfFaults SubClassOf hasValue some integer",
+LIFT-57,Which is the opening door time?,SmartLiftInstallationCommand hasDoorCloseTime Time,DoorOpeningTime SubClassOf Command,⚠ class `Command` not in terminology
+LIFT-58,Which is the closing door time?,SetOutOfServiceCommand a Command,DoorClosingTime SubClassOf Command,⚠ class `Command` not in terminology
+LIFT-62,What is the emergency number?,SmartLiftInstallation subclassOf hasMainEmergencyNumber only string,SmartLiftInstallation SubClassOf hasMainEmergencyTelephoneNumber some string,
+LIFT-63,Which is the current total travel time?,SmartLiftInstallation hasTraveledTime Time,"TotalTravelTime SubClassOf StatisticSignal
+TotalTravelTime SubClassOf hasValue some TemporalDuration",⚠ xsd:TemporalDuration not in terminology
+LIFT-72,Which is the manufacturing lift company? Company1,SmartLiftInstallation subClassOf hasManufacturer only string,SmartLiftInstallation SubClassOf hasManufacturingCompanyRepresentative only string,
+LIFT-73,Which is the installer lift company? Company2,SmartLiftInstallation subClassOf hasInstallerLiftCompany only string,SmartLiftInstallation SubClassOf hasInstallerCompany only string,
+LIFT-74,Which is the maintenance lift company? Company3,SmartLiftInstallation subClassOf hasMaintenanceCompany only string,SmartLiftInstallation SubClassOf hasMaintenanceCompany only string,
+LIFT-75,Who is the building manager of a lift? Company4,SmartLiftInstallation subClassOf hasBuildingManager only string,SmartLiftInstallation SubClassOf hasBuildingManager only string,
+LIFT-76,Who is the legal owner of a lift? Company5,SmartLiftInstallation subClassOf hasOwner only string,SmartLiftInstallation SubClassOf hasLegalOwner only string,

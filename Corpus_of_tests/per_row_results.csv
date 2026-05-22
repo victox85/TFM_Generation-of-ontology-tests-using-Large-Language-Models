@@ -1,0 +1,490 @@
+folder,row_idx,kind,question,assertion_idx,good_test,generated_test,result,good_type,gen_type
+Delta,1,REQ,There is a power provider and recipient,1,Consumer subclassOf Customer,Producer type Class,wrong,SubClassOf,Type
+Delta,1,REQ,There is a power provider and recipient,2,Prosumer type Class,Consumer type Class,good_syntax,Type,Type
+Delta,2,REQ,A virtual node calculates teh flexibility up/down indicator through the devices,1,FEID subclassOf measuresProperty some UpFlexibility or DownFlexibility,VirtualNode hasUpperBoundary Measurement,wrong,SubClassOf,ObjectProperty
+Delta,2,REQ,A virtual node calculates teh flexibility up/down indicator through the devices,2,,Measurement hasSource Device,missing_good,,ObjectProperty
+Delta,3,REQ,"The electric parameters include Load, Voltage and Frequency",1,Frequency subclassOf core:Property,FeatureOfInterest includesLoad Load,wrong,SubClassOf,ObjectProperty
+Delta,3,REQ,"The electric parameters include Load, Voltage and Frequency",2,Load subclassOf core:Property,FeatureOfInterest includesVoltage Voltage,wrong,SubClassOf,ObjectProperty
+Delta,3,REQ,"The electric parameters include Load, Voltage and Frequency",3,Voltage subclassOf core:Property,FeatureOfInterest includesFrequency Frequency,wrong,SubClassOf,ObjectProperty
+Delta,4,REQ,Each node uses scheduled flexibility capacity,1,Asset subclassOf measuresProperty some EnergyUpFlexibility,VirtualNode hasEstimatedMeasurement KeyPerformanceIndicatorAssessement,wrong,SubClassOf,ObjectProperty
+Delta,5,REQ,Each device measures the real time flexibility values,1,Device subclassOf measuresProperty some EnergyUpFlexibility,Device makesMeasurement Measurement,wrong,SubClassOf,ObjectProperty
+Delta,6,REQ,Each medium voltage assets measures the real time generation values,1,Asset subclassOf measuresProperty some EnergyGeneration,Asset makesMeasurement Measurement,wrong,SubClassOf,ObjectProperty
+Delta,7,REQ,Each medium voltage assets measures the real time consumtion values,1,Device subclassOf measuresProperty some EnergyConsumption,Asset makesMeasurement Measurement,wrong,SubClassOf,ObjectProperty
+Delta,8,REQ,A device is a spatial thing,1,Prosumer subclassOf SpatialObject,Device subClassOf SpatialThing,good_syntax,SubClassOf,SubClassOf
+Delta,9,REQ,Each prosumer has associated its consumption,1,Asset isOwnedBy Prosumer,Prosumer hasReward Customer,good_syntax,ObjectProperty,ObjectProperty
+Delta,9,REQ,Each prosumer has associated its consumption,2,Asset subclassOf measuresProperty some EnergyConsumption,,missing_gen,SubClassOf,
+Delta,10,REQ,Each prosumer has associated its generation,1,Asset isOwnedBy Prosumer,Prosumer hasReward Reward,good_syntax,ObjectProperty,ObjectProperty
+Delta,10,REQ,Each prosumer has associated its generation,2,Asset subclassOf measuresProperty some EnergyGeneration,,missing_gen,SubClassOf,
+Delta,11,REQ,A virtual node belongs to a cluster,1,VirtualNode subclassOf belongsToCluster only Cluster,VirtualNode belongsToCluster Cluster,wrong,SubClassOf,ObjectProperty
+Delta,12,REQ,A profiles is needed to assess the DVN and devices,1,Profile type Class,Profile relatesToMeasurement Measurement,wrong,Type,ObjectProperty
+Delta,12,REQ,A profiles is needed to assess the DVN and devices,2,,Profile relatesToDevice Device,missing_good,,ObjectProperty
+Delta,13,REQ,There are two types of constraints rleated to the grid: Voltage and Frequency,1,Frequency subclassOf core:Property,Voltage type SystemConstraint,wrong,SubClassOf,Type
+Delta,13,REQ,There are two types of constraints rleated to the grid: Voltage and Frequency,2,Voltage subclassOf core:Property,Frequency type SystemConstraint,wrong,SubClassOf,Type
+Delta,14,REQ,The profile can be related to generation or to consumption,1,Profile relatesToProperty core:Property,Profile relatesToGeneration Generation,good_syntax,ObjectProperty,ObjectProperty
+Delta,14,REQ,The profile can be related to generation or to consumption,2,,Profile relatesToConsumption Consumption,missing_good,,ObjectProperty
+Delta,15,REQ,The profile has a granularity,1,Profile subclassOf hasGranularity only string,Profile hasGranularity hasGranularity,wrong,SubClassOf,ObjectProperty
+Delta,16,REQ,The virtual node send action signals,1,VirtualNode subclassOf sends some Event,VirtualNode sendsEvent Action,wrong,SubClassOf,ObjectProperty
+Delta,17,REQ,A type of signal can be the offer of energy,1,DemandChargeSignal subclassOf Signal,EnergyOffer subClassOf Signal,good_syntax,SubClassOf,SubClassOf
+Delta,18,REQ,A type of signal can be the request of energy,1,BidEnergySignal subclassOf Signal,EnergyRequest subClassOf Signal,good_syntax,SubClassOf,SubClassOf
+Delta,19,REQ,Device in DELTA belongs to a customer,1,Asset subclassOf isOwnedBy some Customer,Device belongsToCluster Customer,wrong,SubClassOf,ObjectProperty
+Delta,20,REQ,Customer has incentives based on the social interaction and cooperation,1,Customer subclassOf hasReward only Reward,Customer hasIncentive SocialInteraction Cooperation,wrong,SubClassOf,ObjectProperty
+Delta,21,REQ,A device can belong to a prosumer or a consumer,1,Consumer subclassOf owns some Asset,Device belongsToProsumer Prosumer,wrong,SubClassOf,ObjectProperty
+Delta,21,REQ,A device can belong to a prosumer or a consumer,2,Prosumer subclassOf owns some Asset,Device belongsToConsumer Consumer,wrong,SubClassOf,ObjectProperty
+auroral-core,1,REQ,An organisation can contain notifications,1,,Organization hasNotification Notification,missing_good,,ObjectProperty
+auroral-core,2,REQ,An organisation can contain audits,1,,Organization hasAudit Audit,missing_good,,ObjectProperty
+auroral-core,3,REQ,An organisation is related to users,1,,Organization hasUser User,missing_good,,ObjectProperty
+auroral-core,4,REQ,An organisation can contain nodes,1,,Organization hasNode Node,missing_good,,ObjectProperty
+auroral-core,5,REQ,An organisation can have a partnership with another organisation,1,Organisation hasPartnershipRequestedBy Organisation,Organization hasPartnershipRequestedBy Organization,good_syntax,ObjectProperty,ObjectProperty
+auroral-core,6,REQ,A partnership is requested by an organisation,1,,Organization hasPartnershipRequestedBy Organization,missing_good,,ObjectProperty
+auroral-core,7,REQ,A partnership is requested to an organisation,1,,Organization hasPartnershipRequestedTo Organization,missing_good,,ObjectProperty
+auroral-core,8,CQ,What are the attributes related to a notification?,1,,Notification hasIdentifier literal,missing_good,,DataProperty
+auroral-core,8,CQ,What are the attributes related to a notification?,2,,Notification hasOwner User,missing_good,,ObjectProperty
+auroral-core,8,CQ,What are the attributes related to a notification?,3,,Notification hasActor User,missing_good,,ObjectProperty
+auroral-core,8,CQ,What are the attributes related to a notification?,4,,Notification hasTarget string,missing_good,,DataProperty
+auroral-core,8,CQ,What are the attributes related to a notification?,5,,Notification hasObject string,missing_good,,DataProperty
+auroral-core,8,CQ,What are the attributes related to a notification?,6,,Notification hasType string,missing_good,,DataProperty
+auroral-core,8,CQ,What are the attributes related to a notification?,7,,Notification hasStatus string,missing_good,,DataProperty
+auroral-core,8,CQ,What are the attributes related to a notification?,8,,Notification hasCreationDate dateTime,missing_good,,DataProperty
+auroral-core,9,REQ,A notification can be caused by an actor,1,,Notification hasAudit Audit,missing_good,,ObjectProperty
+auroral-core,10,REQ,A notification can affect a target,1,,Notification hasTarget string,missing_good,,DataProperty
+auroral-core,11,REQ,A notification needs an object,1,,Notification hasObject string,missing_good,,DataProperty
+auroral-core,12,REQ,"Examples of notification status are: Waiting, Info, Accepted, Rejected and Responded",1,,Waiting type NotificationStatus,missing_good,,Type
+auroral-core,12,REQ,"Examples of notification status are: Waiting, Info, Accepted, Rejected and Responded",2,,Info type NotificationStatus,missing_good,,Type
+auroral-core,12,REQ,"Examples of notification status are: Waiting, Info, Accepted, Rejected and Responded",3,,Accepted type NotificationStatus,missing_good,,Type
+auroral-core,12,REQ,"Examples of notification status are: Waiting, Info, Accepted, Rejected and Responded",4,,Rejected type NotificationStatus,missing_good,,Type
+auroral-core,12,REQ,"Examples of notification status are: Waiting, Info, Accepted, Rejected and Responded",5,,Responded type NotificationStatus,missing_good,,Type
+auroral-core,13,REQ,A notification can be read,1,Notification hasStatus NotificationStatus,Notification isUnread Notification,good_syntax,ObjectProperty,ObjectProperty
+auroral-core,14,REQ,"Types of a notification can be: registrationRequest, itemEnabled, itemDisabled, itemDiscovered, contractRequest, itemUpdated,contractAccepted",1,,ContractRequestNotification type Notification,missing_good,,Type
+auroral-core,14,REQ,"Types of a notification can be: registrationRequest, itemEnabled, itemDisabled, itemDiscovered, contractRequest, itemUpdated,contractAccepted",2,,ItemEnabledNotification type Notification,missing_good,,Type
+auroral-core,14,REQ,"Types of a notification can be: registrationRequest, itemEnabled, itemDisabled, itemDiscovered, contractRequest, itemUpdated,contractAccepted",3,,ItemDisabledNotification type Notification,missing_good,,Type
+auroral-core,14,REQ,"Types of a notification can be: registrationRequest, itemEnabled, itemDisabled, itemDiscovered, contractRequest, itemUpdated,contractAccepted",4,,ItemDiscoveredNotification type Notification,missing_good,,Type
+auroral-core,14,REQ,"Types of a notification can be: registrationRequest, itemEnabled, itemDisabled, itemDiscovered, contractRequest, itemUpdated,contractAccepted",5,,ContractRequestNotification type Notification,missing_good,,Type
+auroral-core,14,REQ,"Types of a notification can be: registrationRequest, itemEnabled, itemDisabled, itemDiscovered, contractRequest, itemUpdated,contractAccepted",6,,ItemUpdatedNotification type Notification,missing_good,,Type
+auroral-core,14,REQ,"Types of a notification can be: registrationRequest, itemEnabled, itemDisabled, itemDiscovered, contractRequest, itemUpdated,contractAccepted",7,,ContractAcceptedNotification type Notification,missing_good,,Type
+auroral-core,15,CQ,What are the attributes related to a node?,1,,Node hasName string,missing_good,,DataProperty
+auroral-core,15,CQ,What are the attributes related to a node?,2,,Node hasStatus string,missing_good,,DataProperty
+auroral-core,15,CQ,What are the attributes related to a node?,3,,Node hasCreationDate dateTime,missing_good,,DataProperty
+auroral-core,15,CQ,What are the attributes related to a node?,4,,Node hasUpdateDate dateTime,missing_good,,DataProperty
+auroral-core,15,CQ,What are the attributes related to a node?,5,,Node hasToken string,missing_good,,DataProperty
+auroral-core,15,CQ,What are the attributes related to a node?,6,,Node hasPublicKey string,missing_good,,DataProperty
+auroral-core,16,REQ,A node has an AURORAL identifier,1,Auroral type Node,Node hasLink Aurora,wrong,Type,ObjectProperty
+auroral-core,17,REQ,A node belongs to an organisation,1,Node belongsTo Organisation,Node hasOwner Organization,good_syntax,ObjectProperty,ObjectProperty
+auroral-core,18,REQ,"Examples of node types are: vicinity, sharq, auroral",1,Sharq type Node,Vicinity type Node,good_syntax,Type,Type
+auroral-core,18,REQ,"Examples of node types are: vicinity, sharq, auroral",2,Vicinity type Node,Sharq type Node,good_syntax,Type,Type
+auroral-core,18,REQ,"Examples of node types are: vicinity, sharq, auroral",3,,Auroral type Node,missing_good,,Type
+auroral-core,19,REQ,A node contains items,1,,Node containsItem Item,missing_good,,ObjectProperty
+auroral-core,20,REQ,A node can have two status: active or deleted,1,,Node hasStatus Status,missing_good,,ObjectProperty
+auroral-core,20,REQ,A node can have two status: active or deleted,2,,Active type NodeStatus,missing_good,,Type
+auroral-core,21,REQ,An item has an AURORAL identifier,1,,Item hasIdentifier Auroral,missing_good,,ObjectProperty
+auroral-core,22,REQ,An item is contained in a node,1,Item belongsTo Node,Item belongsTo Node,perfect,ObjectProperty,ObjectProperty
+auroral-core,23,REQ,An item is related to a user,1,,Item hasOwner User,missing_good,,ObjectProperty
+auroral-core,24,REQ,An item belongs to an organisation,1,Item belongsTo Organisation,Item hasOwner Organization,good_syntax,ObjectProperty,ObjectProperty
+auroral-core,25,REQ,An item can be represented with an avatar,1,,Item isRepresentedByAvatar Image,missing_good,,ObjectProperty
+auroral-core,26,REQ,"Types of an item status can be: disabled, enabled, deleted",1,,Disabled type DeletedItemStatus,missing_good,,Type
+auroral-core,26,REQ,"Types of an item status can be: disabled, enabled, deleted",2,,Enabled type EnabledItemStatus,missing_good,,Type
+auroral-core,27,CQ,What are the attributes related to a user?,1,,User hasName string,missing_good,,DataProperty
+auroral-core,27,CQ,What are the attributes related to a user?,2,,User hasFirstName string,missing_good,,DataProperty
+auroral-core,27,CQ,What are the attributes related to a user?,3,,User hasLastName string,missing_good,,DataProperty
+auroral-core,27,CQ,What are the attributes related to a user?,4,,User hasEmail string,missing_good,,DataProperty
+auroral-core,27,CQ,What are the attributes related to a user?,5,,User hasContactMail string,missing_good,,DataProperty
+auroral-core,27,CQ,What are the attributes related to a user?,6,,User hasOccupation string,missing_good,,DataProperty
+auroral-core,27,CQ,What are the attributes related to a user?,7,,User hasLocation string,missing_good,,DataProperty
+auroral-core,27,CQ,What are the attributes related to a user?,8,,User hasStatus string,missing_good,,DataProperty
+auroral-core,27,CQ,What are the attributes related to a user?,9,,User hasCreationDate dateTime,missing_good,,DataProperty
+auroral-core,27,CQ,What are the attributes related to a user?,10,,User hasUpdateDate dateTime,missing_good,,DataProperty
+auroral-core,28,REQ,A user has an AURORAL identifier,1,,User hasIdentifier Auroral,missing_good,,ObjectProperty
+auroral-core,29,REQ,A user belongs to an organisation,1,User belongsTo Organisation,User hasOwner Organization,good_syntax,ObjectProperty,ObjectProperty
+auroral-core,30,REQ,A user can be represented with an avatar,1,,User isRepresentedByAvatar Image,missing_good,,ObjectProperty
+auroral-core,31,REQ,"Types of user status can be: active, deleted",1,,Active type ActiveUserStatus,missing_good,,Type
+auroral-core,32,REQ,A user can be associated to a role,1,User hasRole Role,User hasRole Role,perfect,ObjectProperty,ObjectProperty
+auroral-core,33,REQ,"Types of roles can be: admin, user, infrastructure operator, service provider, device owner, system integrator, super user, dev ops",1,,Admin type Role,missing_good,,Type
+auroral-core,33,REQ,"Types of roles can be: admin, user, infrastructure operator, service provider, device owner, system integrator, super user, dev ops",2,,User type Role,missing_good,,Type
+auroral-core,33,REQ,"Types of roles can be: admin, user, infrastructure operator, service provider, device owner, system integrator, super user, dev ops",3,,"⚠ InfrastructureOperator is a class in terminology, not a role; ⚠ serviceProvider is a named individual in terminology, not a role; ⚠ DeviceOwner is a class in terminology, not a role; ⚠ Dev_ops is a named individual in terminology, not a role",missing_good,,ObjectProperty
+auroral-core,34,REQ,A user contain can contain a notification,1,User hasNotification Notification,User hasNotification Notification,perfect,ObjectProperty,ObjectProperty
+auroral-core,35,REQ,A user can contain an audit,1,User hasAudit Audit,User hasAudit Audit,perfect,ObjectProperty,ObjectProperty
+auroral-core,36,REQ,A user can contain an item,1,User containsItem Item,User containsItem Item,perfect,ObjectProperty,ObjectProperty
+auroral-privacy,1,REQ,There are two types of rules: Permission and Prohibition.,1,Prohibition subclassOf Rule,Permission SubClassOf Rule,good_syntax,SubClassOf,SubClassOf
+auroral-privacy,1,REQ,There are two types of rules: Permission and Prohibition.,2,Permission subClassOf Rule,Prohibition SubClassOf Rule,good_syntax,SubClassOf,SubClassOf
+auroral-privacy,2,REQ,An asset can have a policy.,1,Item hasPolicy Policy,Item hasPolicy Policy,perfect,ObjectProperty,ObjectProperty
+auroral-privacy,3,REQ,A policy contains rules.,1,Policy definesRule Rule,Policy definesRule Rule,perfect,ObjectProperty,ObjectProperty
+auroral-privacy,4,REQ,A rule can have a target.,1,Rule hasRuleTarget RuleTarget,Rule hasRuleTarget RuleTarget,perfect,ObjectProperty,ObjectProperty
+auroral-privacy,5,REQ,"There are two types of target: Friends, Eveyone or None.",1,None type RuleTarget,Friends SubClassOf RuleTarget,wrong,Type,SubClassOf
+auroral-privacy,5,REQ,"There are two types of target: Friends, Eveyone or None.",2,All type RuleTarget,Everyone SubClassOf RuleTarget,wrong,Type,SubClassOf
+auroral-privacy,5,REQ,"There are two types of target: Friends, Eveyone or None.",3,Friends type RuleTarget,NoneSubClassOf RuleTarget,wrong,Type,ObjectProperty
+auroral-privacy,6,REQ,A rule has an action.,1,Rule hasAction Action,Rule hasAction Action,perfect,ObjectProperty,ObjectProperty
+auroral-privacy,7,REQ,There are two types of action: Visibility and Accessibility.,1,Accessibility type Action,Visibility SubClassOf Action,wrong,Type,SubClassOf
+auroral-privacy,7,REQ,There are two types of action: Visibility and Accessibility.,2,Visibility type Action,Accessibility SubClassOf Action,wrong,Type,SubClassOf
+cogito-construction,1,REQ,A project is related to one or more processes,1,Project isRelatedToProcess Process;,Project isRelatedToProcess Process,perfect,ObjectProperty,ObjectProperty
+cogito-construction,2,REQ,"A process can reflect the as-planned original process, the as-planned enriched process and the as-is process",1,AsIsProcess subClassOf Process;,AsPlannedOriginalProcess subClassOf Process,good_syntax,SubClassOf,SubClassOf
+cogito-construction,2,REQ,"A process can reflect the as-planned original process, the as-planned enriched process and the as-is process",2,AsPlannedEnrichedProcess subClassOf Process;,AsPlannedEnrichedProcess subClassOf Process,perfect,SubClassOf,SubClassOf
+cogito-construction,2,REQ,"A process can reflect the as-planned original process, the as-planned enriched process and the as-is process",3,AsPlannedOriginalProcess subClassOf Process;,AsIsProcess subClassOf Process,good_syntax,SubClassOf,SubClassOf
+cogito-construction,3,REQ,"A project includes data about its identifier, name, author, creation date, planned start and end dates, actual start and end dates, time step and time window",1,Process identifier literal;,Project hasIdentifier literal,good_syntax,DataProperty,DataProperty
+cogito-construction,3,REQ,"A project includes data about its identifier, name, author, creation date, planned start and end dates, actual start and end dates, time step and time window",2,Process title literal;,Project title string,good_syntax,DataProperty,DataProperty
+cogito-construction,3,REQ,"A project includes data about its identifier, name, author, creation date, planned start and end dates, actual start and end dates, time step and time window",3,Process creator literal;,Project creator literal,good_syntax,DataProperty,DataProperty
+cogito-construction,3,REQ,"A project includes data about its identifier, name, author, creation date, planned start and end dates, actual start and end dates, time step and time window",4,Process created dateTime;,Project created literal,good_syntax,DataProperty,DataProperty
+cogito-construction,3,REQ,"A project includes data about its identifier, name, author, creation date, planned start and end dates, actual start and end dates, time step and time window",5,Process plannedStartDate dateTime;,Project plannedStartDate dateTime,good_syntax,DataProperty,DataProperty
+cogito-construction,3,REQ,"A project includes data about its identifier, name, author, creation date, planned start and end dates, actual start and end dates, time step and time window",6,Process plannedEndDate dateTime;,Project plannedEndDate dateTime,good_syntax,DataProperty,DataProperty
+cogito-construction,3,REQ,"A project includes data about its identifier, name, author, creation date, planned start and end dates, actual start and end dates, time step and time window",7,Process actualStartDate dateTime;,Project actualStartDate literal,good_syntax,DataProperty,DataProperty
+cogito-construction,3,REQ,"A project includes data about its identifier, name, author, creation date, planned start and end dates, actual start and end dates, time step and time window",8,Process actualEndDate dateTime;,Project actualEndDate literal,good_syntax,DataProperty,DataProperty
+cogito-construction,3,REQ,"A project includes data about its identifier, name, author, creation date, planned start and end dates, actual start and end dates, time step and time window",9,Process timeStep integer;,Project timeStep integer,good_syntax,DataProperty,DataProperty
+cogito-construction,3,REQ,"A project includes data about its identifier, name, author, creation date, planned start and end dates, actual start and end dates, time step and time window",10,Process timeWindow integer;,Project timeWindow integer,good_syntax,DataProperty,DataProperty
+cogito-construction,4,REQ,"A process has a cost, which is measured in a certain currency",1,Process hasCost Cost;,Process hasCost Cost,perfect,ObjectProperty,ObjectProperty
+cogito-construction,4,REQ,"A process has a cost, which is measured in a certain currency",2,Cost isMeasuredIn UnitOfCurrency;,Cost isMeasuredIn UnitOfCurrency,perfect,ObjectProperty,ObjectProperty
+cogito-construction,5,REQ,"A task has a cost, which is measured in a certain currency",1,Task hasCost Cost;,Task hasCost Cost,perfect,ObjectProperty,ObjectProperty
+cogito-construction,5,REQ,"A task has a cost, which is measured in a certain currency",2,,Cost isMeasuredIn UnitOfCurrency,missing_good,,ObjectProperty
+cogito-construction,6,REQ,A task belongs to a certain process,1,Task belongsToProcess Process;,Task belongsToProcess Process,perfect,ObjectProperty,ObjectProperty
+cogito-construction,7,REQ,"A task can add, remove, control or repair elements",1,Task addsElement Element;,Task addsElement Element,perfect,ObjectProperty,ObjectProperty
+cogito-construction,7,REQ,"A task can add, remove, control or repair elements",2,Task removesElement Element;,Task removesElement Element,perfect,ObjectProperty,ObjectProperty
+cogito-construction,7,REQ,"A task can add, remove, control or repair elements",3,Task controlsElement Element;,Task controlsElement Element,perfect,ObjectProperty,ObjectProperty
+cogito-construction,7,REQ,"A task can add, remove, control or repair elements",4,,Task repairsElelment Element,missing_good,,ObjectProperty
+cogito-construction,8,REQ,"A task includes result, progress and priority information",1,Task result literal;,Task hasResult literal,good_syntax,DataProperty,DataProperty
+cogito-construction,8,REQ,"A task includes result, progress and priority information",2,Task progress float;,Task progress float,perfect,DataProperty,DataProperty
+cogito-construction,8,REQ,"A task includes result, progress and priority information",3,Task priority integer;,Task priority integer,perfect,DataProperty,DataProperty
+cogito-construction,9,REQ,"A task can have a date of creation, of planned and actual beginnings, and of planned and actual ends",1,Task created dateTime;,Task created literal,good_syntax,DataProperty,DataProperty
+cogito-construction,9,REQ,"A task can have a date of creation, of planned and actual beginnings, and of planned and actual ends",2,Task plannedStartDate dateTime;,Task plannedStartDate dateTime,perfect,DataProperty,DataProperty
+cogito-construction,9,REQ,"A task can have a date of creation, of planned and actual beginnings, and of planned and actual ends",3,Task plannedEndDate dateTime;,Task actualStartDate literal,good_syntax,DataProperty,DataProperty
+cogito-construction,9,REQ,"A task can have a date of creation, of planned and actual beginnings, and of planned and actual ends",4,Task actualStartDate dateTime;,Task plannedEndDate dateTime,good_syntax,DataProperty,DataProperty
+cogito-construction,9,REQ,"A task can have a date of creation, of planned and actual beginnings, and of planned and actual ends",5,Task actualEndDate dateTime;,Task actualEndDate literal,good_syntax,DataProperty,DataProperty
+cogito-construction,10,REQ,A task can have sub-tasks,1,Task hasSubTask Task;,Task hasSubTask Task,perfect,ObjectProperty,ObjectProperty
+cogito-construction,11,REQ,A task can have optimisation-related data: duration,1,Task duration integer,Task duration duration,wrong,DataProperty,ObjectProperty
+cogito-construction,12,REQ,A task can have optimisation-related data: early start and end dates,1,Task plannedEarlyStartDate dateTime;,Task plannedEarlyStartDate dateTimeStamp,good_syntax,DataProperty,DataProperty
+cogito-construction,12,REQ,A task can have optimisation-related data: early start and end dates,2,Task plannedEarlyEndDate dateTime;,Task plannedEarlyEndDate dateTimeStamp,good_syntax,DataProperty,DataProperty
+cogito-construction,13,REQ,A task can have optimisation-related data: late start and end dates,1,Task plannedLateStartDate dateTime;,Task plannedLateStartDate dateTimeStamp,good_syntax,DataProperty,DataProperty
+cogito-construction,13,REQ,A task can have optimisation-related data: late start and end dates,2,Task plannedLateEndDate dateTime;,Task plannedLateEndDate dateTimeStamp,good_syntax,DataProperty,DataProperty
+cogito-construction,14,REQ,A task can have optimisation-related data: total float/slack,1,Task totalFloat integer;,Task totalFloat nonNegativeInteger,good_syntax,DataProperty,DataProperty
+cogito-construction,15,REQ,A task can have optimisation-related data: is critical or not,1,Task isCritical boolean;,Task isCritical boolean,perfect,DataProperty,DataProperty
+cogito-construction,16,REQ,A task can have optimisation-related data: crew productivity,1,Task crewProductivity integer;,Task crewProductivity literal,good_syntax,DataProperty,DataProperty
+cogito-construction,17,REQ,A task can have optimisation-related data: crew number,1,Task crewNumber integer;,Task crewNumber literal,good_syntax,DataProperty,DataProperty
+cogito-construction,18,REQ,A task can have optimisation-related data: crew productivity penalty,1,Task crewProductivityPenalty integer;,Task hasComponentTask Cost,wrong,DataProperty,ObjectProperty
+cogito-construction,19,REQ,A task can have optimisation-related data: work quantity,1,Task workQuantity float;,Task workQuantity literal,good_syntax,DataProperty,DataProperty
+cogito-construction,20,REQ,A task can have optimisation-related data: work quantity unit,1,Task workQuantityUnit literal;,Task workQuantityUnit literal,perfect,DataProperty,DataProperty
+cogito-construction,21,REQ,A task can have a description,1,Task description string;,Task description literal,good_syntax,DataProperty,DataProperty
+cogito-construction,22,REQ,"A tasks can be related to typical construction activities, geometric quality activities, visual quality activities, and safety adding or removing activities",1,ConstructionTask subClassOf Task;,Task relatesTo ConstructionTask,wrong,SubClassOf,ObjectProperty
+cogito-construction,22,REQ,"A tasks can be related to typical construction activities, geometric quality activities, visual quality activities, and safety adding or removing activities",2,GeometricQualityTask subClassOf Task;,Task relatesTo GeometricQualityTask,wrong,SubClassOf,ObjectProperty
+cogito-construction,22,REQ,"A tasks can be related to typical construction activities, geometric quality activities, visual quality activities, and safety adding or removing activities",3,VisualTask subClassOf Task;,Task relatesTo VisualQualityTask,wrong,SubClassOf,ObjectProperty
+cogito-construction,22,REQ,"A tasks can be related to typical construction activities, geometric quality activities, visual quality activities, and safety adding or removing activities",4,SafetyAddingTask subClassOf Task;,Task relatesTo SatetyAddingTask,wrong,SubClassOf,ObjectProperty
+cogito-construction,22,REQ,"A tasks can be related to typical construction activities, geometric quality activities, visual quality activities, and safety adding or removing activities",5,SafetyRemovingTask subClassOf Task;,,missing_gen,SubClassOf,
+cogito-construction,23,REQ,A tasks can have a status,1,Task status literal;,Task hasStatus literal,good_syntax,DataProperty,DataProperty
+cogito-construction,24,REQ,A tasks can have a validation message,1,Task validationMessage ttring;,Task validationMessage literal,good_syntax,DataProperty,DataProperty
+cogito-construction,25,REQ,A work order is made up of tasks,1,WorkOrder hasComponentTask Task;,WorkOrder hasComponentTask Task,perfect,ObjectProperty,ObjectProperty
+cogito-construction,26,REQ,"A work order can have a date of creation, of planned and actual beginnings, and of planned and actual ends",1,WorkOrder created dataTime;,WorkOrder created literal,good_syntax,DataProperty,DataProperty
+cogito-construction,26,REQ,"A work order can have a date of creation, of planned and actual beginnings, and of planned and actual ends",2,WorkOrder plannedStartDate dateTime;,WorkOrder plannedStartDate dateTime,perfect,DataProperty,DataProperty
+cogito-construction,26,REQ,"A work order can have a date of creation, of planned and actual beginnings, and of planned and actual ends",3,WorkOrder plannedEndDate dateTime;,WorkOrder actualStartDate dateTime,good_syntax,DataProperty,DataProperty
+cogito-construction,26,REQ,"A work order can have a date of creation, of planned and actual beginnings, and of planned and actual ends",4,WorkOrder actualStartDate dateTime;,WorkOrder plannedEndDate dateTime,good_syntax,DataProperty,DataProperty
+cogito-construction,26,REQ,"A work order can have a date of creation, of planned and actual beginnings, and of planned and actual ends",5,WorkOrder actualEndDate dateTime;,WorkOrder actualEndDate dateTime,perfect,DataProperty,DataProperty
+cogito-construction,27,REQ,A work order has an identifier and a status,1,WorkOrder created dataTime;,WorkOrder identifier literal,good_syntax,DataProperty,DataProperty
+cogito-construction,27,REQ,A work order has an identifier and a status,2,WorkOrder plannedStartDate dateTime;,WorkOrder status literal,good_syntax,DataProperty,DataProperty
+cogito-facility,1,REQ,A project is related to a site,1,Project isRelatedToSite Site;,Project isRelatedToSite Site,perfect,ObjectProperty,ObjectProperty
+cogito-facility,2,REQ,Spatial zones (especially sites) can have facility,1,SpatialZone hasFacility Facility;,Site hasFacility Facility,good_syntax,ObjectProperty,ObjectProperty
+cogito-facility,3,REQ,"Facilities include buildings, railways, bridges and roads",1,Building subClassOf Facility;,Building subClassOf Facility,perfect,SubClassOf,SubClassOf
+cogito-facility,3,REQ,"Facilities include buildings, railways, bridges and roads",2,Railway subClassOf Facility;,Railway subClassOf Facility,perfect,SubClassOf,SubClassOf
+cogito-facility,3,REQ,"Facilities include buildings, railways, bridges and roads",3,Bridge subClassOf Facility;,Bridge subClassOf Facility,perfect,SubClassOf,SubClassOf
+cogito-facility,3,REQ,"Facilities include buildings, railways, bridges and roads",4,Road subClassOf Facility;,Road subClassOf Facility,perfect,SubClassOf,SubClassOf
+cogito-facility,4,REQ,Spatial zones (especially facilities and facility parts) can have facility parts,1,SpatialZone hasFacilityPart FacilityPart;,FacilityPart hasFacilityPart FacilityPart,good_syntax,ObjectProperty,ObjectProperty
+cogito-facility,5,REQ,Spatial zones (especially buildings) can have storeys,1,SpatialZone hasStorey Storey;,Building hasStorey Storey,good_syntax,ObjectProperty,ObjectProperty
+cogito-facility,6,REQ,Spatial zones can have spaces,1,SpatialZone hasSpace Space;,SpatialZone hasSpace Space,perfect,ObjectProperty,ObjectProperty
+cogito-facility,7,REQ,Spatial zones can contain elements and other spatial zones,1,SpatialZone containsElement Element;,SpatialZone containsElement Element,perfect,ObjectProperty,ObjectProperty
+cogito-facility,7,REQ,Spatial zones can contain elements and other spatial zones,2,SpatialZone isRelatedToSpatialZone SpatialZone;,SpatialZone containsOtherSpatialZone OtherSpatialZone,good_syntax,ObjectProperty,ObjectProperty
+cogito-facility,8,REQ,"Elements include walls, slabs, columns, etc. (building elements)",1,BuildingElement subClassOf Element;,BuildingElement subClassOf Element,perfect,SubClassOf,SubClassOf
+cogito-facility,8,REQ,"Elements include walls, slabs, columns, etc. (building elements)",2,,Wall subClassOf Element,missing_good,,SubClassOf
+cogito-facility,8,REQ,"Elements include walls, slabs, columns, etc. (building elements)",3,,Slab subClassOf Element,missing_good,,SubClassOf
+cogito-facility,8,REQ,"Elements include walls, slabs, columns, etc. (building elements)",4,,Column subClassOf Element,missing_good,,SubClassOf
+cogito-facility,9,REQ,An element can have other elements,1,Element hasSubElement Element;,Element hasSubElement Element,perfect,ObjectProperty,ObjectProperty
+cogito-facility,10,REQ,"Spatial zones include sites, facilities, facility parts, storeys and spaces",1,Site subClassOf SpatialZone;,Site subClassOf SpatialZone,perfect,SubClassOf,SubClassOf
+cogito-facility,10,REQ,"Spatial zones include sites, facilities, facility parts, storeys and spaces",2,Facility subClassOf SpatialZone;,Facility subClassOf SpatialZone,perfect,SubClassOf,SubClassOf
+cogito-facility,10,REQ,"Spatial zones include sites, facilities, facility parts, storeys and spaces",3,FacilityPart subClassOf SpatialZone;,FacilityPart subClassOf SpatialZone,perfect,SubClassOf,SubClassOf
+cogito-facility,10,REQ,"Spatial zones include sites, facilities, facility parts, storeys and spaces",4,Storey subClassOf SpatialZone;,Storey subClassOf SpatialZone,perfect,SubClassOf,SubClassOf
+cogito-facility,10,REQ,"Spatial zones include sites, facilities, facility parts, storeys and spaces",5,Space subClassOf SpatialZone;,Space subClassOf SpatialZone,perfect,SubClassOf,SubClassOf
+cogito-facility,11,REQ,Spatial zones include construction zones (which are defined in the IFC file),1,ConstructionZone subClassOf SpatialZone;,ConstructionZone subClassOf SpatialZone,perfect,SubClassOf,SubClassOf
+cogito-facility,12,REQ,"A spatial zone has an identifier, a name and a description",1,SpatialZone identifier literal;,SpatialZone identifier literal,perfect,DataProperty,DataProperty
+cogito-facility,12,REQ,"A spatial zone has an identifier, a name and a description",2,SpatialZone title literal;,SpatialZone title literal,perfect,DataProperty,DataProperty
+cogito-facility,12,REQ,"A spatial zone has an identifier, a name and a description",3,SpatialZone description string;,SpatialZone description literal,good_syntax,DataProperty,DataProperty
+cogito-facility,13,REQ,"An element has an identifier and a name. It also includes its material (Uniclass code), and its type (Uniclass code and IFC type)",1,Element identifier literal;,Element identifier literal,perfect,DataProperty,DataProperty
+cogito-facility,13,REQ,"An element has an identifier and a name. It also includes its material (Uniclass code), and its type (Uniclass code and IFC type)",2,Element title literal;,Element title literal,perfect,DataProperty,DataProperty
+cogito-facility,13,REQ,"An element has an identifier and a name. It also includes its material (Uniclass code), and its type (Uniclass code and IFC type)",3,Element codeUniclassMaterial literal;,Element includesMaterial Material,wrong,DataProperty,ObjectProperty
+cogito-facility,13,REQ,"An element has an identifier and a name. It also includes its material (Uniclass code), and its type (Uniclass code and IFC type)",4,Element codeUniclassElement literal;,Material uniclassCode literal,good_syntax,DataProperty,DataProperty
+cogito-facility,13,REQ,"An element has an identifier and a name. It also includes its material (Uniclass code), and its type (Uniclass code and IFC type)",5,Element ifcType literal;,Element includesType Type,wrong,DataProperty,Type
+cogito-facility,13,REQ,"An element has an identifier and a name. It also includes its material (Uniclass code), and its type (Uniclass code and IFC type)",6,,Type uniclassCode literal,missing_good,,Type
+cogito-facility,13,REQ,"An element has an identifier and a name. It also includes its material (Uniclass code), and its type (Uniclass code and IFC type)",7,,Type ifcType literal,missing_good,,Type
+cogito-facility,14,REQ,A project has an identifier and a name,1,Project identifier literal;,Project identifier literal,perfect,DataProperty,DataProperty
+cogito-facility,14,REQ,A project has an identifier and a name,2,Project title literal;,Project title literal,perfect,DataProperty,DataProperty
+cogito-facility,15,REQ,An element belongs to a SpatialZone,1,Element belongsToSpatialZone SpatialZone;,Element belongsToSpatialZone SpatialZone,perfect,ObjectProperty,ObjectProperty
+cogito-resources,1,REQ,Human workers and equipment are resources,1,Worker subClassOf Resource;,Worker subClassOf Resource,perfect,SubClassOf,SubClassOf
+cogito-resources,1,REQ,Human workers and equipment are resources,2,Equipment subClassOf Resource;,Equipment subClassOf Resource,perfect,SubClassOf,SubClassOf
+cogito-resources,2,REQ,A resource belongs to a resource type,1,Resource belongsToType ResourceType;,Resource belongsToType ResourceType,perfect,ObjectProperty,ObjectProperty
+cogito-resources,3,REQ,Types of resources include human roles and equipment types,1,WorkerRole subClassOf ResourceType;,WorkerRole subClassOf ResourceType,perfect,SubClassOf,SubClassOf
+cogito-resources,3,REQ,Types of resources include human roles and equipment types,2,EquipmentType subClassOf ResourceType;,EquipmentType subClassOf ResourceType,perfect,SubClassOf,SubClassOf
+cogito-resources,4,REQ,A type of resource has an identifier  a name  the maximum quantity and a cost per hour,1,ResourceType identifier literal;,ResourceType identifier literal,perfect,DataProperty,DataProperty
+cogito-resources,4,REQ,A type of resource has an identifier  a name  the maximum quantity and a cost per hour,2,ResourceType title string;,ResourceType title string,perfect,DataProperty,DataProperty
+cogito-resources,4,REQ,A type of resource has an identifier  a name  the maximum quantity and a cost per hour,3,ResourceType maxUnit integer;,ResourceType maxUnit integer,perfect,DataProperty,DataProperty
+cogito-resources,4,REQ,A type of resource has an identifier  a name  the maximum quantity and a cost per hour,4,ResourceType costPerHour float;,ResourceType costPerHour float,perfect,DataProperty,DataProperty
+cogito-resources,5,REQ,A resource has an identifier and a status,1,Resource identifier literal;,Resource identifier literal,perfect,DataProperty,DataProperty
+cogito-resources,5,REQ,A resource has an identifier and a status,2,Resource status string;,Resource status string,perfect,DataProperty,DataProperty
+cogito-resources,6,REQ,Human workers have an email  first name and last name  and pieces of equipment have a name,1,Worker email string;,Worker email string,perfect,DataProperty,DataProperty
+cogito-resources,6,REQ,Human workers have an email  first name and last name  and pieces of equipment have a name,2,Worker firstName string;,Worker firstName string,perfect,DataProperty,DataProperty
+cogito-resources,6,REQ,Human workers have an email  first name and last name  and pieces of equipment have a name,3,Worker lastName string;,Worker lastName string,perfect,DataProperty,DataProperty
+cogito-resources,6,REQ,Human workers have an email  first name and last name  and pieces of equipment have a name,4,,Equipment title string,missing_good,,DataProperty
+cogito-resources,7,REQ,Resources can have a tracking tag assigned,1,Resource hasTrackingTag TrackingTag;,Resource hasTackingTag TrackingTag,good_syntax,ObjectProperty,ObjectProperty
+cogito-resources,8,REQ,A resource can have a tracking tag,1,,Resource hasTackingTag TrackingTag,missing_good,,ObjectProperty
+saref4lift,1,REQ,Signal related to the periodic test run every 72h has been received.,1,TimeOfLastPeriodicTest72hAttempt subClassOf BCSSignal,Signal hasReceived PeriodicTestRun,wrong,SubClassOf,ObjectProperty
+saref4lift,1,REQ,Signal related to the periodic test run every 72h has been received.,2,TimeOfLastPeriodicTest72hAttempt hasValue Time,,missing_gen,DataProperty,
+saref4lift,2,REQ,The bidirectional communication system signal has been received.,1,SmartLiftInstallation receives BCSSignal,Signal hasBeenReceived BidirectionalCommunicationSystemSignal,good_syntax,ObjectProperty,ObjectProperty
+saref4lift,3,REQ,"The types of signals that can be sent by the Bidirectional Communication System are: timeOfLastPeriodicTest72hAttempt, timeOfConfirmationOfLastPeriodicTest72hAttempt, registeredNetworkOperator, networkQualityRSSI and networkQualityBER",1,TimeOfLastPeriodicTest72hAttempt subclassOf BCSSignal,BidirectionalCommunicationSystemSignal sendsSignal SignalType,wrong,SubClassOf,ObjectProperty
+saref4lift,3,REQ,"The types of signals that can be sent by the Bidirectional Communication System are: timeOfLastPeriodicTest72hAttempt, timeOfConfirmationOfLastPeriodicTest72hAttempt, registeredNetworkOperator, networkQualityRSSI and networkQualityBER",2,timeOfConfirmationOfLastPeriodicTest72hAttempt subclassOf BCSSignal,timeOfLastPeriodicTest72hAttempt type SignalType,wrong,SubClassOf,Type
+saref4lift,3,REQ,"The types of signals that can be sent by the Bidirectional Communication System are: timeOfLastPeriodicTest72hAttempt, timeOfConfirmationOfLastPeriodicTest72hAttempt, registeredNetworkOperator, networkQualityRSSI and networkQualityBER",3,registeredNetworkOperator subclassOf BCSSignal,timeOfConfirmationOfLastPeriodicTest72hAttempt type SignalType,wrong,SubClassOf,Type
+saref4lift,3,REQ,"The types of signals that can be sent by the Bidirectional Communication System are: timeOfLastPeriodicTest72hAttempt, timeOfConfirmationOfLastPeriodicTest72hAttempt, registeredNetworkOperator, networkQualityRSSI and networkQualityBER",4,networkQualityRSSI subclassOf BCSSignal,registeredNetworkOperator type SignalType,wrong,SubClassOf,Type
+saref4lift,3,REQ,"The types of signals that can be sent by the Bidirectional Communication System are: timeOfLastPeriodicTest72hAttempt, timeOfConfirmationOfLastPeriodicTest72hAttempt, registeredNetworkOperator, networkQualityRSSI and networkQualityBER",5,networkQualityBER subclassOf BCSSignal,networkQualityRSSI type SignalType,wrong,SubClassOf,Type
+saref4lift,3,REQ,"The types of signals that can be sent by the Bidirectional Communication System are: timeOfLastPeriodicTest72hAttempt, timeOfConfirmationOfLastPeriodicTest72hAttempt, registeredNetworkOperator, networkQualityRSSI and networkQualityBER",6,,networkQualityBER type SignalType,missing_good,,Type
+saref4lift,4,REQ,"Examples of network technologies supported by the Bidirectional Communication System of the lift are: Fixed_line, 2G, 3G, 4G or 5G",1,NetworkFixedLine type Network,NetworkTechnology subClassOf NetworkTechnology,wrong,Type,SubClassOf
+saref4lift,4,REQ,"Examples of network technologies supported by the Bidirectional Communication System of the lift are: Fixed_line, 2G, 3G, 4G or 5G",2,Network2G type Network,Fixed_line type NetworkTechnology,good_syntax,Type,Type
+saref4lift,4,REQ,"Examples of network technologies supported by the Bidirectional Communication System of the lift are: Fixed_line, 2G, 3G, 4G or 5G",3,Network3G type Network,TwoG type NetworkTechnology,good_syntax,Type,Type
+saref4lift,4,REQ,"Examples of network technologies supported by the Bidirectional Communication System of the lift are: Fixed_line, 2G, 3G, 4G or 5G",4,Network4G type Network,ThreeG type NetworkTechnology,good_syntax,Type,Type
+saref4lift,4,REQ,"Examples of network technologies supported by the Bidirectional Communication System of the lift are: Fixed_line, 2G, 3G, 4G or 5G",5,Network5G type Network,FourG type NetworkTechnology,good_syntax,Type,Type
+saref4lift,4,REQ,"Examples of network technologies supported by the Bidirectional Communication System of the lift are: Fixed_line, 2G, 3G, 4G or 5G",6,,FiveG type NetworkTechnology,missing_good,,Type
+saref4lift,5,REQ,The lift has a dangerous fault.,1,DangerousFault subclassof FaultSignal,Lift hasFault DangerousFault,wrong,SubClassOf,ObjectProperty
+saref4lift,6,REQ,The lift has a minor fault.,1,MinorFault subclassof FaultSignal,Lift hasFault MinorFault,wrong,SubClassOf,ObjectProperty
+saref4lift,7,REQ,The lift has an audio fault.,1,AudioFault subclassOf FaultSignal,Lift hasFault AudioFault,wrong,SubClassOf,ObjectProperty
+saref4lift,8,REQ,Alarm button has been pressed.,1,AlarmInTheCar subclassOf Alarm,AlarmButton hasBeenPressed,wrong,SubClassOf,ObjectProperty
+saref4lift,8,REQ,Alarm button has been pressed.,2,CarAlarm subclassOf hasValue some boolean,,missing_gen,SubClassOf,
+saref4lift,9,REQ,Alarm has been initiated.,1,AlarmInTheCar subclassOf Alarm,Alarm hasBeenInitiated,wrong,SubClassOf,ObjectProperty
+saref4lift,9,REQ,Alarm has been initiated.,2,CarAlarm subclassOf hasValue some boolean,,missing_gen,SubClassOf,
+saref4lift,10,REQ,Alarm voice communication has been activated.,1,AlarmVoiceCommunication subclassOf Alarm,AlarmVoiceCommunication hasBeenActivated,wrong,SubClassOf,ObjectProperty
+saref4lift,11,REQ,Alarm in the well is active.,1,AlarmInTheWell subclassOf Alarm,WellAlarm active,wrong,SubClassOf,ObjectProperty
+saref4lift,12,REQ,Alarm in the machinery is active.,1,AlarmInTheMachinery subclassOf Alarm,MachineryAlarm active,wrong,SubClassOf,ObjectProperty
+saref4lift,13,REQ,Flood alarm is active.,1,FloodAlarm subclassOf Alarm,FloodAlarm active,wrong,SubClassOf,ObjectProperty
+saref4lift,14,REQ,Emergency power alarm is active.,1,EmergencyPowerAlarm subclassOf Alarm,EmergencyPowerAlarm active,wrong,SubClassOf,ObjectProperty
+saref4lift,15,REQ,A lift sends commands,1,Function hasCommand Command,Lift sendsCommand Command,good_syntax,ObjectProperty,ObjectProperty
+saref4lift,16,REQ,A command can call to a specific floor.,1,CallCarToSpecificFloorCommand a Command,Command callsFloor Floor,good_syntax,ObjectProperty,ObjectProperty
+saref4lift,17,REQ,A command can send a car to a specific floor.,1,SendCarToSpecificServiceCommand a Command,Command sendsCarTo Floor,good_syntax,ObjectProperty,ObjectProperty
+saref4lift,18,REQ,A command can set the lift to out of service.,1,SmartLiftInstallationCommand hasDoorOpenTime Time,Command setsLiftServiceStatus OutOfService,wrong,DataProperty,ObjectProperty
+saref4lift,19,REQ,A command can test the emergency number.,1,TestEmergencyNumberCommand a Command,Command testsEmergencyNumber,good_syntax,ObjectProperty,ObjectProperty
+saref4lift,20,REQ,A command can start the real time mode,1,SetRealTimeModeCommand a Command,Command startsRealTimeMode,good_syntax,ObjectProperty,ObjectProperty
+saref4lift,21,REQ,A command can initiate the board reset,1,BoardResetCommand a Command,Command initiatesBoardReset,good_syntax,ObjectProperty,ObjectProperty
+saref4lift,22,REQ,"There are four emergency battery power status: good, warn, critical and insufficient",1,EmergencyPowerSupplySignal subClassOf hasValue some string,Good type BatteryPowerStatus,wrong,SubClassOf,Type
+saref4lift,22,REQ,"There are four emergency battery power status: good, warn, critical and insufficient",2,,Warn type BatteryPowerStatus,missing_good,,Type
+saref4lift,22,REQ,"There are four emergency battery power status: good, warn, critical and insufficient",3,,Critical type BatteryPowerStatus,missing_good,,Type
+saref4lift,22,REQ,"There are four emergency battery power status: good, warn, critical and insufficient",4,,Insufficient type BatteryPowerStatus,missing_good,,Type
+saref4lift,23,REQ,"There are four alarm SOS battery power status: good, warn, critical and insufficient",1,StandardEmergencyPowerSupplySignal subClassOf hasValue some string,Good type AlarmSOSBatteryPowerStatus,wrong,SubClassOf,Type
+saref4lift,23,REQ,"There are four alarm SOS battery power status: good, warn, critical and insufficient",2,,Warn type AlarmSOSBatteryPowerStatus,missing_good,,Type
+saref4lift,23,REQ,"There are four alarm SOS battery power status: good, warn, critical and insufficient",3,,Critical type AlarmSOSBatteryPowerStatus,missing_good,,Type
+saref4lift,23,REQ,"There are four alarm SOS battery power status: good, warn, critical and insufficient",4,,Insufficient type AlarmSOSBatteryPowerStatus,missing_good,,Type
+saref4lift,24,REQ,A Smart Lift Installation is contained into a Smart Lift System,1,SmartLiftInstallation hasSubsystem SmartLiftInstallation,SmartLiftInstallation containsSystem SmartLiftSystem,good_syntax,ObjectProperty,ObjectProperty
+saref4lift,25,REQ,A Smart Lift Edge Control Unit hosts the different Smart Lift modules,1,SmartLiftInstallation hasSubsystem SmartLiftEdgeControlUnit,SmartLiftEdgeControlUnit hostsModule SmartLiftModule,good_syntax,ObjectProperty,ObjectProperty
+saref4lift,26,REQ,Examples of Smart Lift modules are signals or bidirectional communication systems,1,Signal subClassOf SmartLiftmodule,Signal subClassOf SmartLiftModule,perfect,SubClassOf,SubClassOf
+saref4lift,26,REQ,Examples of Smart Lift modules are signals or bidirectional communication systems,2,BidirectionalCommunicationSystem subClassOf SmartLiftmodule,BidirectionalCommunicationSystem subClassOf SmartLiftModule,perfect,SubClassOf,SubClassOf
+saref4lift,27,REQ,Each Smart Lift Installation should be globally and uniquely identified,1,SmartLiftInstallation type Class,SmartLiftInstallation type Class,perfect,Type,Type
+saref4lift,28,REQ,Each Smart Lifts Group should be globally and uniquely identified,1,SmartLiftsGroup type Class,SmartLiftGroup type Class,good_syntax,Type,Type
+saref4lift,29,REQ,A lift is installed in a geographic location,1,SmartLiftInstallation hasGeometry Point,Lift hasLocation GeographicLocation,good_syntax,ObjectProperty,ObjectProperty
+saref4lift,30,REQ,The lift geographic location is provided by the geographic location validator,1,SmartLiftInstallation subclassOf hasLocationValidator only string,GeographicLocation providedBy hasGeographicLocationValidator,wrong,SubClassOf,ObjectProperty
+saref4lift,31,REQ,"Examples of types of use of a lift are: Lift, Goods lift, Goods only lift, or Fireman lift",1,GoodsLift a DeviceKind,LiftUse subClassOf LiftPurpose,wrong,ObjectProperty,SubClassOf
+saref4lift,31,REQ,"Examples of types of use of a lift are: Lift, Goods lift, Goods only lift, or Fireman lift",2,GoodsOnlyLift a DeviceKind,GoodsLift subClassOf LiftPurpose,wrong,ObjectProperty,SubClassOf
+saref4lift,31,REQ,"Examples of types of use of a lift are: Lift, Goods lift, Goods only lift, or Fireman lift",3,FiremanLift a DeviceKind,GoodsOnlyLift subClassOf LiftPurpose,wrong,ObjectProperty,SubClassOf
+saref4lift,31,REQ,"Examples of types of use of a lift are: Lift, Goods lift, Goods only lift, or Fireman lift",4,,FiremanLift subClassOf LiftPurpose,missing_good,,SubClassOf
+saref4lift,32,CQ,"Which is the car position? (Floor Number i.e.: -2, -1, 0, 1,...)",1,CurrentCarStop subClassOf CarSignal,CurrentCarStop SubClassOf CarSignal,perfect,SubClassOf,SubClassOf
+saref4lift,32,CQ,"Which is the car position? (Floor Number i.e.: -2, -1, 0, 1,...)",2,CurrentCarStop subclassOf hasValue some integer,CurrentCarStop SubClassOf hasValue some integer,perfect,SubClassOf,SubClassOf
+saref4lift,33,CQ,Is the lift direction upward? Yes/No,1,MovingUpwardDirection subClassOf CarSignal,MovingUpwardDirection SubClassOf AlarmSignal,good_syntax,SubClassOf,SubClassOf
+saref4lift,33,CQ,Is the lift direction upward? Yes/No,2,MovingUpwardDirection subclassOf hasValue some boolean,MovingUpwardDirection SubClassOf hasAlarmMonitoringCentre some boolean,good_syntax,SubClassOf,SubClassOf
+saref4lift,34,CQ,Is the lift direction downward? Yes/No,1,MovingDownwardDirection subClassOf CarSignal,MovingDownwardDirection SubClassOf AlarmSignal,good_syntax,SubClassOf,SubClassOf
+saref4lift,34,CQ,Is the lift direction downward? Yes/No,2,MovingDownwardDirection subclassOf hasValue some boolean,MovingDownwardDirection SubClassOf hasAlarmMonitoringCentre some boolean,good_syntax,SubClassOf,SubClassOf
+saref4lift,35,CQ,Is the car in an unlocking zone? Yes/No,1,CarInUnlockingZone subClassOf CarSignal,CarInUnlockingZone SubClassOf AlarmSignal,good_syntax,SubClassOf,SubClassOf
+saref4lift,35,CQ,Is the car in an unlocking zone? Yes/No,2,CarInUnlockingZone subclassOf hasValue some boolean,CarInUnlockingZone SubClassOf hasAlarmMonitoringCentre some boolean,good_syntax,SubClassOf,SubClassOf
+saref4lift,36,CQ,Is there a test ride in execution? Yes/No,1,TestRide subClassOf CarSignal,TestRide SubClassOf AlarmSignal,good_syntax,SubClassOf,SubClassOf
+saref4lift,36,CQ,Is there a test ride in execution? Yes/No,2,TestRide subclassOf hasValue some boolean,TestRide SubClassOf hasAlarmMonitoringCentre some boolean,good_syntax,SubClassOf,SubClassOf
+saref4lift,37,CQ,Is there any fault? Yes/No,1,FaultSignal type Class,FaultDetected SubClassOf FaultSignal,wrong,Type,SubClassOf
+saref4lift,37,CQ,Is there any fault? Yes/No,2,,FaultDetected SubClassOf hasAlarmMonitoringCentre some boolean,missing_good,,SubClassOf
+saref4lift,38,CQ,Is the lift out of service? Yes/No,1,OutOfService subClassOf CarSignal,OutOfService SubClassOf AlarmSignal,good_syntax,SubClassOf,SubClassOf
+saref4lift,38,CQ,Is the lift out of service? Yes/No,2,OutOfService subclassOf hasValue some boolean,OutOfService SubClassOf hasAlarmMonitoringCentre some boolean,good_syntax,SubClassOf,SubClassOf
+saref4lift,39,CQ,Is the lift overloaded? Yes/No,1,OutOfService subClassOf CarSignal,Overload SubClassOf AlarmSignal,good_syntax,SubClassOf,SubClassOf
+saref4lift,39,CQ,Is the lift overloaded? Yes/No,2,OutOfService subclassOf hasValue some boolean,Overload SubClassOf hasAlarmMonitoringCentre some boolean,good_syntax,SubClassOf,SubClassOf
+saref4lift,40,CQ,Are there ongoing inspection operations? Yes/No,1,Overload subClassOf CarSignal,InspectionOperation SubClassOf AlarmSignal,good_syntax,SubClassOf,SubClassOf
+saref4lift,40,CQ,Are there ongoing inspection operations? Yes/No,2,Overload subclassOf hasValue some boolean,InspectionOperation SubClassOf hasAlarmMonitoringCentre some boolean,good_syntax,SubClassOf,SubClassOf
+saref4lift,41,CQ,Are there fire operations? Yes/No,1,InspectionOperation subClassOf CarSignal,FireOperation SubClassOf AlarmSignal,good_syntax,SubClassOf,SubClassOf
+saref4lift,41,CQ,Are there fire operations? Yes/No,2,InspectionOperation subclassOf hasValue some boolean,FireOperation SubClassOf hasAlarmMonitoringCentre some boolean,good_syntax,SubClassOf,SubClassOf
+saref4lift,42,CQ,Is the car alarm activated? Yes/No,1,FireOperation subClassOf CarSignal,CarAlarm SubClassOf AlarmSignal,good_syntax,SubClassOf,SubClassOf
+saref4lift,42,CQ,Is the car alarm activated? Yes/No,2,FireOperation subclassOf hasValue some boolean,CarAlarm SubClassOf hasAlarmMonitoringCentre some boolean,good_syntax,SubClassOf,SubClassOf
+saref4lift,43,CQ,Is the car empty? Yes/No,1,CarAlarm subClassOf CarSignal,CarEmpty SubClassOf AlarmSignal,good_syntax,SubClassOf,SubClassOf
+saref4lift,43,CQ,Is the car empty? Yes/No,2,CarAlarm subclassOf hasValue some boolean,CarEmpty SubClassOf hasAlarmMonitoringCentre some boolean,good_syntax,SubClassOf,SubClassOf
+saref4lift,44,CQ,What is the limit load of the lift? 90 kg,1,CarEmpty subClassOf CarSignal,SmartLiftInstallation hasProperty core:Property,wrong,SubClassOf,ObjectProperty
+saref4lift,44,CQ,What is the limit load of the lift? 90 kg,2,CarEmpty subclassOf hasValue some boolean,LimitLoad type core:Property,wrong,SubClassOf,Type
+saref4lift,45,CQ,What is the power supply voltage of a lift? 380 volts,1,SmartLiftInstallation hasLimitLoad Load,SmartLiftInstallation hasProperty core:Property,good_syntax,ObjectProperty,ObjectProperty
+saref4lift,45,CQ,What is the power supply voltage of a lift? 380 volts,2,,PowerSupplyVoltage type core:Property,missing_good,,Type
+saref4lift,46,CQ,What is the value of the standard power supply of a lift? 12 volts,1,SmartLiftInstallation hasPowerSupply Power,SmartLiftInstallation hasProperty core:Property,good_syntax,ObjectProperty,ObjectProperty
+saref4lift,46,CQ,What is the value of the standard power supply of a lift? 12 volts,2,,StandardPowerSupplyVoltage type core:Property,missing_good,,Type
+saref4lift,47,CQ,How many car stops has the lift? 8,1,SmartLiftInstallation hasStandardPowerSupply Power,SmartLiftInstallation SubClassOf hasStops only integer,wrong,ObjectProperty,SubClassOf
+saref4lift,48,CQ,How many doors are installed in the lift? 2,1,SmartLiftInstallation subClassOf hasCarStops only integer,SmartLiftInstallation SubClassOf hasDoors only integer,good_syntax,SubClassOf,SubClassOf
+saref4lift,49,CQ,How many car services are available in the lift? 8,1,SmartLiftInstallation subClassOf hasDoorsStatus some boolean,SmartLiftInstallation SubClassOf hasCarServices only integer,good_syntax,SubClassOf,SubClassOf
+saref4lift,50,CQ,Which is the network coverage? 87%,1,NetworkCoverage isMeasuredIn UnitOfMeasure,NetworkCoverage SubClassOf AlarmSignal,wrong,ObjectProperty,SubClassOf
+saref4lift,50,CQ,Which is the network coverage? 87%,2,,NetworkCoverage SubClassOf hasValue some float,missing_good,,SubClassOf
+saref4lift,51,CQ,Which is the home network operator of the lift? 289-88,1,RegisteredNetworkOperator subclassOf BCSSignal,HomeOperatorIdentifier SubClassOf AlarmSignal,good_syntax,SubClassOf,SubClassOf
+saref4lift,51,CQ,Which is the home network operator of the lift? 289-88,2,RegisteredNetworkOperator subclassOf hasValue some string,HomeOperatorIdentifier SubClassOf hasValue some string,good_syntax,SubClassOf,SubClassOf
+saref4lift,52,CQ,Which is the telephone number of the lift? 85-755-28568888.,1,SmartLiftInstallation subClassOf hasTelephoneNumber some string,SmartLiftInstallation SubClassOf hasTelephoneNumber some string,perfect,SubClassOf,SubClassOf
+saref4lift,53,CQ,"Which are the secondary emergency numbers of the lift? 85-755-28568889, 85-755-28568890, 85-755-28568891.",1,SmartLiftInstallation subClassOf hasSecondaryEmergencyTelephoneNumber only string,SmartLiftInstallation SubClassOf hasSecondaryEmergencyTelephoneNumber only string,perfect,SubClassOf,SubClassOf
+saref4lift,54,CQ,Is the emergency power supply signal active? Yes/No,1,EmergencyPowerSupplySignal subClassOf Signal,EmergencyPowerSupplyActive SubClassOf FaultSignal,good_syntax,SubClassOf,SubClassOf
+saref4lift,54,CQ,Is the emergency power supply signal active? Yes/No,2,EmergencyPowerSupplySignal subclassOf hasValue some boolean,EmergencyPowerSupplyActive SubClassOf hasValue some boolean,good_syntax,SubClassOf,SubClassOf
+saref4lift,55,CQ,Is the standard power supply signal active? Yes/No,1,StandardEmergencyPowerSupplySignal subClassOf Signal,StandardPowerSupplyActive SubClassOf StatusSignal,good_syntax,SubClassOf,SubClassOf
+saref4lift,55,CQ,Is the standard power supply signal active? Yes/No,2,StandardEmergencyPowerSupplySignal subclassOf hasValue some boolean,StandardPowerSupplyActive SubClassOf hasValue some boolean,good_syntax,SubClassOf,SubClassOf
+saref4lift,56,CQ,Which is the voltage of emergency power?  330 volts,1,SmartLiftInstallation hasPowerSupply Power,EmergencyVoltage SubClassOf FaultSignal,wrong,ObjectProperty,SubClassOf
+saref4lift,56,CQ,Which is the voltage of emergency power?  330 volts,2,,EmergencyVoltage SubClassOf hasValue some float,missing_good,,SubClassOf
+saref4lift,57,CQ,Is the lift out of service? Yes/No,1,OutOfService subclassOf CarSignal,OutOfService SubClassOf StatusSignal,good_syntax,SubClassOf,SubClassOf
+saref4lift,57,CQ,Is the lift out of service? Yes/No,2,OutOfService subclassOf hasValue some boolean,OutOfService SubClassOf hasValue some boolean,perfect,SubClassOf,SubClassOf
+saref4lift,58,CQ,Is the lift overloaded? Yes/No,1,Overload subClassOf CarSignal,Overload SubClassOf StatusSignal,good_syntax,SubClassOf,SubClassOf
+saref4lift,58,CQ,Is the lift overloaded? Yes/No,2,Overload subclassOf hasValue some boolean,Overload SubClassOf hasValue some boolean,perfect,SubClassOf,SubClassOf
+saref4lift,59,CQ,Are there ongoing inspection operations? Yes/No,1,InspectionOperation subClassOf Signal,InspectionOperation SubClassOf StatusSignal,good_syntax,SubClassOf,SubClassOf
+saref4lift,59,CQ,Are there ongoing inspection operations? Yes/No,2,InspectionOperation subclassOf hasValue some boolean,InspectionOperation SubClassOf hasValue some boolean,perfect,SubClassOf,SubClassOf
+saref4lift,60,CQ,Are there fire operations? Yes/No,1,FireOperation subClassOf CarSignal,FireOperation SubClassOf AlarmSignal,good_syntax,SubClassOf,SubClassOf
+saref4lift,60,CQ,Are there fire operations? Yes/No,2,FireOperation subclassOf hasValue some boolean,FireOperation SubClassOf hasValue some boolean,perfect,SubClassOf,SubClassOf
+saref4lift,61,CQ,How many times the lift has been called? 245,1,NumberOfCalls subClassOf StatisticSignal,NumberOfCalls SubClassOf StatisticSignal,perfect,SubClassOf,SubClassOf
+saref4lift,61,CQ,How many times the lift has been called? 245,2,NumberOfCalls subclassOf hasValue some integer,NumberOfCalls SubClassOf hasValue some integer,perfect,SubClassOf,SubClassOf
+saref4lift,62,CQ,How many upward travel the lift did? 167,1,UpwardTravels subClassOf StatisticSignal,UpwardTravels SubClassOf StatisticSignal,perfect,SubClassOf,SubClassOf
+saref4lift,62,CQ,How many upward travel the lift did? 167,2,UpwardTravels subclassOf hasValue some integer,UpwardTravels SubClassOf hasValue some integer,perfect,SubClassOf,SubClassOf
+saref4lift,63,CQ,How many downward travel the lift did? 153,1,DownwardTravels subClassOf StatisticSignal,DownwardTravels SubClassOf StatisticSignal,perfect,SubClassOf,SubClassOf
+saref4lift,63,CQ,How many downward travel the lift did? 153,2,DownwardTravels subclassOf hasValue some integer,DownwardTravels SubClassOf hasValue some integer,perfect,SubClassOf,SubClassOf
+saref4lift,64,CQ,Which is the total number of floors covered? 94,1,TotalFloorsCovered subClassOf StatisticSignal,TotalFloorsCovered SubClassOf StatisticSignal,perfect,SubClassOf,SubClassOf
+saref4lift,64,CQ,Which is the total number of floors covered? 94,2,totalFloorsCovered subclassOf hasValue some integer,TotalFloorsCovered SubClassOf hasValue some integer,perfect,SubClassOf,SubClassOf
+saref4lift,65,CQ,How many times have been executed the reset sequence? 26,1,TotalResetSequence subClassOf StatisticSignal,TotalResetSequence SubClassOf StatisticSignal,perfect,SubClassOf,SubClassOf
+saref4lift,65,CQ,How many times have been executed the reset sequence? 26,2,TotalResetSequence subclassOf hasValue some integer,TotalResetSequence SubClassOf hasValue some integer,perfect,SubClassOf,SubClassOf
+saref4lift,66,CQ,How many times the lift adopted the reversal direction? 4,1,TotalReversalDirection subClassOf StatisticSignal,NumberOfReversalDirections SubClassOf StatisticSignal,good_syntax,SubClassOf,SubClassOf
+saref4lift,66,CQ,How many times the lift adopted the reversal direction? 4,2,TotalReversalDirection subclassOf hasValue some integer,NumberOfReversalDirections SubClassOf hasValue some integer,good_syntax,SubClassOf,SubClassOf
+saref4lift,67,CQ,How many times the door has been opened? 362,1,TotalTimesOpened type StatisticSignal,TotalTimesOpened SubClassOf StatisticSignal,wrong,Type,SubClassOf
+saref4lift,67,CQ,How many times the door has been opened? 362,2,TotalTimesOpened subclassOf hasValue some integer,TotalTimesOpened SubClassOf hasValue some integer,perfect,SubClassOf,SubClassOf
+saref4lift,68,CQ,How many times the lift has been called from the floor X? 46,1,CallsPerService type StatisticSignal,CallsPerService SubClassOf StatisticSignal,wrong,Type,SubClassOf
+saref4lift,68,CQ,How many times the lift has been called from the floor X? 46,2,CallsPerService subclassOf hasValue some integer,CallsPerService SubClassOf hasValue some integer,perfect,SubClassOf,SubClassOf
+saref4lift,69,CQ,How many times the fault event X occurred? 12,1,NumberOfFaults type StatisticSignal,NumberOfFaults SubClassOf FaultSignal,wrong,Type,SubClassOf
+saref4lift,69,CQ,How many times the fault event X occurred? 12,2,NumberOfFaults subclassOf hasValue some integer,NumberOfFaults SubClassOf hasValue some integer,perfect,SubClassOf,SubClassOf
+saref4lift,70,CQ,Which is the opening door time?,1,SmartLiftInstallationCommand hasDoorCloseTime Time,DoorOpeningTime SubClassOf Command,wrong,DataProperty,SubClassOf
+saref4lift,71,CQ,Which is the closing door time?,1,SetOutOfServiceCommand a Command,DoorClosingTime SubClassOf Command,wrong,ObjectProperty,SubClassOf
+saref4lift,72,CQ,What is the emergency number?,1,SmartLiftInstallation subclassOf hasMainEmergencyNumber only string,SmartLiftInstallation SubClassOf hasMainEmergencyTelephoneNumber some string,good_syntax,SubClassOf,SubClassOf
+saref4lift,73,CQ,Which is the current total travel time?,1,SmartLiftInstallation hasTraveledTime Time,TotalTravelTime SubClassOf StatisticSignal,wrong,DataProperty,SubClassOf
+saref4lift,73,CQ,Which is the current total travel time?,2,,TotalTravelTime SubClassOf hasValue some TemporalDuration,missing_good,,SubClassOf
+saref4lift,74,CQ,Which is the manufacturing lift company? Company1,1,SmartLiftInstallation subClassOf hasManufacturer only string,SmartLiftInstallation SubClassOf hasManufacturingCompanyRepresentative only string,good_syntax,SubClassOf,SubClassOf
+saref4lift,75,CQ,Which is the installer lift company? Company2,1,SmartLiftInstallation subClassOf hasInstallerLiftCompany only string,SmartLiftInstallation SubClassOf hasInstallerCompany only string,good_syntax,SubClassOf,SubClassOf
+saref4lift,76,CQ,Which is the maintenance lift company? Company3,1,SmartLiftInstallation subClassOf hasMaintenanceCompany only string,SmartLiftInstallation SubClassOf hasMaintenanceCompany only string,perfect,SubClassOf,SubClassOf
+saref4lift,77,CQ,Who is the building manager of a lift? Company4,1,SmartLiftInstallation subClassOf hasBuildingManager only string,SmartLiftInstallation SubClassOf hasBuildingManager only string,perfect,SubClassOf,SubClassOf
+saref4lift,78,CQ,Who is the legal owner of a lift? Company5,1,SmartLiftInstallation subClassOf hasOwner only string,SmartLiftInstallation SubClassOf hasLegalOwner only string,good_syntax,SubClassOf,SubClassOf
+saref4watr,1,REQ,A catchment well is a well that has been constructed to collect water.,1,CatchmentWell subClassOf Well,CatchmentWell subClassOf Well,perfect,SubClassOf,SubClassOf
+saref4watr,1,REQ,A catchment well is a well that has been constructed to collect water.,2,,CatchmentWell collectsWater,missing_good,,ObjectProperty
+saref4watr,2,REQ,A wastewater treatment plant is a facility where contaminants are removed from wastewater or sewage.,1,TreatmentPlant subClassOf WaterInfrastructure,WastewaterTreatmentPlant subClassOf Facility,good_syntax,SubClassOf,SubClassOf
+saref4watr,2,REQ,A wastewater treatment plant is a facility where contaminants are removed from wastewater or sewage.,2,TreatmentPlant isDesignedFor WaterKind,WastewaterTreatmentPlant removesContaminantsFrom WastewaterOrSewage,good_syntax,ObjectProperty,ObjectProperty
+saref4watr,2,REQ,A wastewater treatment plant is a facility where contaminants are removed from wastewater or sewage.,3,Wastewater type WaterKind,,missing_gen,Type,
+saref4watr,3,REQ,A water meter is a device that observes different aspects of a water infrastructure.,1,WaterMeter subClassOf Device,WaterMeter type WaterDevice,wrong,SubClassOf,Type
+saref4watr,3,REQ,A water meter is a device that observes different aspects of a water infrastructure.,2,WaterMeter observes WaterFlowProperty,WaterMeter observesWaterInfrastructureAspect,good_syntax,ObjectProperty,ObjectProperty
+saref4watr,4,REQ,The maximum temperature limit of the water meter is of 49ºC.,1,WaterMeter observes WaterFlowProperty,WaterMeter hasTemperatureLimit float,wrong,ObjectProperty,DataProperty
+saref4watr,4,REQ,The maximum temperature limit of the water meter is of 49ºC.,2,FlowTemperature type WaterFlowProperty,,missing_gen,Type,
+saref4watr,5,REQ,"Water meters can provide observations according to different temporal settings: current values, periodical values, set date values, billing date values, minimum values, and maximum values.",1,WaterMeter madeExecution Observation,WaterMeter providesObservationFor TemporalSetting,good_syntax,ObjectProperty,ObjectProperty
+saref4watr,5,REQ,"Water meters can provide observations according to different temporal settings: current values, periodical values, set date values, billing date values, minimum values, and maximum values.",2,,CurrentValue type ObservationSetting,missing_good,,Type
+saref4watr,5,REQ,"Water meters can provide observations according to different temporal settings: current values, periodical values, set date values, billing date values, minimum values, and maximum values.",3,,PeriodicalValue type ObservationSetting,missing_good,,Type
+saref4watr,5,REQ,"Water meters can provide observations according to different temporal settings: current values, periodical values, set date values, billing date values, minimum values, and maximum values.",4,,SetDateValue type ObservationSetting,missing_good,,Type
+saref4watr,5,REQ,"Water meters can provide observations according to different temporal settings: current values, periodical values, set date values, billing date values, minimum values, and maximum values.",5,,BillingDateValue type ObservationSetting,missing_good,,Type
+saref4watr,5,REQ,"Water meters can provide observations according to different temporal settings: current values, periodical values, set date values, billing date values, minimum values, and maximum values.",6,,MinValue type ObservationSetting,missing_good,,Type
+saref4watr,5,REQ,"Water meters can provide observations according to different temporal settings: current values, periodical values, set date values, billing date values, minimum values, and maximum values.",7,,MaxValue type ObservationSetting,missing_good,,Type
+saref4watr,6,REQ,"Observations can be related to a specific date and/or time, to some duration, or to a temporal interval.",1,Observation hasResultTime dateTime,Observation relatesTo DateAndTime,wrong,DataProperty,ObjectProperty
+saref4watr,6,REQ,"Observations can be related to a specific date and/or time, to some duration, or to a temporal interval.",2,Observation hasPhenomenonTime TemporalEntity,Observation relatesTo hasDuration,good_syntax,ObjectProperty,ObjectProperty
+saref4watr,6,REQ,"Observations can be related to a specific date and/or time, to some duration, or to a temporal interval.",3,,Observation relatesTo TemporalInterval,missing_good,,ObjectProperty
+saref4watr,7,REQ,"There are four main types of water assets: source, sink, transport and storage ones.",1,SourceAsset subClassOf WaterAsset,SourceAsset subClassOf WaterAsset,perfect,SubClassOf,SubClassOf
+saref4watr,7,REQ,"There are four main types of water assets: source, sink, transport and storage ones.",2,SinkAsset subClassOf WaterAsset,SinkAsset subClassOf WaterAsset,perfect,SubClassOf,SubClassOf
+saref4watr,7,REQ,"There are four main types of water assets: source, sink, transport and storage ones.",3,TransportAsset subClassOf WaterAsset,TransportAsset subClassOf WaterAsset,perfect,SubClassOf,SubClassOf
+saref4watr,7,REQ,"There are four main types of water assets: source, sink, transport and storage ones.",4,StorageAsset subClassOf WaterAsset,StorageAsset subClassOf WaterAsset,perfect,SubClassOf,SubClassOf
+saref4watr,8,REQ,"Examples of source assets are: lakes, lagoons or glaciers.",1,Lake subClassOf SourceAsset,Lake type SourceAsset,wrong,SubClassOf,Type
+saref4watr,8,REQ,"Examples of source assets are: lakes, lagoons or glaciers.",2,Lagoon subClassOf SourceAsset,Lagoon type SourceAsset,wrong,SubClassOf,Type
+saref4watr,8,REQ,"Examples of source assets are: lakes, lagoons or glaciers.",3,Glacier subClassOf SourceAsset,Glacier type SourceAsset,wrong,SubClassOf,Type
+saref4watr,9,REQ,"Examples of sink assets are: rivers, seas, oceans or estuaries.",1,Estuary subClassOf SinkAsset,River type SinkAsset,wrong,SubClassOf,Type
+saref4watr,9,REQ,"Examples of sink assets are: rivers, seas, oceans or estuaries.",2,Ocean subClassOf SinkAsset,Sea type SinkAsset,wrong,SubClassOf,Type
+saref4watr,9,REQ,"Examples of sink assets are: rivers, seas, oceans or estuaries.",3,River subClassOf SinkAsset,Ocean type SinkAsset,wrong,SubClassOf,Type
+saref4watr,9,REQ,"Examples of sink assets are: rivers, seas, oceans or estuaries.",4,Sea subClassOf SinkAsset,Estuary type SinkAsset,wrong,SubClassOf,Type
+saref4watr,10,REQ,An aquifer is a type of storage asset.,1,Aquifer subClassOf StorageAsset,Aquifer subClassOf StorageAsset,perfect,SubClassOf,SubClassOf
+saref4watr,11,REQ,An intake is a type of transport asset.,1,Intake subClassOf TransportAsset,Intake subClassOf TransportAsset,perfect,SubClassOf,SubClassOf
+saref4watr,12,REQ,A hydroelectric power plant is a type of water infrastructure.,1,HydroelectricPowerPlant subClassOf WaterInfrastructure,HydroelectricPowerPlant subClassOf WaterInfrastructure,perfect,SubClassOf,SubClassOf
+saref4watr,13,REQ,A gauging station is a type of water monitoring infrastructure.,1,GaugingStation subClassOf MonitoringInfrastructure,GaugingStation subClassOf MonitoringInfrastructure,perfect,SubClassOf,SubClassOf
+saref4watr,14,REQ,"A water infrastructure is intended for a particular use of water, for example: industry, agriculture, recreation or aquaculture.",1,WaterInfrastructure isIntendedFor WaterUse,WaterInfrastructure isIntendedFor Use,good_syntax,ObjectProperty,ObjectProperty
+saref4watr,14,REQ,"A water infrastructure is intended for a particular use of water, for example: industry, agriculture, recreation or aquaculture.",2,Industry type WaterUse,Industry type Use,good_syntax,Type,Type
+saref4watr,14,REQ,"A water infrastructure is intended for a particular use of water, for example: industry, agriculture, recreation or aquaculture.",3,Recreation type WaterUse,Agriculture type Use,good_syntax,Type,Type
+saref4watr,14,REQ,"A water infrastructure is intended for a particular use of water, for example: industry, agriculture, recreation or aquaculture.",4,Domestic type WaterUse,Recreation type Use,good_syntax,Type,Type
+saref4watr,14,REQ,"A water infrastructure is intended for a particular use of water, for example: industry, agriculture, recreation or aquaculture.",5,Agriculture type WaterUse,Aquaculture type Use,good_syntax,Type,Type
+saref4watr,14,REQ,"A water infrastructure is intended for a particular use of water, for example: industry, agriculture, recreation or aquaculture.",6,Aquaculture type WaterUse,,missing_gen,Type,
+saref4watr,15,REQ,Total dissolved solids is an acceptability property of water.,1,TotalDissolvedSolids type AcceptabilityProperty,TotalDissolvedSolids type AcceptabilityProperty,perfect,Type,Type
+saref4watr,16,REQ,Dissolved oxygen is a chemical property of water.,1,Oxygen type ChemicalProperty,DissolvedOxygen type ChemicalProperty,good_syntax,Type,Type
+saref4watr,17,REQ,"Some environmental properties are relevant for water, such as external humidity, atmospheric pressure, amount of precipitation.",1,Humidity type EnvironmentalProperty,EnvironmentalProperty hasAcceptabilityProperty,wrong,Type,ObjectProperty
+saref4watr,17,REQ,"Some environmental properties are relevant for water, such as external humidity, atmospheric pressure, amount of precipitation.",2,AtmosphericPressure type EnvironmentalProperty,AtmosphericPressure type EnvironmentalProperty,perfect,Type,Type
+saref4watr,17,REQ,"Some environmental properties are relevant for water, such as external humidity, atmospheric pressure, amount of precipitation.",3,Precipitation type EnvironmentalProperty,,missing_gen,Type,
+saref4watr,18,REQ,A device can monitor a water asset.,1,Device actsUpon WaterAsset,Device monitorsWaterAsset,good_syntax,ObjectProperty,ObjectProperty
+saref4watr,19,CQ,"Which assets compose a water distribution infrastructure? Catchment well, raw water pipe, reservoirs, etc.",1,WaterInfrastructure hasSubSystem WaterAsset,WaterInfrastructure hasSubSystem WaterAsset,perfect,ObjectProperty,ObjectProperty
+saref4watr,19,CQ,"Which assets compose a water distribution infrastructure? Catchment well, raw water pipe, reservoirs, etc.",2,Reservoir subClassOf WaterAsset,CatchmentWell SubClassOf WaterAsset,good_syntax,SubClassOf,SubClassOf
+saref4watr,19,CQ,"Which assets compose a water distribution infrastructure? Catchment well, raw water pipe, reservoirs, etc.",3,Pipe subClassOf WaterAsset,Pipe SubClassOf Main,good_syntax,SubClassOf,SubClassOf
+saref4watr,19,CQ,"Which assets compose a water distribution infrastructure? Catchment well, raw water pipe, reservoirs, etc.",4,,Reservoir SubClassOf StorageAsset,missing_good,,SubClassOf
+saref4watr,20,CQ,"Which types of sensors are used in water infrastructures? Water quality sensors, capacity sensors, tank level sensors, etc.",1,WaterInfrastructure hasSubSystem Sensor,WaterInfrastructure hasSubSystem Sensor,perfect,ObjectProperty,ObjectProperty
+saref4watr,20,CQ,"Which types of sensors are used in water infrastructures? Water quality sensors, capacity sensors, tank level sensors, etc.",2,WaterMeter subClassOf Sensor,WaterQualitySensor SubClassOf Sensor,good_syntax,SubClassOf,SubClassOf
+saref4watr,20,CQ,"Which types of sensors are used in water infrastructures? Water quality sensors, capacity sensors, tank level sensors, etc.",3,,CapacitySensor SubClassOf Sensor,missing_good,,SubClassOf
+saref4watr,20,CQ,"Which types of sensors are used in water infrastructures? Water quality sensors, capacity sensors, tank level sensors, etc.",4,,LevelSensor SubClassOf Sensor,missing_good,,SubClassOf
+saref4watr,21,CQ,"Which types of actuators are used in water infrastructures? Pressure regulators, pumps, valves, etc.",1,WaterInfrastructure hasSubSystem Actuator,WaterInfrastructure hasSubSystem Actuator,perfect,ObjectProperty,ObjectProperty
+saref4watr,21,CQ,"Which types of actuators are used in water infrastructures? Pressure regulators, pumps, valves, etc.",2,Pump subClassOf Actuator,PressureRegulator SubClassOf Actuator,good_syntax,SubClassOf,SubClassOf
+saref4watr,21,CQ,"Which types of actuators are used in water infrastructures? Pressure regulators, pumps, valves, etc.",3,Valve subClassOf Actuator,Pump SubClassOf Actuator,good_syntax,SubClassOf,SubClassOf
+saref4watr,21,CQ,"Which types of actuators are used in water infrastructures? Pressure regulators, pumps, valves, etc.",4,,Valve SubClassOf Actuator,missing_good,,SubClassOf
+saref4watr,22,CQ,What is the type of the water meter? It is a cold-water meter.,1,ColdWaterMeter subClassOf WaterMeter,WaterMeter SubClassOf WaterMeter,good_syntax,SubClassOf,SubClassOf
+saref4watr,23,CQ,What is the fabrication number of the water meter? 4837QW.,1,WaterMeter hasFabricationNumber Literal,WaterMeter hasFabricationNumber literal,perfect,DataProperty,DataProperty
+saref4watr,24,CQ,"What are the manufacturer and the model of the water meter? It is a Meterall, model Turion.",1,WaterMeter hasManufacturer Literal,WaterMeter hasManufacturer literal,perfect,DataProperty,DataProperty
+saref4watr,24,CQ,"What are the manufacturer and the model of the water meter? It is a Meterall, model Turion.",2,WaterMeter hasModel Literal,WaterMeter hasModel literal,perfect,DataProperty,DataProperty
+saref4watr,25,CQ,What is the version of the water meter? Version 1.2.,1,WaterMeter hasVersion Literal,WaterMeter hasVersion literal,perfect,DataProperty,DataProperty
+saref4watr,26,CQ,What is the hardware version number of the water meter? 23.5b.,1,WaterMeter hasHardwareVersion Literal,WaterMeter hasHardwareVersion literal,perfect,DataProperty,DataProperty
+saref4watr,27,CQ,What firmware version is the water meter using? The metrology (firmware) version is 123.7.,1,WaterMeter hasFirmwareVersion Literal,WaterMeter hasFirmwareVersion literal,perfect,DataProperty,DataProperty
+saref4watr,28,CQ,What has been the on time for the water meter? 15 days.,1,WaterMeter hasProperty WaterMeterProperty,WaterMeter Property WaterMeterProperty,good_syntax,ObjectProperty,ObjectProperty
+saref4watr,28,CQ,What has been the on time for the water meter? 15 days.,2,MeterOnTime type WaterMeterProperty,OnTime type WaterMeterProperty,good_syntax,Type,Type
+saref4watr,29,CQ,What is the operating time of the water meter? 5 hours.,1,WaterMeter hasProperty WaterMeterProperty,WaterMeter Property TimeProperty,good_syntax,ObjectProperty,ObjectProperty
+saref4watr,29,CQ,What is the operating time of the water meter? 5 hours.,2,MeterOperatingTime type WaterMeterProperty,MeterOperatingTime type TimeProperty,good_syntax,Type,Type
+saref4watr,30,CQ,What is the operating time of the water meter's battery? 4 months and 4 days.,1,WaterMeter hasProperty WaterMeterProperty,WaterMeter Property BatteryLifeProperty,good_syntax,ObjectProperty,ObjectProperty
+saref4watr,30,CQ,What is the operating time of the water meter's battery? 4 months and 4 days.,2,BatteryOperatingTime type WaterMeterProperty,BatteryLifeDuration type BatteryLifeProperty,good_syntax,Type,Type
+saref4watr,31,CQ,"When was the battery of the water meter previously changed? On February 23rd 2019, at 13:45.",1,WaterMeter hasProperty WaterMeterProperty,WaterMeter Property MaintenanceHistoryProperty,good_syntax,ObjectProperty,ObjectProperty
+saref4watr,31,CQ,"When was the battery of the water meter previously changed? On February 23rd 2019, at 13:45.",2,BatteryLastChange type WaterMeterProperty,LastBatteryChangeDate type MaintenanceHistoryProperty,good_syntax,Type,Type
+saref4watr,32,CQ,What is the power of the water meter? 24 volts.,1,WaterMeter requiresPower string,WaterMeter hasProperty WaterProperty,wrong,DataProperty,ObjectProperty
+saref4watr,32,CQ,What is the power of the water meter? 24 volts.,2,,PowerLevel type WaterProperty,missing_good,,Type
+saref4watr,33,CQ,What is the radio frequency level of the water meter? 2.4 GHz.,1,WaterMeter operatesAtRadioFrequency string,WaterMeter hasProperty RadioFrequencyProperty,wrong,DataProperty,ObjectProperty
+saref4watr,33,CQ,What is the radio frequency level of the water meter? 2.4 GHz.,2,,RadioFrequencyLevel type RadioFrequencyProperty,missing_good,,Type
+saref4watr,34,CQ,What is the geolocation of the water meter? Latitude 40.4165 and longitude -3.7025.,1,WaterMeter hasGeometry Point,WaterMeter hasGeometry Point,perfect,ObjectProperty,ObjectProperty
+saref4watr,35,CQ,What is the volume being observed by water meter 243? 127 liters.,1,WaterMeter observes WaterFlowProperty,WaterMeter observes WaterFlowProperty,perfect,ObjectProperty,ObjectProperty
+saref4watr,35,CQ,What is the volume being observed by water meter 243? 127 liters.,2,FlowVolume type WaterFlowProperty,Volume type WaterFlowProperty,good_syntax,Type,Type
+saref4watr,36,CQ,Which was the flow of water meter 44 on January 15th 2019 at 12:30? 32 liters per hour.,1,WaterMeter observes WaterFlowProperty,WaterMeter hasProperty WaterFlowProperty,good_syntax,ObjectProperty,ObjectProperty
+saref4watr,36,CQ,Which was the flow of water meter 44 on January 15th 2019 at 12:30? 32 liters per hour.,2,FlowRate type WaterFlowProperty,FlowRate type WaterFlowProperty,perfect,Type,Type
+saref4watr,37,CQ,How many water meters are observing an external temperature greater than 23ºC? 5 meters.,1,WaterMeter observes WaterFlowProperty,WaterMeter hasKPI KeyPerformanceIndicator,good_syntax,ObjectProperty,ObjectProperty
+saref4watr,37,CQ,How many water meters are observing an external temperature greater than 23ºC? 5 meters.,2,ExternalTemperature type EnvironmentalProperty,KeyPerformanceIndicatorAssessment assesses WaterMeter,wrong,Type,ObjectProperty
+saref4watr,37,CQ,How many water meters are observing an external temperature greater than 23ºC? 5 meters.,3,,ExternalTemperature type KeyPerformanceIndicator,missing_good,,Type
+saref4watr,38,CQ,What is the current level of the reservoir? 200 liters.,1,Reservoir subClassOf WaterAsset,Reservoir hasProperty core:Property,wrong,SubClassOf,ObjectProperty
+saref4watr,38,CQ,What is the current level of the reservoir? 200 liters.,2,Reservoir hasProperty core:Property,WaterLevel type core:Property,wrong,ObjectProperty,Type
+saref4watr,38,CQ,What is the current level of the reservoir? 200 liters.,3,Level type core:Property,,missing_gen,Type,
+saref4watr,39,CQ,What are the inflow/outflow rates of the water reservoir? 500 liters.,1,Reservoir subClassOf WaterAsset,Reservoir hasProperty WaterFlowProperty,wrong,SubClassOf,ObjectProperty
+saref4watr,39,CQ,What are the inflow/outflow rates of the water reservoir? 500 liters.,2,Reservoir hasProperty core:Property,FlowRate type WaterFlowProperty,wrong,ObjectProperty,Type
+saref4watr,39,CQ,What are the inflow/outflow rates of the water reservoir? 500 liters.,3,InFlowRate type core:Property,,missing_gen,Type,
+saref4watr,40,CQ,What is the current water flow in water pipe 212? 250 liters per second.,1,Pipe subClassOf WaterAsset,Pipe SubClassOfWaterAsset,wrong,SubClassOf,ObjectProperty
+saref4watr,40,CQ,What is the current water flow in water pipe 212? 250 liters per second.,2,Pipe hasProperty WaterFlowProperty,Pipe SubClassOfhasProperty core:Property,good_syntax,ObjectProperty,ObjectProperty
+saref4watr,40,CQ,What is the current water flow in water pipe 212? 250 liters per second.,3,FlowRate type WaterFlowProperty,WaterFlowRate type core:Property,good_syntax,Type,Type
+saref4watr,41,CQ,What is the current water leak rate in water pipe 212? 0.4 liters per second.,1,Pipe subClassOf WaterAsset,Pipe SubClassOfWaterAsset,wrong,SubClassOf,ObjectProperty
+saref4watr,41,CQ,What is the current water leak rate in water pipe 212? 0.4 liters per second.,2,Pipe hasProperty core:Property,Pipe SubClassOfhasProperty core:Property,good_syntax,ObjectProperty,ObjectProperty
+saref4watr,41,CQ,What is the current water leak rate in water pipe 212? 0.4 liters per second.,3,LeakRate type core:Property,LeakRate type core:Property,perfect,Type,Type
+saref4watr,42,CQ,Which systems had the water pressure lower than 100 on August 15th? Pump 123 and pump 145.,1,WaterAsset hasProperty core:Property,System hasKPI KeyPerformanceIndicator,good_syntax,ObjectProperty,ObjectProperty
+saref4watr,42,CQ,Which systems had the water pressure lower than 100 on August 15th? Pump 123 and pump 145.,2,FlowPressure type core:Property,KeyPerformanceIndicatorAssessment assesses System,wrong,Type,ObjectProperty
+saref4watr,42,CQ,Which systems had the water pressure lower than 100 on August 15th? Pump 123 and pump 145.,3,,LowPressureEvent type KeyPerformanceIndicator,missing_good,,Type
+saref4watr,43,CQ,What is the maximum discharge flow of water pump 8? 500 liters per minute.,1,Pump hasProperty core:Property,WaterPump SubClassOfWaterAsset,good_syntax,ObjectProperty,ObjectProperty
+saref4watr,43,CQ,What is the maximum discharge flow of water pump 8? 500 liters per minute.,2,DischargeFlowRate type core:Property,WaterPump SubClassOfhasProperty core:Property,wrong,Type,ObjectProperty
+saref4watr,43,CQ,What is the maximum discharge flow of water pump 8? 500 liters per minute.,3,,MaxDischargeFlowRate type core:Property,missing_good,,Type
+saref4watr,44,CQ,"What are the physical properties of water? Temperature, conductance, turbidity, etc.",1,Water hasProperty WaterProperty,Water hasSubSystem PhysicalProperty,good_syntax,ObjectProperty,ObjectProperty
+saref4watr,44,CQ,"What are the physical properties of water? Temperature, conductance, turbidity, etc.",2,AcceptabilityProperty subClassOf WaterProperty,TemperatureSensor SubClassOf PhysicalProperty,good_syntax,SubClassOf,SubClassOf
+saref4watr,44,CQ,"What are the physical properties of water? Temperature, conductance, turbidity, etc.",3,Temperature type AcceptabilityProperty,ConductanceSensor SubClassOf PhysicalProperty,wrong,Type,SubClassOf
+saref4watr,44,CQ,"What are the physical properties of water? Temperature, conductance, turbidity, etc.",4,Conductivity type AcceptabilityProperty,TurbiditySensor SubClassOf PhysicalProperty,wrong,Type,SubClassOf
+saref4watr,44,CQ,"What are the physical properties of water? Temperature, conductance, turbidity, etc.",5,Turbidity type AcceptabilityProperty,,missing_gen,Type,
+saref4watr,45,CQ,"What are the chemical properties of water? pH, total hardness, concentration of different chemical components, etc.",1,Water hasProperty WaterProperty,Water hasSubSystem ChemicalProperty,good_syntax,ObjectProperty,ObjectProperty
+saref4watr,45,CQ,"What are the chemical properties of water? pH, total hardness, concentration of different chemical components, etc.",2,ChemicalProperty subClassOf WaterProperty,PHSensor SubClassOf ChemicalProperty,good_syntax,SubClassOf,SubClassOf
+saref4watr,45,CQ,"What are the chemical properties of water? pH, total hardness, concentration of different chemical components, etc.",3,HydrogenIonConcentration type AcceptabilityProperty,TotalHardnessSensor SubClassOf ChemicalProperty,wrong,Type,SubClassOf
+saref4watr,45,CQ,"What are the chemical properties of water? pH, total hardness, concentration of different chemical components, etc.",4,Hardness type AcceptabilityProperty,ChemicalComponentConcentration SubClassOf ChemicalProperty,wrong,Type,SubClassOf
+saref4watr,45,CQ,"What are the chemical properties of water? pH, total hardness, concentration of different chemical components, etc.",5,Arsenic type ChemicalProperty,,missing_gen,Type,
+saref4watr,46,CQ,Is the minimum pressure level maintained everywhere the water distribution infrastructure? Yes.,1,DistributionSystem hasKPI KeyPerformanceIndicator,DistributionSystem hasKPI KeyPerformanceIndicator,perfect,ObjectProperty,ObjectProperty
+saref4watr,46,CQ,Is the minimum pressure level maintained everywhere the water distribution infrastructure? Yes.,2,KeyPerformanceIndicatorAssessment assesses DistributionSystem,KeyPerformanceIndicatorAssessment assesses DistributionSystem,perfect,ObjectProperty,ObjectProperty
+saref4watr,46,CQ,Is the minimum pressure level maintained everywhere the water distribution infrastructure? Yes.,3,MinimumPressureLevel type KeyPerformanceIndicator,MinimumPressureLevel type KeyPerformanceIndicator,perfect,Type,Type
+saref4watr,47,CQ,What is the capacity of wastewater treatment plants in Madrid? 12 Megaliters per day.,1,TreatmentPlant hasKPI KeyPerformanceIndicator,WastewaterTreatmentPlant hasProperty core:Property,good_syntax,ObjectProperty,ObjectProperty
+saref4watr,47,CQ,What is the capacity of wastewater treatment plants in Madrid? 12 Megaliters per day.,2,KeyPerformanceIndicatorAssessment assesses TreatmentPlant,Capacity type core:Property,wrong,ObjectProperty,Type
+saref4watr,47,CQ,What is the capacity of wastewater treatment plants in Madrid? 12 Megaliters per day.,3,Capacity type KeyPerformanceIndicator,,missing_gen,Type,
+saref4watr,48,CQ,"Which water indicators are defined for Burgos? Number of connected residential properties, annual maintenance costs, volume of potable water supplied.",1,KeyPerformanceIndicatorAssessment refersToFeature Feature,WaterIndicatorAssessment refersToFeature Feature,good_syntax,ObjectProperty,ObjectProperty
+saref4watr,49,CQ,What is the start date and time of the tariff in use in the water meter? 1st January 2019.,1,Tariff hasStartTimestamp dateTime,WaterMeter hasBillingDate TariffPeriodProperty,wrong,DataProperty,ObjectProperty
+saref4watr,50,CQ,What is the duration of the current tariff of the water meter? 1 year.,1,Tariff hasDuration TemporalDuration,WaterMeter hasDuration TariffDurationProperty,good_syntax,ObjectProperty,ObjectProperty
+saref4watr,51,CQ,What is the tariff period of the water meter? 1 month.,1,Tariff hasPeriod TemporalDuration,WaterMeter hasBillingPeriod TariffPeriodProperty,good_syntax,ObjectProperty,ObjectProperty
+saref4watr,52,CQ,"What is the maximum contracted consumption of the water meter? 1,200 liters.",1,ConsumptionBasedTariff subClassOf Tariff,WaterMeter core:hasProperty,wrong,SubClassOf,ObjectProperty
+saref4watr,52,CQ,"What is the maximum contracted consumption of the water meter? 1,200 liters.",2,ConsumptionBasedTariff forVolumeConsumption string,,missing_gen,DataProperty,
+saref4watr,53,CQ,What is the billing date of the water meter? 31st March 2019.,1,Tariff hasBillingDate dateTime,WaterMeter hasBillingDate dateTime,good_syntax,DataProperty,DataProperty
+saref4watr,54,CQ,What is the billing date period of the water meter? 1 month.,1,Tariff hasBillingPeriod TemporalDuration,WaterMeter hasPeriod TariffPeriodProperty,good_syntax,ObjectProperty,ObjectProperty

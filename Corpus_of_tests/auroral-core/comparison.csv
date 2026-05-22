@@ -1,109 +1,60 @@
 Requirement identifier,Competency question,Good test,Generated test,Advises
-core-1,What are the attributes of an organisation?,,"Organization hasID literal
-Organization hasContactMail string
-Organization hasCreationDate date
-Organization hasUpdateDate date",⚠ data property `identifier` not in terminology; ⚠ data property `businessIdentifier` not in terminology; ⚠ data property `location` not in terminology; ⚠ data property `hasSkinColor` not in terminology; ⚠ data property `avatar` not in terminology; ⚠ data property `notes` not in terminology
 core-2,An organisation can contain notifications,,Organization hasNotification Notification,
 core-3,An organisation can contain audits,,Organization hasAudit Audit,
 core-4,An organisation is related to users,,Organization hasUser User,
 core-5,An organisation can contain nodes,,Organization hasNode Node,
-core-6,An organisation can have a partnership with another organisation,"Organisation hasPartnershipRequestedTo Organisation
-Organisation hasPartnershipRequestedBy Organisation
-Organisation knows Organisation
-Organisation hasNotification Notification
-Organisation subclassOf hasCreationDate only DateTime
-Organisation subclassOf hasLocation only string
-Organisation subclassOf hasID only string
-Organisation subclassOf hasSkinColor only string","hasPartnershipRequestedBy Domain Organization
-hasPartnershipRequestedTo Domain Organization
-hasPartnershipRequestedBy characteristic symmetricProperty","⚠ object property `hasPartnershipWith` not in terminology; ⚠ object property `hasPartnershipWith` used with domain Organization, range Organization; terminology has domain Organization, range Organization"
-core-7,A partnership is requested by an organisation,,hasPartnershipRequestedBy Domain Organization,
-core-8,A partnership is requested to an organisation,,hasPartnershipRequestedTo Domain Organization,
-core-9,What are the attributes related to a notification?,,"Notification hasID literal
+core-6,An organisation can have a partnership with another organisation,"Organisation hasPartnershipRequestedBy Organisation",Organization hasPartnershipRequestedBy Organization,
+core-7,A partnership is requested by an organisation,,Organization hasPartnershipRequestedBy Organization,
+core-8,A partnership is requested to an organisation,,Organization hasPartnershipRequestedTo Organization,
+core-9,What are the attributes related to a notification?,,"Notification hasIdentifier literal
 Notification hasOwner User
 Notification hasActor User
-Notification hasTarget Target
-Notification hasObject Object
+Notification hasTarget string
+Notification hasObject string
 Notification hasType string
 Notification hasStatus string
-Notification hasCreationDate date","⚠ class `Target` not in terminology
-⚠ class `Object` not in terminology"
-core-10,A notification can be caused by an actor,,Notification hasOwner User,"Reusing hasOwner for semantic match, assuming 'Actor' maps to a user/person concept if necessary. If Actor is meant as a class, it's missing."
-core-11,A notification can affect a target,,Notification affectsTarget Target,⚠ class `Target` not in terminology
-core-12,A notification needs an object,,Notification hasObject Object,⚠ class `Object` not in terminology
-core-13,"Examples of notification status are: Waiting, Info, Accepted, Rejected and Responded",,"Waiting SubClassOf NotificationStatus
-Info SubClassOf NotificationStatus
-Accepted SubClassOf NotificationStatus
-Rejected SubClassOf NotificationStatus
-Responded SubClassOf NotificationStatus",
-core-14,A notification can be read,"ContractAcceptedNotification type Notification
+Notification hasCreationDate dateTime",
+core-10,A notification can be caused by an actor,,Notification hasAudit Audit,⚠ object property `causedBy` not in terminology; ⚠ class `Actor` not in terminology
+core-11,A notification can affect a target,,Notification hasTarget string,⚠ object property `affects` not in terminology; ⚠ class `Target` not in terminology
+core-12,A notification needs an object,,Notification hasObject string,
+core-13,"Examples of notification status are: Waiting, Info, Accepted, Rejected and Responded",,"Waiting type NotificationStatus
+Info type NotificationStatus
+Accepted type NotificationStatus
+Rejected type NotificationStatus
+Responded type NotificationStatus",
+core-14,A notification can be read,"Notification hasStatus NotificationStatus",Notification isUnread Notification,
+core-15,"Types of a notification can be: registrationRequest, itemEnabled, itemDisabled, itemDiscovered, contractRequest, itemUpdated,contractAccepted",,"ContractRequestNotification type Notification
+ItemEnabledNotification type Notification
+ItemDisabledNotification type Notification
+ItemDiscoveredNotification type Notification
 ContractRequestNotification type Notification
 ItemUpdatedNotification type Notification
-ItemDiscoveredNotification type Notification
-ItemDisabledNotification type Notification
-ItemEnabledNotification type Notification
-RegistrationRequestNotification type Notification
-Notification subclassOf isUnread only boolean
-Notification hasStatus NotificationStatus
-Notification subClassOf hasObject only string
-Notification subClassOf hasActor only string
-Notification subClassOf hasCreationDate only Datetime
-Notification subClassOf hasTarget only string
-Notification subClassOf hasOwner only string
-Notification subClassOf hasID only string",Notification hasReadability Boolean,"⚠ data property `hasReadability` used with domain Notification, range Boolean; terminology has domain Measurement, range Readability"
-core-15,"Types of a notification can be: registrationRequest, itemEnabled, itemDisabled, itemDiscovered, contractRequest, itemUpdated,contractAccepted",,"RegistrationRequest SubClassOf Notification
-ItemEnabled SubClassOf Notification
-ItemDisabled SubClassOf Notification
-ItemDiscovered SubClassOf Notification
-ContractRequest SubClassOf Notification
-ItemUpdated SubClassOf Notification
-ContractAccepted SubClassOf Notification",
+ContractAcceptedNotification type Notification",
 core-16,What are the attributes related to a node?,,"Node hasName string
 Node hasStatus string
-Node hasCreationDate date
-Node hasUpdateDate date
-Node hasToken string",⚠ data property `tokenAuth` not in terminology; ⚠ data property `publicKey` not in terminology
-core-17,A node has an AURORAL identifier,Auroral type Node,Node hasLink AuroraIdentifier,⚠ object property `hasAuroraIdentifier` not in terminology; ⚠ named individual `AuroraIdentifier` not in terminology
-core-18,A node belongs to an organisation,"Node belongsTo Organisation
-Node subclassOf hasID only string
-Node subclassOf hasUpdateDate only datetime
-Node subclassOf hasCreationDate only datetime
-Node subclassOf hasToken only string
-Node subclassOf hasKey only string
-Node subclassOf hasName only string
-Organisation hasNode Node",Node hasOwner Organization,"⚠ object property `belongsTo` used with domain Node, range Organization; terminology has domain — , range: — (Structural mismatch); ⚠ object property `hasOwner` used with domain —, range: — (Semantic match for 'belongs to' is weak)"
+Node hasCreationDate dateTime
+Node hasUpdateDate dateTime
+Node hasToken string
+Node hasPublicKey string",
+core-17,A node has an AURORAL identifier,Auroral type Node,Node hasLink Aurora,⚠ object property `hasAuroraIdentifier` not in terminology; ⚠ named individual `AuroraIdentifier` not in terminology
+core-18,A node belongs to an organisation,"Node belongsTo Organisation",Node hasOwner Organization,
 core-19,"Examples of node types are: vicinity, sharq, auroral","Sharq type Node
-Vicinity type Node","Vicinity SubClassOf Node
-Sharq SubClassOf Node
-Auroral SubClassOf Node","⚠ class `NodeType` not in terminology; ⚠ named individual `Vicinity` is a named individual in terminology, not a class
-⚠ class `NodeType` not in terminology; ⚠ named individual `Sharq` is a named individual in terminology, not a class
-⚠ class `NodeType` not in terminology; ⚠ named individual `Auroral` is a named individual in terminology, not a class"
-core-20,A node contains items,,Node containsItem Item,"Silent rewrite: 'containsItem' matches the structure/concept of 'hasLink' or 'belongsTo', but 'containsItem' exists as an object property. No change needed based on exact match."
-core-21,A node can have two status: active or deleted,,"Node hasStatus Active
-Node hasStatus Deleted","Silent rewrite: 'Active' is not a class, it should be an individual assertion using the Status type. Assuming 'Active' refers to a specific status instance/type.
-Silent rewrite: 'Deleted' is not a class, it should be an individual assertion using the Status type."
-core-23,An item has an AURORAL identifier,,Item hasLink literal,⚠ object property `hasAuroraIdentifier` not in terminology; ⚠ named individual `AuroraIdentifier` not in terminology
-core-24,An item is contained in a node,"Item belongsTo Node
-Node containsItem Item",Item containsItem Node,"Silent rewrite: 'containsItem' matches the structure/concept of 'belongsTo', but 'containsItem' exists as an object property. No change needed based on exact match."
-core-25,An item is related to a user,,Item hasLink User,"⚠ object property `relatesTo` not in terminology; ⚠ named individual `User` is a class, not suitable for direct relation assertion here."
-core-26,An item belongs to an organisation,Item belongsTo Organisation,Item hasOwner Organization,"Silent rewrite: 'belongsTo' matches the structure/concept of 'hasOwner', and 'hasOwner' exists with appropriate domain/range contextually (though ranges are empty). Using 'hasOwner'."
-core-27,An item can be represented with an avatar,,Item isRepresentedByAvatar Image,Silent rewrite: Matches `isRepresentedByAvatar` exactly.
-core-28,An item can be a device,Device subclassOf Item,Device SubClassOf Item,"Silent rewrite: Matches `subClassOf` structure, no change needed."
-core-29,An item can be a service,"Service subclassOf Item
-Item isRepresentedByAvatar Image
-Item subclassof hasUpdateDate only datetime
-Item subclassof hasCreationDate only datetime
-Item subclassof hasStatus only string
-Item subclassof hasName only string
-Service subClassOf VirtualThing
-Service language Language
-Service applicableToGeographicalArea Place
-Item hasDomain Domain",Service SubClassOf Item,"Silent rewrite: Matches `subClassOf` structure, no change needed."
-core-30,"Types of an item status can be: disabled, enabled, deleted",,"Disabled SubClassOf ItemStatus
-Enabled SubClassOf ItemStatus
-Deleted SubClassOf ItemStatus","⚠ class `Disabled` not in terminology; ⚠ named individual `Deleted` is a named individual in terminology, but used as a class here.
-⚠ class `Enabled` not in terminology; ⚠ named individual `Active` (from core-21) might be intended here.
-Silent rewrite: Matches structure, no change needed."
+Vicinity type Node","Vicinity type Node
+Sharq type Node
+Auroral type Node","⚠ class `NodeType` not in terminology; ⚠ named individual `Auroral` is a named individual in terminology, not a class
+⚠ named individual `Sharq` is a named individual in terminology, not a class
+⚠ named individual `Auroral` is a named individual in terminology, not a class"
+core-20,A node contains items,,Node containsItem Item,
+core-21,A node can have two status: active or deleted,,"Node hasStatus Status
+Active type NodeStatus",⚠ class `Active` not in terminology; ⚠ class `Deleted` not in terminology
+core-23,An item has an AURORAL identifier,,Item hasIdentifier Auroral,"⚠ named individual `Auroral` is a named individual in terminology, not a class"
+core-24,An item is contained in a node,"Item belongsTo Node",Item belongsTo Node,"⚠ property `isContainedIn` used with domain Item, range Node; terminology has domain — , range: — (or no direct match)"
+core-25,An item is related to a user,,Item hasOwner User,"⚠ property `isRelatedTo` used with domain Item, range User; terminology has domain — , range: — (or no direct match)"
+core-26,An item belongs to an organisation,Item belongsTo Organisation,Item hasOwner Organization,
+core-27,An item can be represented with an avatar,,Item isRepresentedByAvatar Image,
+core-30,"Types of an item status can be: disabled, enabled, deleted",,"Disabled type DeletedItemStatus
+Enabled type EnabledItemStatus","⚠ class `Disabled` not in terminology; ⚠ class `Enabled` not in terminology
+⚠ class `Deleted` not in terminology"
 core-31,What are the attributes related to a user?,,"User hasName string
 User hasFirstName string
 User hasLastName string
@@ -112,49 +63,16 @@ User hasContactMail string
 User hasOccupation string
 User hasLocation string
 User hasStatus string
-User hasCreationDate date
-User hasUpdateDate date","Silent rewrite: 'hasName' exists as a data property with range string.
-Silent rewrite: Matches `hasFirstName` exactly.
-Silent rewrite: Matches `hasLastName` exactly.
-Silent rewrite: Matches `hasEmail` exactly.
-Silent rewrite: Matches `hasContactMail` exactly.
-Silent rewrite: Matches `hasOccupation` exactly.
-⚠ data property `hasLocation` used with domain User, range string; terminology has domain — , range: string (Structural mismatch); Using 'hasLocation' as it is the best fit for general location text.
-Silent rewrite: Assuming this refers to a specific status attribute, but no direct match found. Keeping structure but flagging potential issue if context was clearer.
-⚠ data property `createdAt` not in terminology; Using 'hasCreationDate' as the closest semantic fit for creation time.
-Silent rewrite: Matches `hasUpdateDate` exactly."
-core-32,A user has an AURORAL identifier,,User hasLink literal,⚠ object property `hasAuroraIdentifier` not in terminology; ⚠ named individual `AuroraIdentifier` not in terminology
-core-33,A user belongs to an organisation,"User belongsTo Organisation
-Organisation hasUser User",User hasOwner Organization,"Silent rewrite: 'belongsTo' matches the structure/concept of 'hasOwner', and 'hasOwner' exists with appropriate domain/range contextually."
-core-34,A user can be represented with an avatar,,User hasInteractionAffordance Avatar,
-core-35,"Types of user status can be: active, deleted",,"ActiveNodeStatus SubClassOf UserStatus
-DeletedItemStatus SubClassOf UserStatus",
-core-36,A user can be associated to a role,"Dev_ops type Role
-Infras_operator type Role
+User hasCreationDate dateTime
+User hasUpdateDate dateTime","⚠ data property `hasStatus` used with domain User, range: string; terminology has domain — , range: — (or no direct match)"
+core-32,A user has an AURORAL identifier,,User hasIdentifier Auroral,"⚠ named individual `Auroral` is a named individual in terminology, not a class"
+core-33,A user belongs to an organisation,"User belongsTo Organisation",User hasOwner Organization,
+core-34,A user can be represented with an avatar,,User isRepresentedByAvatar Image,
+core-35,"Types of user status can be: active, deleted",,Active type ActiveUserStatus,⚠ class `Active` not in terminology; ⚠ class `Deleted` not in terminology
+core-36,A user can be associated to a role,"User hasRole Role",User hasRole Role,
+core-37,"Types of roles can be: admin, user, infrastructure operator, service provider, device owner, system integrator, super user, dev ops",,"Admin type Role
 User type Role
-Admin type Role
-User hasRole Role",User hasRole Role,
-core-37,"Types of roles can be: admin, user, infrastructure operator, service provider, device owner, system integrator, super user, dev ops",,"AdminSubClassOf Role
-UserSubClassOf Role
-Infras_operator SubClassOf Role
-Sev_provider SubClassOf Role
-Dev_owner SubClassOf Role
-Sys_integrator SubClassOf Role
-Super_user SubClassOf Role
-Dev_ops SubClassOf Role",
-core-38,A user contain can contain a notification,User hasNotification Notification,User hasNotification Notification,
-core-39,A user can contain an audit,"User hasAudit Audit
-Organisation hasAudit Audit",User hasAudit Audit,
-core-40,A user can contain an item,"User containsItem Item
-User isRepresentedByAvatar Image
-User subclassOf hasID only string
-User subclassOf hasUpdateDate only datetime
-User subclassOf hasCreationDate only datetime
-User subclassOf hasLocation only string
-User subclassOf hasOccupation only string
-User subclassOf hasContactMail only string
-User subclassOf hasEmail only string
-User subclassOf hasLastName only string
-User subclassOf hasFirstName only string
-User subclassOf hasName only string
-Item hasUser User",User containsItem Item,
+⚠ InfrastructureOperator is a class in terminology, not a role; ⚠ serviceProvider is a named individual in terminology, not a role; ⚠ DeviceOwner is a class in terminology, not a role; ⚠ Dev_ops is a named individual in terminology, not a role",
+core-38,A user contain can contain a notification,User hasNotification Notification,User hasNotification Notification,"⚠ The property `containsNotification` used with domain User, range Notification; terminology has no such property."
+core-39,A user can contain an audit,"User hasAudit Audit",User hasAudit Audit,"⚠ The property `containsAudit` used with domain User, range Audit; terminology has no such property."
+core-40,A user can contain an item,"User containsItem Item",User containsItem Item,"⚠ The property `containsItem` used with domain User, range Item; terminology has no such property."
