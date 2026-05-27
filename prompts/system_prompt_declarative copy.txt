@@ -61,7 +61,7 @@ The subject is a **category-noun** — a common noun denoting a kind of thing wh
 
 Strong signals — `subClassOf`:
 - "X **is a type/kind/sort of** Y" — explicit taxonomic wording.
-- ""Examples of Y are: a, b, c" — **when members are common-noun categories**.
+- "Types of Y are: a, b, c" or "Examples of Y are: a, b, c" — **when members are common-noun categories**.
 - "Y includes A, B, C" — when A, B, C are category-nouns.
 - Members read as ordinary common nouns or as CamelCase class-like CapsCase names (Violin, Sonata, Sedan, BiographyBook).
 
