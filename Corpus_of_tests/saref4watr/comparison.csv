@@ -1,95 +1,75 @@
 Requirement identifier,Competency question,Good test,Generated test,Advises
-WATR-2,A catchment well is a well that has been constructed to collect water.,CatchmentWell subClassOf Well,"CatchmentWell subClassOf Well
-CatchmentWell collectsWater","⚠ class `Well` not in terminology; ⚠ class `CatchmentWell` not in terminology
-⚠ object property `collectsWater` not in terminology"
+WATR-2,A catchment well is a well that has been constructed to collect water.,CatchmentWell subClassOf Well,CatchmentWell subClassOf Well,⚠ class `CatchmentWell` not in terminology; ⚠ class `Well` not in terminology
 WATR-3,A wastewater treatment plant is a facility where contaminants are removed from wastewater or sewage.,"TreatmentPlant subClassOf WaterInfrastructure
-TreatmentPlant isDesignedFor WaterKind
-Wastewater type WaterKind","WastewaterTreatmentPlant subClassOf Facility
-WastewaterTreatmentPlant removesContaminantsFrom WastewaterOrSewage","⚠ class `Facility` not in terminology; ⚠ class `WastewaterTreatmentPlant` not in terminology
-⚠ object property `removesContaminantsFromWastewaterOrSewage` not in terminology"
+TreatmentPlant isDesignedFor WaterKind","WastewaterTreatmentPlant subClassOf TreatmentPlant
+Facility removesContaminantsFrom WastewaterOrSewage",⚠ class `Facility` not in terminology; ⚠ object property `removesContaminantsFrom` not in terminology
 WATR-6,A water meter is a device that observes different aspects of a water infrastructure.,"WaterMeter subClassOf Device
-WaterMeter observes WaterFlowProperty","WaterMeter type WaterDevice
-WaterMeter observesWaterInfrastructureAspect","Silent rewrite (Semantic Equivalence: WaterMeter -> WaterDevice)
-⚠ object property `observesWaterInfrastructureAspect` not in terminology"
-WATR-24,The maximum temperature limit of the water meter is of 49ºC.,"WaterMeter observes WaterFlowProperty
-FlowTemperature type WaterFlowProperty",WaterMeter hasTemperatureLimit float,Silent rewrite (Semantic Equivalence: maxTemperatureLimit -> hasTemperatureLimit)
-WATR-25,"Water meters can provide observations according to different temporal settings: current values, periodical values, set date values, billing date values, minimum values, and maximum values.",WaterMeter madeExecution Observation,"WaterMeter providesObservationFor TemporalSetting
-CurrentValue type ObservationSetting
+WaterMeter observes WaterFlowProperty","WaterMeter subClassOf WaterDevice
+WaterMeter WaterInfrastructure",⚠ object property `hasWaterInfrastructure` (or similar) expected; using direct class assertion instead
+WATR-24,The maximum temperature limit of the water meter is of 49ºC.,"WaterMeter observes WaterFlowProperty",WaterMeter hasTemperatureLimit float,⚠ data property `hasTemperatureLimit` not in terminology
+WATR-25,"Water meters can provide observations according to different temporal settings: current values, periodical values, set date values, billing date values, minimum values, and maximum values.",WaterMeter madeExecution Observation,"CurrentValue type ObservationSetting
 PeriodicalValue type ObservationSetting
 SetDateValue type ObservationSetting
 BillingDateValue type ObservationSetting
 MinValue type ObservationSetting
-MaxValue type ObservationSetting","⚠ object property `providesObservationFor` not in terminology
-⚠ class `ObservationSetting` not in terminology
-⚠ class `ObservationSetting` not in terminology
-⚠ class `ObservationSetting` not in terminology
-⚠ class `ObservationSetting` not in terminology
-⚠ class `ObservationSetting` not in terminology
-⚠ class `ObservationSetting` not in terminology"
+MaxValue type ObservationSetting",⚠ class `ObservationSetting` not in terminology; ⚠ data property/class for specific settings missing
 WATR-26,"Observations can be related to a specific date and/or time, to some duration, or to a temporal interval.","Observation hasResultTime dateTime
-Observation hasPhenomenonTime TemporalEntity","Observation relatesTo DateAndTime
+Observation hasPhenomenonTime TemporalEntity","Observation relatesTo DateOrTime
 Observation relatesTo hasDuration
-Observation relatesTo TemporalInterval","⚠ object property `relatesToDateAndTime` not in terminology
-Silent rewrite (Semantic Equivalence: hasDuration -> hasDuration)
-⚠ object property `relatesToTemporalInterval` not in terminology"
+Observation relatesTo TemporalInterval",⚠ object property `relatesTo` not in terminology; ⚠ class `DateOrTime` not in terminology
 WATR-44,"There are four main types of water assets: source, sink, transport and storage ones.","SourceAsset subClassOf WaterAsset
 SinkAsset subClassOf WaterAsset
 TransportAsset subClassOf WaterAsset
 StorageAsset subClassOf WaterAsset","SourceAsset subClassOf WaterAsset
 SinkAsset subClassOf WaterAsset
 TransportAsset subClassOf WaterAsset
-StorageAsset subClassOf WaterAsset","No change (Exact match)
-No change (Exact match)
-No change (Exact match)
-No change (Exact match)"
+StorageAsset subClassOf WaterAsset",
 WATR-45,"Examples of source assets are: lakes, lagoons or glaciers.","Lake subClassOf SourceAsset
 Lagoon subClassOf SourceAsset
-Glacier subClassOf SourceAsset","Lake type SourceAsset
-Lagoon type SourceAsset
-Glacier type SourceAsset","No change (Exact match)
-No change (Exact match)
-No change (Exact match)"
+Glacier subClassOf SourceAsset","Lake subClassOf SourceAsset
+Lagoon subClassOf SourceAsset
+Glacier subClassOf SourceAsset",
 WATR-46,"Examples of sink assets are: rivers, seas, oceans or estuaries.","Estuary subClassOf SinkAsset
 Ocean subClassOf SinkAsset
 River subClassOf SinkAsset
-Sea subClassOf SinkAsset","River type SinkAsset
-Sea type SinkAsset
-Ocean type SinkAsset
-Estuary type SinkAsset","No change (Exact match)
-No change (Exact match)
-No change (Exact match)
-No change (Exact match)"
-WATR-47,An aquifer is a type of storage asset.,Aquifer subClassOf StorageAsset,Aquifer subClassOf StorageAsset,No change (Exact match)
-WATR-48,An intake is a type of transport asset.,Intake subClassOf TransportAsset,Intake subClassOf TransportAsset,No change (Exact match)
-WATR-49,A hydroelectric power plant is a type of water infrastructure.,HydroelectricPowerPlant subClassOf WaterInfrastructure,HydroelectricPowerPlant subClassOf WaterInfrastructure,No change (Exact match)
-WATR-50,A gauging station is a type of water monitoring infrastructure.,GaugingStation subClassOf MonitoringInfrastructure,GaugingStation subClassOf MonitoringInfrastructure,No change (Exact match)
+Sea subClassOf SinkAsset","River subClassOf SinkAsset
+Sea subClassOf SinkAsset
+Ocean subClassOf SinkAsset
+Estuary subClassOf SinkAsset",
+WATR-47,An aquifer is a type of storage asset.,Aquifer subClassOf StorageAsset,Aquifer subClassOf StorageAsset,
+WATR-48,An intake is a type of transport asset.,Intake subClassOf TransportAsset,Intake subClassOf TransportAsset,
+WATR-49,A hydroelectric power plant is a type of water infrastructure.,HydroelectricPowerPlant subClassOf WaterInfrastructure,HydroelectricPowerPlant subClassOf WaterInfrastructure,
+WATR-50,A gauging station is a type of water monitoring infrastructure.,GaugingStation subClassOf MonitoringInfrastructure,GaugingStation subClassOf MonitoringInfrastructure,
 WATR-51,"A water infrastructure is intended for a particular use of water, for example: industry, agriculture, recreation or aquaculture.","WaterInfrastructure isIntendedFor WaterUse
 Industry type WaterUse
 Recreation type WaterUse
-Domestic type WaterUse
 Agriculture type WaterUse
-Aquaculture type WaterUse","WaterInfrastructure isIntendedFor Use
-Industry type Use
-Agriculture type Use
-Recreation type Use
-Aquaculture type Use","⚠ object property `isIntendedFor` used with domain WaterInfrastructure, range Use; terminology has domain — , range —
-Silent rewrite (Semantic Equivalence: Industry -> WaterUse)
-Silent rewrite (Semantic Equivalence: Agriculture -> WaterUse)
-Silent rewrite (Semantic Equivalence: Recreation -> WaterUse)
-Silent rewrite (Semantic Equivalence: Aquaculture -> WaterUse)"
-WATR-52,Total dissolved solids is an acceptability property of water.,TotalDissolvedSolids type AcceptabilityProperty,TotalDissolvedSolids type AcceptabilityProperty,No change (Exact match)
-WATR-53,Dissolved oxygen is a chemical property of water.,Oxygen type ChemicalProperty,DissolvedOxygen type ChemicalProperty,No change (Exact match)
+Aquaculture type WaterUse","Industry type WaterUse
+Agriculture type WaterUse
+Recreation type WaterUse
+Aquaculture type WaterUse
+WaterInfrastructure isIntendedFor WaterUse","⚠ class `WaterUsagePurpose` not in terminology; using direct mapping to WaterUse
+⚠ class `WaterUsagePurpose` not in terminology; using direct mapping to WaterUse
+⚠ class `WaterUsagePurpose` not in terminology; using direct mapping to WaterUse
+⚠ class `WaterUsagePurpose` not in terminology; using direct mapping to WaterUse
+⚠ object property `isIntendedFor` exists, but range should be a specific purpose class, not general WaterUse. Using existing property structure."
+WATR-52,Total dissolved solids is an acceptability property of water.,TotalDissolvedSolids type AcceptabilityProperty,TotalDissolvedSolids AcceptabilityProperty,
+WATR-53,Dissolved oxygen is a chemical property of water.,Oxygen type ChemicalProperty,DissolvedOxygen ChemicalProperty,
 WATR-54,"Some environmental properties are relevant for water, such as external humidity, atmospheric pressure, amount of precipitation.","Humidity type EnvironmentalProperty
 AtmosphericPressure type EnvironmentalProperty
-Precipitation type EnvironmentalProperty","EnvironmentalProperty hasAcceptabilityProperty
-AtmosphericPressure type EnvironmentalProperty",⚠ class `ExternalHumidity` not in terminology; ⚠ class `PrecipitationAmount` not in terminology
+Precipitation type EnvironmentalProperty","ExternalHumidity EnvironmentalProperty EnvironmentalProperty
+AtmosphericPressure EnvironmentalProperty EnvironmentalProperty
+Precipitation EnvironmentalProperty EnvironmentalProperty",
 WATR-55,A device can monitor a water asset.,Device actsUpon WaterAsset,Device monitorsWaterAsset,⚠ object property `monitorsWaterAsset` not in terminology
 WATR-1,"Which assets compose a water distribution infrastructure? Catchment well, raw water pipe, reservoirs, etc.","WaterInfrastructure hasSubSystem WaterAsset
 Reservoir subClassOf WaterAsset
 Pipe subClassOf WaterAsset","WaterInfrastructure hasSubSystem WaterAsset
 CatchmentWell SubClassOf WaterAsset
-Pipe SubClassOf Main
-Reservoir SubClassOf StorageAsset",⚠ class `CatchmentWell` not in terminology
+Pipe SubClassOf WaterAsset
+Reservoir SubClassOf WaterAsset","⚠ object property `hasSubSystem` used with domain WaterInfrastructure, range WaterAsset; terminology has no such property
+⚠ class `CatchmentWell` not in terminology
+⚠ class `Pipe` is a subClassOf Main (and thus TransportAsset), but the test implies it's directly under WaterAsset, which is structurally fine if we assume Pipe -> Main. No explicit alert needed for inheritance structure change unless it conflicts with defined properties/classes.
+⚠ class `Reservoir` is a subClassOf StorageAsset, not directly under WaterAsset"
 WATR-4,"Which types of sensors are used in water infrastructures? Water quality sensors, capacity sensors, tank level sensors, etc.","WaterInfrastructure hasSubSystem Sensor
 WaterMeter subClassOf Sensor","WaterInfrastructure hasSubSystem Sensor
 WaterQualitySensor SubClassOf Sensor
@@ -103,99 +83,100 @@ Pump subClassOf Actuator
 Valve subClassOf Actuator","WaterInfrastructure hasSubSystem Actuator
 PressureRegulator SubClassOf Actuator
 Pump SubClassOf Actuator
-Valve SubClassOf Actuator",⚠ class `PressureRegulator` not in terminology
-WATR-7,What is the type of the water meter? It is a cold-water meter.,ColdWaterMeter subClassOf WaterMeter,WaterMeter SubClassOf WaterMeter,
-WATR-8,What is the fabrication number of the water meter? 4837QW.,WaterMeter hasFabricationNumber Literal,WaterMeter hasFabricationNumber literal,
+Valve SubClassOf Actuator","⚠ object property `hasSubSystem` used with domain WaterInfrastructure, range Actuator; terminology has no such property
+⚠ class `PressureRegulator` not in terminology
+(No change)
+(No change)"
+WATR-7,What is the type of the water meter? It is a cold-water meter.,ColdWaterMeter subClassOf WaterMeter,WaterMeter SubClassOf WaterMeter,"No change, assuming this implies checking against itself or a specific subtype not listed. If it means ""is an instance of"", the pattern should be different. Treating as literal match for now."
+WATR-8,What is the fabrication number of the water meter? 4837QW.,WaterMeter hasFabricationNumber Literal,WaterMeter hasFabricationNumber literal,(No change)
 WATR-9,"What are the manufacturer and the model of the water meter? It is a Meterall, model Turion.","WaterMeter hasManufacturer Literal
 WaterMeter hasModel Literal","WaterMeter hasManufacturer literal
-WaterMeter hasModel literal","⚠ data property `hasManufacturer` not in terminology
+WaterMeter hasModel literal","(No change)
 ⚠ data property `hasModel` not in terminology"
 WATR-10,What is the version of the water meter? Version 1.2.,WaterMeter hasVersion Literal,WaterMeter hasVersion literal,⚠ data property `hasVersion` not in terminology
-WATR-11,What is the hardware version number of the water meter? 23.5b.,WaterMeter hasHardwareVersion Literal,WaterMeter hasHardwareVersion literal,
-WATR-12,What firmware version is the water meter using? The metrology (firmware) version is 123.7.,WaterMeter hasFirmwareVersion Literal,WaterMeter hasFirmwareVersion literal,
+WATR-11,What is the hardware version number of the water meter? 23.5b.,WaterMeter hasHardwareVersion Literal,WaterMeter hasHardwareVersion literal,(No change)
+WATR-12,What firmware version is the water meter using? The metrology (firmware) version is 123.7.,WaterMeter hasFirmwareVersion Literal,WaterMeter hasFirmwareVersion literal,(No change)
 WATR-13,What has been the on time for the water meter? 15 days.,"WaterMeter hasProperty WaterMeterProperty
 MeterOnTime type WaterMeterProperty","WaterMeter Property WaterMeterProperty
 OnTime type WaterMeterProperty",⚠ named individual `OnTime` not in terminology
 WATR-14,What is the operating time of the water meter? 5 hours.,"WaterMeter hasProperty WaterMeterProperty
-MeterOperatingTime type WaterMeterProperty","WaterMeter Property TimeProperty
-MeterOperatingTime type TimeProperty",⚠ named individual `TimeProperty` not in terminology
+MeterOperatingTime type WaterMeterProperty","WaterMeter Property WaterMeterProperty
+MeterOperatingTime type WaterMeterProperty",(No change)
 WATR-15,What is the operating time of the water meter's battery? 4 months and 4 days.,"WaterMeter hasProperty WaterMeterProperty
-BatteryOperatingTime type WaterMeterProperty","WaterMeter Property BatteryLifeProperty
-BatteryLifeDuration type BatteryLifeProperty",⚠ named individual `BatteryLifeDuration` not in terminology
+BatteryOperatingTime type WaterMeterProperty","WaterMeter Property WaterProperty
+BatteryOperatingTime type WaterProperty",(No change)
 WATR-16,"When was the battery of the water meter previously changed? On February 23rd 2019, at 13:45.","WaterMeter hasProperty WaterMeterProperty
-BatteryLastChange type WaterMeterProperty","WaterMeter Property MaintenanceHistoryProperty
-LastBatteryChangeDate type MaintenanceHistoryProperty",⚠ named individual `MaintenanceHistoryProperty` not in terminology
-WATR-18,What is the power of the water meter? 24 volts.,WaterMeter requiresPower string,"WaterMeter hasProperty WaterProperty
-PowerLevel type WaterProperty","⚠ data property `hasProperty` used with domain WaterMeter, range WaterProperty; terminology has no such property"
-WATR-19,What is the radio frequency level of the water meter? 2.4 GHz.,WaterMeter operatesAtRadioFrequency string,"WaterMeter hasProperty RadioFrequencyProperty
-RadioFrequencyLevel type RadioFrequencyProperty","⚠ data property `hasProperty` used with domain WaterMeter, range RadioFrequencyProperty; terminology has no such property"
-WATR-20,What is the geolocation of the water meter? Latitude 40.4165 and longitude -3.7025.,WaterMeter hasGeometry Point,WaterMeter hasGeometry Point,
+BatteryLastChange type WaterMeterProperty","WaterMeter Property WaterMeterProperty
+LastBatteryChangeDate type WaterMeterProperty",(No change)
+WATR-17,What is the remaining battery time of the water meter? 27 months.,"WaterMeter hasProperty WaterMeterProperty
+BatteryRemainingTime type WaterMeterProperty","WaterMeter Property WaterProperty
+RemainingBatteryTime type WaterProperty",(No change)
+WATR-18,What is the power of the water meter? 24 volts.,WaterMeter requiresPower string,WaterMeter WaterMeterProperty,⚠ class `WaterMeter` not in terminology; ⚠ data property `PowerVoltage` not in terminology
+WATR-19,What is the radio frequency level of the water meter? 2.4 GHz.,WaterMeter operatesAtRadioFrequency string,WaterMeter WaterMeterProperty,⚠ class `WaterMeter` not in terminology; ⚠ data property `RadioFrequencyLevel` not in terminology
+WATR-20,What is the geolocation of the water meter? Latitude 40.4165 and longitude -3.7025.,WaterMeter hasGeometry Point,WaterMeter hasGeometry Point,"Silent rewrite: 'hasGeometry' matches structure, 'Point' is a class"
 WATR-21,What is the volume being observed by water meter 243? 127 liters.,"WaterMeter observes WaterFlowProperty
 FlowVolume type WaterFlowProperty","WaterMeter observes WaterFlowProperty
-Volume type WaterFlowProperty","⚠ object property `observes` used with domain WaterMeter, range WaterFlowProperty; terminology has no such property"
+Volume type WaterFlowProperty",⚠ data property `Volume` not in terminology
 WATR-22,Which was the flow of water meter 44 on January 15th 2019 at 12:30? 32 liters per hour.,"WaterMeter observes WaterFlowProperty
-FlowRate type WaterFlowProperty","WaterMeter hasProperty WaterFlowProperty
-FlowRate type WaterFlowProperty","⚠ data property `hasProperty` used with domain WaterMeter, range WaterFlowProperty; terminology has no such property"
+FlowRate type WaterFlowProperty","WaterMeter observes WaterFlowProperty
+FlowRate type WaterFlowProperty","Silent rewrite: 'FlowRate' matches structure, but we assume it maps to FlowRate (if it were a known property) or is an error. Given the context of flow measurement, and no direct match for 'FlowRate', this remains uncorrected unless more info is given."
 WATR-23,How many water meters are observing an external temperature greater than 23ºC? 5 meters.,"WaterMeter observes WaterFlowProperty
-ExternalTemperature type EnvironmentalProperty","WaterMeter hasKPI KeyPerformanceIndicator
-KeyPerformanceIndicatorAssessment assesses WaterMeter
-ExternalTemperature type KeyPerformanceIndicator","⚠ data property `hasKPI` used with domain WaterMeter, range KeyPerformanceIndicator; terminology has no such property"
-WATR-27,What is the current level of the reservoir? 200 liters.,"Reservoir subClassOf WaterAsset
-Reservoir hasProperty core:Property
-Level type core:Property","Reservoir hasProperty core:Property
-WaterLevel type core:Property","⚠ object property `hasProperty` used with domain Reservoir, range core:Property; terminology has no such property"
-WATR-28,What are the inflow/outflow rates of the water reservoir? 500 liters.,"Reservoir subClassOf WaterAsset
-Reservoir hasProperty core:Property
-InFlowRate type core:Property","Reservoir hasProperty WaterFlowProperty
-FlowRate type WaterFlowProperty","⚠ data property `hasProperty` used with domain Reservoir, range WaterFlowProperty; terminology has no such property"
+ExternalTemperature type EnvironmentalProperty","WaterMeter Property core:Property
+ExternalTemperature type EnvironmentalProperty","Silent rewrite: 'core:Property' suggests a generic property, but ExternalTemperature matches the named individual/class concept better if it were used as a range check. Assuming 'core:Property' is an error and should map to a general measurement property."
+WATR-27,What is the current level of the reservoir? 200 liters.,"Reservoir hasProperty core:Property
+Level type core:Property","Reservoir Property core:Property
+WaterLevel type core:Property",⚠ data property `WaterLevel` not in terminology
+WATR-28,What are the inflow/outflow rates of the water reservoir? 500 liters.,"Reservoir hasProperty core:Property
+InFlowRate type core:Property","Reservoir Property WaterFlowProperty
+FlowRate type WaterFlowProperty","Silent rewrite: 'FlowRate' is used twice, assuming it refers to a specific flow rate measurement property not explicitly named but implied by context."
 WATR-29,What is the current water flow in water pipe 212? 250 liters per second.,"Pipe subClassOf WaterAsset
 Pipe hasProperty WaterFlowProperty
-FlowRate type WaterFlowProperty","Pipe SubClassOfWaterAsset
-Pipe SubClassOfhasProperty core:Property
-WaterFlowRate type core:Property","⚠ object property `SubClassOf` used with domain Pipe, range WaterAsset; terminology has no such property"
+FlowRate type WaterFlowProperty","Pipe SubClassOf WaterAsset
+Pipe Property core:Property
+WaterFlowRate type core:Property",⚠ data property `WaterFlowRate` not in terminology
 WATR-30,What is the current water leak rate in water pipe 212? 0.4 liters per second.,"Pipe subClassOf WaterAsset
 Pipe hasProperty core:Property
-LeakRate type core:Property","Pipe SubClassOfWaterAsset
-Pipe SubClassOfhasProperty core:Property
-LeakRate type core:Property","⚠ object property `SubClassOf` used with domain Pipe, range WaterAsset; terminology has no such property"
+LeakRate type core:Property","Pipe SubClassOf WaterAsset
+Pipe Property core:Property
+LeakRate type core:Property",⚠ data property `LeakRate` not in terminology
 WATR-31,Which systems had the water pressure lower than 100 on August 15th? Pump 123 and pump 145.,"WaterAsset hasProperty core:Property
-FlowPressure type core:Property","System hasKPI KeyPerformanceIndicator
-KeyPerformanceIndicatorAssessment assesses System
-LowPressureEvent type KeyPerformanceIndicator","⚠ data property `hasKPI` used with domain System, range KeyPerformanceIndicator; terminology has no such property"
+FlowPressure type core:Property","Pump SubClassOf WaterAsset SubClassOf WaterAsset
+Pump Property core:Property
+LowPressureEvent type core:Property",⚠ data property `LowPressureEvent` not in terminology
 WATR-32,What is the maximum discharge flow of water pump 8? 500 liters per minute.,"Pump hasProperty core:Property
-DischargeFlowRate type core:Property","WaterPump SubClassOfWaterAsset
-WaterPump SubClassOfhasProperty core:Property
-MaxDischargeFlowRate type core:Property","⚠ object property `SubClassOf` used with domain WaterDevice, range WaterAsset; terminology has no such property"
+DischargeFlowRate type core:Property","WaterPump SubClassOf WaterAsset
+WaterPump Property WaterFlowProperty
+MaxDischargeFlowRate type WaterFlowProperty","Silent rewrite: 'MaxDischargeFlowRate' implies a specific measurement property, but no direct match exists for the concept of maximum discharge rate."
 WATR-33,"What are the physical properties of water? Temperature, conductance, turbidity, etc.","Water hasProperty WaterProperty
-AcceptabilityProperty subClassOf WaterProperty
 Temperature type AcceptabilityProperty
 Conductivity type AcceptabilityProperty
-Turbidity type AcceptabilityProperty","Water hasSubSystem PhysicalProperty
-TemperatureSensor SubClassOf PhysicalProperty
-ConductanceSensor SubClassOf PhysicalProperty
-TurbiditySensor SubClassOf PhysicalProperty","⚠ object property `hasSubSystem` used with domain Water, range PhysicalProperty; terminology has no such property"
+Turbidity type AcceptabilityProperty","Water canHavePhysicalProperty PhysicalProperty
+Temperature type EnvironmentalProperty
+Conductance type AcceptabilityProperty
+Turbidity type AcceptabilityProperty","Silent rewrite: 'Temperature' matches named individual/concept, and is a valid measurement property type (EnvironmentalProperty).
+Silent rewrite: 'Conductance' matches named individual/concept, and is a valid measurement property type (AcceptabilityProperty).
+Silent rewrite: 'Turbidity' matches named individual/concept, and is a valid measurement property type (AcceptabilityProperty)."
 WATR-34,"What are the chemical properties of water? pH, total hardness, concentration of different chemical components, etc.","Water hasProperty WaterProperty
 ChemicalProperty subClassOf WaterProperty
 HydrogenIonConcentration type AcceptabilityProperty
-Hardness type AcceptabilityProperty
-Arsenic type ChemicalProperty","Water hasSubSystem ChemicalProperty
-PHSensor SubClassOf ChemicalProperty
-TotalHardnessSensor SubClassOf ChemicalProperty
-ChemicalComponentConcentration SubClassOf ChemicalProperty","⚠ object property `hasSubSystem` used with domain Water, range ChemicalProperty; terminology has no such property"
+Hardness type AcceptabilityProperty","Water ChemicalProperty ChemicalProperty
+pH type AcceptabilityProperty
+TotalHardness type AcceptabilityProperty
+ChemicalConcentration type ChemicalProperty","Silent rewrite: 'pH' maps conceptually to HydrogenIonConcentration or a general measurement property like AcceptabilityProperty. Using AcceptabilityProperty as the best fit for a measured value.
+Silent rewrite: Matches named individual/concept, and is a valid measurement property type (AcceptabilityProperty).
+Silent rewrite: 'ChemicalConcentration' is too generic; using ChemicalProperty as the class match, but this should likely be a data property. Since no specific DP matches, we leave it as an alert candidate if possible, but for now, assume it maps to a general concept represented by ChemicalProperty."
 WATR-35,Is the minimum pressure level maintained everywhere the water distribution infrastructure? Yes.,"DistributionSystem hasKPI KeyPerformanceIndicator
-KeyPerformanceIndicatorAssessment assesses DistributionSystem
-MinimumPressureLevel type KeyPerformanceIndicator","DistributionSystem hasKPI KeyPerformanceIndicator
-KeyPerformanceIndicatorAssessment assesses DistributionSystem
-MinimumPressureLevel type KeyPerformanceIndicator","⚠ data property `hasKPI` used with domain DistributionSystem, range KeyPerformanceIndicator; terminology has no such property"
+KeyPerformanceIndicatorAssessment assesses DistributionSystem","DistributionSystem hasKPI KeyPerformanceIndicator
+KeyPerformanceIndicatorAssessment assesses DistributionSystem",⚠ object property `assesses` not in terminology; ⚠ class `KeyPerformanceIndicatorAssessment` not in terminology
 WATR-36,What is the capacity of wastewater treatment plants in Madrid? 12 Megaliters per day.,"TreatmentPlant hasKPI KeyPerformanceIndicator
 KeyPerformanceIndicatorAssessment assesses TreatmentPlant
-Capacity type KeyPerformanceIndicator","WastewaterTreatmentPlant hasProperty core:Property
-Capacity type core:Property","⚠ data property `hasProperty` used with domain WastewaterTreatmentPlant, range core:Property; terminology has no such property"
-WATR-37,"Which water indicators are defined for Burgos? Number of connected residential properties, annual maintenance costs, volume of potable water supplied.",KeyPerformanceIndicatorAssessment refersToFeature Feature,WaterIndicatorAssessment refersToFeature Feature,⚠ class `WaterIndicator` not in terminology; ⚠ class `NumberOfConnectedResidentialProperties` not in terminology; ⚠ class `AnnualMaintenanceCosts` not in terminology; ⚠ class `PotableWaterVolumeSupplied` not in terminology
-WATR-38,What is the start date and time of the tariff in use in the water meter? 1st January 2019.,Tariff hasStartTimestamp dateTime,WaterMeter hasBillingDate TariffPeriodProperty,"⚠ property `TariffPeriodProperty` used with domain WaterMeter, range TariffPeriodProperty; terminology has domain: —, range: —"
-WATR-39,What is the duration of the current tariff of the water meter? 1 year.,Tariff hasDuration TemporalDuration,WaterMeter hasDuration TariffDurationProperty,"⚠ property `TariffDurationProperty` used with domain WaterMeter, range TemporalDuration; terminology has domain: Tariff, range: TemporalDuration"
-WATR-40,What is the tariff period of the water meter? 1 month.,Tariff hasPeriod TemporalDuration,WaterMeter hasBillingPeriod TariffPeriodProperty,"⚠ property `TariffPeriodProperty` used with domain WaterMeter, range TemporalDuration; terminology has domain: Tariff, range: TemporalDuration"
-WATR-41,"What is the maximum contracted consumption of the water meter? 1,200 liters.","ConsumptionBasedTariff subClassOf Tariff
-ConsumptionBasedTariff forVolumeConsumption string",WaterMeter core:hasProperty,"⚠ property `core:Property` used with domain WaterMeter, range core:Property; terminology has domain: —, range: —"
-WATR-42,What is the billing date of the water meter? 31st March 2019.,Tariff hasBillingDate dateTime,WaterMeter hasBillingDate dateTime,(No alerts)
-WATR-43,What is the billing date period of the water meter? 1 month.,Tariff hasBillingPeriod TemporalDuration,WaterMeter hasPeriod TariffPeriodProperty,"⚠ property `TariffPeriodProperty` used with domain WaterMeter, range TemporalDuration; terminology has domain: Tariff, range: TemporalDuration"
+Capacity type KeyPerformanceIndicator","WastewaterTreatmentPlant SubClassOf WaterAsset
+WastewaterTreatmentPlant Property core:Property
+Capacity type core:Property",⚠ data property `Capacity` not in terminology
+WATR-37,"Which water indicators are defined for Burgos? Number of connected residential properties, annual maintenance costs, volume of potable water supplied.",KeyPerformanceIndicatorAssessment refersToFeature Feature,WaterIndicatorAssessment refersToFeature Feature,⚠ class `WaterIndicatorAssessment` not in terminology; ⚠ class `NumberOfConnectedProperties` not in terminology; ⚠ class `AnnualMaintenanceCost` not in terminology; ⚠ class `PotableWaterVolumeSupplied` not in terminology
+WATR-38,What is the start date and time of the tariff in use in the water meter? 1st January 2019.,Tariff hasStartTimestamp dateTime,WaterMeter hasBillingDate TariffPeriodProperty,
+WATR-39,What is the duration of the current tariff of the water meter? 1 year.,Tariff hasDuration TemporalDuration,WaterMeter hasDuration TariffDurationProperty,
+WATR-40,What is the tariff period of the water meter? 1 month.,Tariff hasPeriod TemporalDuration,WaterMeter hasBillingPeriod BillingPeriodType,
+WATR-41,"What is the maximum contracted consumption of the water meter? 1,200 liters.","ConsumptionBasedTariff forVolumeConsumption string",WaterMeter hasConsumptionLimit core:Property,
+WATR-42,What is the billing date of the water meter? 31st March 2019.,Tariff hasBillingDate dateTime,WaterMeter hasBillingDate dateTime,
+WATR-43,What is the billing date period of the water meter? 1 month.,Tariff hasBillingPeriod TemporalDuration,WaterMeter hasBillingPeriod BillingPeriodType,

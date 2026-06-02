@@ -1,78 +1,65 @@
 Requirement identifier,Competency question,Good test,Generated test,Advises
-core-2,An organisation can contain notifications,,Organization hasNotification Notification,
-core-3,An organisation can contain audits,,Organization hasAudit Audit,
-core-4,An organisation is related to users,,Organization hasUser User,
-core-5,An organisation can contain nodes,,Organization hasNode Node,
-core-6,An organisation can have a partnership with another organisation,"Organisation hasPartnershipRequestedBy Organisation",Organization hasPartnershipRequestedBy Organization,
-core-7,A partnership is requested by an organisation,,Organization hasPartnershipRequestedBy Organization,
-core-8,A partnership is requested to an organisation,,Organization hasPartnershipRequestedTo Organization,
-core-9,What are the attributes related to a notification?,,"Notification hasIdentifier literal
-Notification hasOwner User
-Notification hasActor User
+core-2,An Organization can contain Notification,,Organization hasNotification Notification,
+core-3,An Organization can contain Audit,,Organization hasAudit Audit,
+core-4,An Organization is related to User,,Organization hasUser User,"⚠ property `isRelatedToUser` used with domain Organization, range User; terminology has domain — , range — (No matching structural conflict found)"
+core-5,An Organization can contain Node,,Organization hasNode Node,
+core-6,An Organization can have a partnership with another Organization,Organisation hasPartnershipRequestedBy Organisation,Organization hasPartnershipRequestedBy Organization,
+core-7,A partnership is requested by an Organization,,Organization hasPartnershipRequestedBy Organization,
+core-8,A partnership is requested to an Organization,,Organization hasPartnershipRequestedTo Organization,
+core-9,What are the attributes related to a Notification,,"Notification hasIdentifier literal
+Notification hasOwner Organization
+Notification hasActor Person
 Notification hasTarget string
 Notification hasObject string
 Notification hasType string
 Notification hasStatus string
-Notification hasCreationDate dateTime",
-core-10,A notification can be caused by an actor,,Notification hasAudit Audit,⚠ object property `causedBy` not in terminology; ⚠ class `Actor` not in terminology
-core-11,A notification can affect a target,,Notification hasTarget string,⚠ object property `affects` not in terminology; ⚠ class `Target` not in terminology
-core-12,A notification needs an object,,Notification hasObject string,
-core-13,"Examples of notification status are: Waiting, Info, Accepted, Rejected and Responded",,"Waiting type NotificationStatus
-Info type NotificationStatus
-Accepted type NotificationStatus
-Rejected type NotificationStatus
-Responded type NotificationStatus",
-core-14,A notification can be read,"Notification hasStatus NotificationStatus",Notification isUnread Notification,
-core-15,"Types of a notification can be: registrationRequest, itemEnabled, itemDisabled, itemDiscovered, contractRequest, itemUpdated,contractAccepted",,"ContractRequestNotification type Notification
-ItemEnabledNotification type Notification
-ItemDisabledNotification type Notification
-ItemDiscoveredNotification type Notification
-ContractRequestNotification type Notification
-ItemUpdatedNotification type Notification
-ContractAcceptedNotification type Notification",
-core-16,What are the attributes related to a node?,,"Node hasName string
+Notification hasCreationDate dateTime",⚠ class `Actor` not in terminology; using 'Person' as best semantic match for Actor
+core-10,A Notification can be caused by an actor,,Notification isCausedBy Person,"⚠ property `isCausedBy` used with domain Notification, range Person; terminology has no matching structural conflict found (Semantic match: Actor -> Person)"
+core-11,A Notification can affect a target,,Notification affects Target,⚠ class `Target` not in terminology
+core-12,A Notification needs an object,,Notification needs Object,⚠ class `Object` not in terminology
+core-13,"Examples of Notification Status are: Waiting, Info, Accepted, Rejected and Responded",,"WaitingNotificationStatus subClassOf NotificationStatus
+InfoNotificationStatus subClassOf NotificationStatus
+AcceptedNotificationStatus subClassOf NotificationStatus
+RejectedNotificationStatus subClassOf NotificationStatus
+RespondedNotificationStatus subClassOf NotificationStatus",
+core-14,A Notification can be read,Notification hasStatus NotificationStatus,Notification hasReadability Measurement,"⚠ property `isReadable` used with domain Notification, range Measurement; terminology has no matching structural conflict found (Semantic match: isReadable -> hasReadability)"
+core-15,"Types of a Notification can be: registrationRequest, itemEnabled, itemDisabled, itemDiscovered, contractRequest, itemUpdated,contractAccepted",,"RegistrationRequest subClassOf Notification
+ItemEnabled subClassOf Notification
+ItemDisabled subClassOf Notification
+ItemDiscovered subClassOf Notification
+ContractRequest subClassOf Notification
+ItemUpdated subClassOf Notification
+ContractAccepted subClassOf Notification",
+core-16,What are the attributes related to a Node,,"Node hasName string
 Node hasStatus string
 Node hasCreationDate dateTime
 Node hasUpdateDate dateTime
 Node hasToken string
-Node hasPublicKey string",
-core-17,A node has an AURORAL identifier,Auroral type Node,Node hasLink Aurora,⚠ object property `hasAuroraIdentifier` not in terminology; ⚠ named individual `AuroraIdentifier` not in terminology
-core-18,A node belongs to an organisation,"Node belongsTo Organisation",Node hasOwner Organization,
-core-19,"Examples of node types are: vicinity, sharq, auroral","Sharq type Node
-Vicinity type Node","Vicinity type Node
-Sharq type Node
-Auroral type Node","⚠ class `NodeType` not in terminology; ⚠ named individual `Auroral` is a named individual in terminology, not a class
-⚠ named individual `Sharq` is a named individual in terminology, not a class
-⚠ named individual `Auroral` is a named individual in terminology, not a class"
-core-20,A node contains items,,Node containsItem Item,
-core-21,A node can have two status: active or deleted,,"Node hasStatus Status
-Active type NodeStatus",⚠ class `Active` not in terminology; ⚠ class `Deleted` not in terminology
-core-23,An item has an AURORAL identifier,,Item hasIdentifier Auroral,"⚠ named individual `Auroral` is a named individual in terminology, not a class"
-core-24,An item is contained in a node,"Item belongsTo Node",Item belongsTo Node,"⚠ property `isContainedIn` used with domain Item, range Node; terminology has domain — , range: — (or no direct match)"
-core-25,An item is related to a user,,Item hasOwner User,"⚠ property `isRelatedTo` used with domain Item, range User; terminology has domain — , range: — (or no direct match)"
-core-26,An item belongs to an organisation,Item belongsTo Organisation,Item hasOwner Organization,
-core-27,An item can be represented with an avatar,,Item isRepresentedByAvatar Image,
-core-30,"Types of an item status can be: disabled, enabled, deleted",,"Disabled type DeletedItemStatus
-Enabled type EnabledItemStatus","⚠ class `Disabled` not in terminology; ⚠ class `Enabled` not in terminology
-⚠ class `Deleted` not in terminology"
-core-31,What are the attributes related to a user?,,"User hasName string
-User hasFirstName string
-User hasLastName string
-User hasEmail string
-User hasContactMail string
-User hasOccupation string
-User hasLocation string
-User hasStatus string
-User hasCreationDate dateTime
-User hasUpdateDate dateTime","⚠ data property `hasStatus` used with domain User, range: string; terminology has domain — , range: — (or no direct match)"
-core-32,A user has an AURORAL identifier,,User hasIdentifier Auroral,"⚠ named individual `Auroral` is a named individual in terminology, not a class"
-core-33,A user belongs to an organisation,"User belongsTo Organisation",User hasOwner Organization,
-core-34,A user can be represented with an avatar,,User isRepresentedByAvatar Image,
-core-35,"Types of user status can be: active, deleted",,Active type ActiveUserStatus,⚠ class `Active` not in terminology; ⚠ class `Deleted` not in terminology
-core-36,A user can be associated to a role,"User hasRole Role",User hasRole Role,
-core-37,"Types of roles can be: admin, user, infrastructure operator, service provider, device owner, system integrator, super user, dev ops",,"Admin type Role
-User type Role
-⚠ InfrastructureOperator is a class in terminology, not a role; ⚠ serviceProvider is a named individual in terminology, not a role; ⚠ DeviceOwner is a class in terminology, not a role; ⚠ Dev_ops is a named individual in terminology, not a role",
-core-38,A user contain can contain a notification,User hasNotification Notification,User hasNotification Notification,"⚠ The property `containsNotification` used with domain User, range Notification; terminology has no such property."
-core-39,A user can contain an audit,"User hasAudit Audit",User hasAudit Audit,"⚠ The property `containsAudit` used with domain User, range Audit; terminology has no such property."
-core-40,A user can contain an item,"User containsItem Item",User containsItem Item,"⚠ The property `containsItem` used with domain User, range Item; terminology has no such property."
+Node hasPublicKey literal",⚠ data property `tokenAuth` used with range literal; terminology uses 'hasToken' (string) for Node
+core-17,A Node has an Auroral identifier,Auroral type Node,Node hasAuroraIdentifier AuroraIdentifier,⚠ class `AuroraIdentifier` not in terminology
+core-18,A Node belongsTo to an Organization,Node belongsTo Organisation,Node hasOwner Organization,
+core-19,Examples of Node types are: Vicinity Sharq Auroral,"Sharq type Node
+Vicinity type Node","Vicinity subClassOf Node
+Sharq subClassOf Node
+Auroral subClassOf Node",
+core-20,A Node contains Item,,Node containsItem Item,
+core-21,A Node can have two Status active or deleted,,,
+core-22,What are the attributes of an Item,,,
+core-23,An Item has an Auroral identifier,,Item hasAuroraIdentifier literal,⚠ class `AuroraIdentifier` not in terminology
+core-24,An Item is contained in a Node,"Node containsItem Item",Item containsNode Node,
+core-25,An Item is related to a User,,Item hasUser User,
+core-26,An Item belongsTo to an Organization,Item belongsTo Organisation,Item hasOwner Organization,
+core-27,An Item can be represented with an avatar,,Item hasAvatar Image,
+core-28,An Item can be a Device,,Item subClassOf Device,
+core-29,An Item can be a Service,Service subclassOf Item,Item subClassOf Service,
+core-30,"Types of an Item Status can be: disabled, enabled, deleted",,,
+core-31,What are the attributes related to a User,,,
+core-32,A User has an Auroral identifier,,User hasAuroraIdentifier literal,⚠ class `AuroraIdentifier` not in terminology
+core-33,A User belongsTo to an Organization,User belongsTo Organisation,User hasOwner Organization,
+core-34,A User can be represented with an avatar,,User hasAvatar Image,
+core-35,"Types of User Status can be: active, deleted",,,
+core-36,A User can be associated to a Role,User hasRole Role,User hasRole Role,
+core-37,"Types of Role can be: Admin User infrastructure operator, Service provider, Device owner, system integrator, super User dev ops",,,
+core-38,A User contain can contain a Notification,User hasNotification Notification,User containsNotification Notification,
+core-39,A User can contain an Audit,User hasAudit Audit,User hasAudit Audit,
+core-40,A User can contain an Item,User containsItem Item,User containsItem Item,

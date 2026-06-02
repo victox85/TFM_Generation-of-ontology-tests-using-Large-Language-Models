@@ -93,9 +93,11 @@ def split_csv_chunks_by_type(file_content, chunk_size=CHUNK_SIZE):
 
 
 def _fix_lm_output(text: str) -> str:
-    """Fix concatenated tokens like 'XSubClassOf B' → 'X SubClassOf B' produced by the LM."""
-    # Insert missing space: "XSubClassOf" → "X SubClassOf"
+    """Fix concatenated tokens like 'XSubClassOf B' or 'X SubClassOfB' → 'X SubClassOf B'."""
+    # Insert missing space before: "XSubClassOf" → "X SubClassOf"
     text = re.sub(r'(?<=\w)SubClassOf', ' SubClassOf', text)
+    # Insert missing space after: "SubClassOfB" → "SubClassOf B"
+    text = re.sub(r'SubClassOf(?=\w)', 'SubClassOf ', text)
     # Collapse accidental double: "X SubClassOf SubClassOf B" → "X SubClassOf B"
     text = re.sub(r'SubClassOf(\s+SubClassOf)+', 'SubClassOf', text)
     return text

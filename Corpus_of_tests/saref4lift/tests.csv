@@ -46,7 +46,7 @@ LIFT-TEST-44;LIFT-24;Bidirectional Communication System Signal;Network3G type Ne
 LIFT-TEST-45;LIFT-24;Bidirectional Communication System Signal;Network4G type Network
 LIFT-TEST-46;LIFT-24;Bidirectional Communication System Signal;Network5G type Network
 LIFT-TEST-47;LIFT-25;Bidirectional Communication System Signal;SmartLiftInstallation subClassOf hasTelephoneNumber some string
-LIFT-TEST-48;LIFT-26;Bidirectional Communication System Signal;SmartLiftInstallation subClassOf hasSecondaryEmergencyTelephoneNumber only string 
+"LIFT-TEST-48;LIFT-26;Bidirectional Communication System Signal;SmartLiftInstallation subClassOf hasSecondaryEmergencyTelephoneNumber only string "
 LIFT-TEST-49;LIFT-27;Power Supply Signal;EmergencyPowerSupplySignal subClassOf Signal
 LIFT-TEST-50;LIFT-27;Power Supply Signal;EmergencyPowerSupplySignal subclassOf hasValue some boolean
 LIFT-TEST-51;LIFT-28;Power Supply Signal;StandardEmergencyPowerSupplySignal subClassOf Signal
@@ -85,27 +85,20 @@ LIFT-TEST-83;LIFT-46;Alarm;AlarmInTheCar subclassOf Alarm
 LIFT-TEST-84;LIFT-46;Alarm;CarAlarm subclassOf hasValue some boolean
 LIFT-TEST-85;LIFT-47;Alarm;AlarmInTheCar subclassOf Alarm
 LIFT-TEST-86;LIFT-47;Alarm;CarAlarm subclassOf hasValue some boolean
-LIFT-TEST-87;LIFT-48;Alarm;AlarmVoiceCommunication subclassOf Alarm 
+"LIFT-TEST-87;LIFT-48;Alarm;AlarmVoiceCommunication subclassOf Alarm "
 LIFT-TEST-88;LIFT-49;Alarm;AlarmInTheWell subclassOf Alarm
 LIFT-TEST-89;LIFT-50;Alarm;AlarmInTheMachinery subclassOf Alarm
 LIFT-TEST-90;LIFT-51;Alarm;FloodAlarm subclassOf Alarm
 LIFT-TEST-91;LIFT-52;Alarm;EmergencyPowerAlarm subclassOf Alarm
 LIFT-TEST-92;LIFT-53;Command;Function hasCommand Command
-LIFT-TEST-93;LIFT-54;Command;CallCarToSpecificFloorCommand a Command
-LIFT-TEST-94;LIFT-55;Command;SendCarToSpecificServiceCommand a Command
 LIFT-TEST-95;LIFT-56;Command;SmartLiftInstallationCommand hasDoorOpenTime Time
 LIFT-TEST-96;LIFT-57;Command;SmartLiftInstallationCommand hasDoorCloseTime Time
-LIFT-TEST-97;LIFT-58;Command;SetOutOfServiceCommand a Command
-LIFT-TEST-98;LIFT-59;Command;TestEmergencyNumberCommand a Command
-LIFT-TEST-99;LIFT-60;Command;TestRideCommand a Command
-LIFT-TEST-100;LIFT-61;Command;SetRealTimeModeCommand a Command
 LIFT-TEST-101;LIFT-62;Command;SmartLiftInstallation subclassOf hasMainEmergencyNumber only string
 LIFT-TEST-102;LIFT-63;Command;SmartLiftInstallation hasTraveledTime Time
-LIFT-TEST-103;LIFT-64;Command;BoardResetCommand a Command
 LIFT-TEST-104;LIFT-65;Command;EmergencyPowerSupplySignal subClassOf hasValue some string
 LIFT-TEST-105;LIFT-66;Command;StandardEmergencyPowerSupplySignal subClassOf hasValue some string
 LIFT-TEST-106;LIFT-67;Smart Lift System;SmartLiftInstallation hasSubsystem SmartLiftInstallation
-LIFT-TEST-107;LIFT-68;Smart Lift System;SmartLiftInstallation hasSubsystem SmartLiftEdgeControlUnit 
+"LIFT-TEST-107;LIFT-68;Smart Lift System;SmartLiftInstallation hasSubsystem SmartLiftEdgeControlUnit "
 LIFT-TEST-108;LIFT-69;Smart Lift System;Signal subClassOf SmartLiftmodule
 LIFT-TEST-109;LIFT-69;Smart Lift System;BidirectionalCommunicationSystem subClassOf SmartLiftmodule
 LIFT-TEST-110;LIFT-70;Smart Lift identification;SmartLiftInstallation type Class
@@ -117,6 +110,3 @@ LIFT-TEST-115;LIFT-75;Smart Lift administrative information;SmartLiftInstallatio
 LIFT-TEST-116;LIFT-76;Smart Lift administrative information;SmartLiftInstallation subClassOf hasOwner only string
 LIFT-TEST-117;LIFT-77;Smart Lift administrative information;SmartLiftInstallation hasGeometry Point
 LIFT-TEST-118;LIFT-78;Smart Lift administrative information;SmartLiftInstallation subclassOf hasLocationValidator only string
-LIFT-TEST-119;LIFT-79;Smart Lift administrative information;GoodsLift a DeviceKind
-LIFT-TEST-120;LIFT-79;Smart Lift administrative information;GoodsOnlyLift a DeviceKind
-LIFT-TEST-121;LIFT-79;Smart Lift administrative information;FiremanLift a DeviceKind

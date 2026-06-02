@@ -214,6 +214,42 @@ def set_match_count(goods: List[str], gens: List[str]) -> int:
     return count
 
 
+def smart_pair(
+    goods: List[str], gens: List[str]
+) -> List[Tuple[Optional[str], Optional[str]]]:
+    """
+    Pair goods to gens: exact (normalized) matches first (order-independent),
+    then positional pairing for the remainder.
+
+    This prevents a correctly-generated test that appears at a different
+    position from being mis-scored as 'wrong' while the matching good test
+    is simultaneously scored as 'missing_gen'.
+    """
+    used_good = [False] * len(goods)
+    used_gen  = [False] * len(gens)
+    pairs: List[Tuple[Optional[str], Optional[str]]] = []
+
+    # Pass 1: exact matches regardless of position
+    for gi, g in enumerate(goods):
+        ng = normalize(g)
+        for ei, e in enumerate(gens):
+            if not used_gen[ei] and normalize(e) == ng:
+                pairs.append((g, e))
+                used_good[gi] = True
+                used_gen[ei] = True
+                break
+
+    # Pass 2: pair remaining goods and gens positionally
+    rem_goods = [goods[i] for i in range(len(goods)) if not used_good[i]]
+    rem_gens  = [gens[i]  for i in range(len(gens))  if not used_gen[i]]
+    for i in range(max(len(rem_goods), len(rem_gens))):
+        g = rem_goods[i] if i < len(rem_goods) else None
+        e = rem_gens[i]  if i < len(rem_gens)  else None
+        pairs.append((g, e))
+
+    return pairs
+
+
 # ---------------------------------------------------------------------------
 # Statistics accumulator
 # ---------------------------------------------------------------------------
@@ -452,17 +488,19 @@ class QuestionResult:
     """Lightweight record of how one question/requirement scored."""
 
     __slots__ = ('folder', 'row_idx', 'question', 'is_cq',
-                 'goods', 'gens', 'pair_results')
+                 'goods', 'gens', 'pair_results', 'matched_pairs')
 
     def __init__(self, folder: str, row_idx: int, question: str, is_cq: bool,
-                 goods: List[str], gens: List[str], pair_results: List[str]):
-        self.folder       = folder
-        self.row_idx      = row_idx
-        self.question     = question
-        self.is_cq        = is_cq
-        self.goods        = goods
-        self.gens         = gens
-        self.pair_results = pair_results
+                 goods: List[str], gens: List[str], pair_results: List[str],
+                 matched_pairs: List[Tuple[Optional[str], Optional[str]]]):
+        self.folder        = folder
+        self.row_idx       = row_idx
+        self.question      = question
+        self.is_cq         = is_cq
+        self.goods         = goods
+        self.gens          = gens
+        self.pair_results  = pair_results
+        self.matched_pairs = matched_pairs
 
     @property
     def n_pairs(self) -> int:
@@ -567,10 +605,9 @@ def analyze_csv(path: Path, folder_name: str) -> FolderResult:
                 for e in gens:
                     fr.entities_gen |= extract_entities(e)
 
+                matched = smart_pair(goods, gens)
                 pair_results: List[str] = []
-                for i in range(max(len(goods), len(gens))):
-                    g = goods[i] if i < len(goods) else None
-                    e = gens[i]  if i < len(gens)  else None
+                for g, e in matched:
                     result, gt, et = compare_pair(g, e)
                     if result == 'skip':
                         pair_results.append('skip')
@@ -590,6 +627,7 @@ def analyze_csv(path: Path, folder_name: str) -> FolderResult:
                     folder=folder_name, row_idx=row_idx, question=question,
                     is_cq=is_cq, goods=goods, gens=gens,
                     pair_results=pair_results,
+                    matched_pairs=matched,
                 ))
     except Exception as exc:
         print(f"  [Warning] Could not read {path.name}: {exc}")
@@ -1077,17 +1115,13 @@ def export_per_row_csv(fr_list: List[FolderResult], path: Path):
         ])
         for fr in fr_list:
             for q in fr.questions:
-                # Re-build the per-assertion view to recover types.
-                n = max(len(q.goods), len(q.gens))
-                for i in range(n):
-                    g = q.goods[i] if i < len(q.goods) else ''
-                    e = q.gens[i]  if i < len(q.gens)  else ''
+                for i, (g, e) in enumerate(q.matched_pairs):
                     result = q.pair_results[i] if i < len(q.pair_results) else 'skip'
                     gt = detect_type(g) if g else ''
                     et = detect_type(e) if e else ''
                     w.writerow([
                         fr.name, q.row_idx, 'CQ' if q.is_cq else 'REQ',
-                        q.question, i + 1, g, e, result, gt, et,
+                        q.question, i + 1, g or '', e or '', result, gt, et,
                     ])
 
 

@@ -1,0 +1,16 @@
+Test identifier,Requirement identifier,Competency Question / Fact,Test
+T-RESO-1,RESO-1,Human workers and equipment are resources,Worker subClassOf Resource;
+T-RESO-2,RESO-1,Human workers and equipment are resources,Equipment subClassOf Resource;
+T-RESO-3,RESO-2,A resource belongs to a resource type,Resource belongsToType ResourceType;
+T-RESO-4,RESO-3,Types of resources include human roles and equipment types,WorkerRole subClassOf ResourceType;
+T-RESO-5,RESO-3,Types of resources include human roles and equipment types,EquipmentType subClassOf ResourceType;
+T-RESO-6,RESO-4,"A type of resource has an identifier, a name, the maximum quantity and a cost per hour",ResourceType identifier literal;
+T-RESO-7,RESO-4,"A type of resource has an identifier, a name, the maximum quantity and a cost per hour",ResourceType title string;
+T-RESO-8,RESO-4,"A type of resource has an identifier, a name, the maximum quantity and a cost per hour",ResourceType maxUnit integer;
+T-RESO-9,RESO-4,"A type of resource has an identifier, a name, the maximum quantity and a cost per hour",ResourceType costPerHour float;
+T-RESO-10,RESO-5,A resource has an identifier and a status,Resource identifier literal;
+T-RESO-11,RESO-5,A resource has an identifier and a status,Resource status string;
+T-RESO-12,RESO-6,"Human workers have an email, first name and last name, and pieces of equipment have a name",Worker email string;
+T-RESO-13,RESO-6,"Human workers have an email, first name and last name, and pieces of equipment have a name",Worker firstName string;
+T-RESO-14,RESO-6,"Human workers have an email, first name and last name, and pieces of equipment have a name",Worker lastName string;
+T-RESO-15,RESO-7,Resources can have a tracking tag assigned,Resource hasTrackingTag TrackingTag;

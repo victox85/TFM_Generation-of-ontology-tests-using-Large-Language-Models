@@ -49,15 +49,18 @@ Your job, in two parts:
 
 1. **Silently normalise** every name in the tests to match the
    terminology whenever a confident match exists (exact, case, has-prefix,
-   or domain/range shape). Just rewrite the line. Do not flag the change.
+   shape, or semantic equivalence). Just rewrite the line. Do not flag
+   the change.
 2. **Alert** only in two situations:
-   - The name has **no plausible counterpart** in the terminology.
+   - The name has **no plausible counterpart** in the terminology, even
+     after an exhaustive semantic search.
    - The name exists in the terminology but is used in a way that
      **conflicts with it structurally** (wrong kind, or swapped
      domain/range).
 
 The goal is a quiet, clean output. Alerts should be the exception, not
-the default.
+the default. **When in doubt between alerting and rewriting, prefer to
+rewrite** if a single terminology entry is clearly the best match.
 
 ---
 
@@ -113,65 +116,129 @@ Use the Themis pattern to know each token's role:
 **Primary goal: find the correct terminology term semantically.** Before
 declaring a token "not found", exhaustively search the terminology for any
 entry that expresses the same concept, relationship, or entity — even if
-the name differs considerably. Only alert when no semantic match exists.
+the surface name differs considerably. Only alert when no semantic
+counterpart exists.
 
 For each token, walk this list and stop at the first hit:
 
-1. **EXACT match** — identical string (case-sensitive) to an entry of
-   the right kind.
-   → Keep as-is. No change, no alert.
+### 1. EXACT match
+Identical string (case-sensitive) to an entry of the right kind.
+→ Keep as-is. No change, no alert.
 
-2. **CASE match** — same string up to letter case.
-   → **Silently rewrite** to the canonical casing. No alert.
+### 2. CASE match
+Same string up to letter case.
+→ **Silently rewrite** to the canonical casing. No alert.
 
-3. **HAS-PREFIX match** — the test drops or adds a `has` prefix relative
-   to the terminology (e.g., test `identifier` vs terminology
-   `hasIdentifier`, or vice versa).
-   → **Silently rewrite** to the canonical form. No alert.
+### 3. HAS-PREFIX match
+The test drops or adds a `has` prefix relative to the terminology
+(e.g., test `identifier` vs terminology `hasIdentifier`, or vice versa).
+→ **Silently rewrite** to the canonical form. No alert.
 
-4. **SHAPE match** — a property in the terminology has the exact
-   domain and range used in the test, even though its name differs
-   (e.g., test uses `containsRule` from Policy to Rule; terminology has
-   `definesRule` with domain Policy, range Rule, and no other property
-   matches that signature).
-   → **Silently rewrite** to the terminology's property name. No alert.
+### 4. SHAPE match
+A property in the terminology has the exact domain and range used in
+the test, even though its name differs (e.g., test uses `containsRule`
+from Policy to Rule; terminology has `definesRule` with domain Policy,
+range Rule, and no other property matches that signature).
+→ **Silently rewrite** to the terminology's property name. No alert.
 
-5. **SEMANTIC EQUIVALENCE** — the token is not literally present in the
-   terminology, but a terminology entry represents the **same concept**:
-   a synonym, a near-synonym, a domain-specific rephrasing, or a concept
-   that is normally expressed by this word in this ontology's domain.
-   This step must be applied **aggressively before alerting**.
+### 5. SEMANTIC EQUIVALENCE — the workhorse of alignment
 
-   Strategy:
-   - Consider what real-world concept the token names.
-   - Scan **all** terminology entries of the appropriate kind for any
-     that could represent that concept in the context of this ontology.
-   - If the token is a verb or relationship (property), look for a
-     terminology property whose semantics covers the same action or
-     association, even if the surface form is very different
-     (e.g., `contains` → `definesRule`, `assigns` → `hasAssignment`).
-   - If the token is a noun (class or individual), look for a terminology
-     class or individual that represents the same real-world entity or
-     category (e.g., `Worker` → `Employee`, `Device` → `Sensor`).
-   - If only one terminology entry is plausible and no other candidate
-     competes, commit to it.
+The token is not literally present in the terminology, but an entry
+represents the **same concept** in the ontology's domain. This step
+must be applied **aggressively and exhaustively** before alerting. Run
+through every strategy below before concluding no match exists.
 
-   → **Silently rewrite** to the semantically equivalent term. No alert.
+#### Search strategies (try each, in any order, until a candidate emerges)
 
-6. **LEXICAL near-match, ambiguous** — high string similarity but
-   multiple plausible candidates, or weak semantic evidence.
-   → **Silently rewrite** to the best candidate if the match is
-   reasonably clear. Alert with a suggestion only if genuinely ambiguous.
+**a. Stem and lemma.** Strip inflections and affixes. `containing`,
+`contains`, `contained`, `containment` all reduce to the root `contain`.
+Match roots, not surface forms.
 
-7. **NONE** — after exhaustive semantic search, nothing in the
-   terminology represents this concept.
-   → **Alert**: `⚠ <kind> `<n>` not in terminology`.
+**b. Verb ↔ noun derivation.** A test verb may correspond to a
+terminology noun form, and vice versa:
+- `assigns` ↔ `hasAssignment`, `hasAssignee`, `Assignment`
+- `defines` ↔ `Definition`, `definesX`
+- `targets` ↔ `hasTarget`, `Target`, `RuleTarget`
+- `restricts` ↔ `Restriction`, `hasRestriction`
+- `permits` ↔ `Permission`, `hasPermission`
+
+**c. Embedded and compound terms.** Scan terminology names for the test
+token appearing as a substring, head noun, or modifier:
+- Test `Target` → terminology class `RuleTarget` (token is the head noun)
+- Test `hasTarget` → terminology `hasRuleTarget` (token is a sub-phrase)
+- Test `Description` → terminology data property `hasDescription`
+- Test `Asset` → if terminology has `DigitalAsset`, that may be the match
+
+**d. Synonyms and near-synonyms.** Words with the same meaning in
+everyday English **or in this ontology's domain**:
+- `Worker` ↔ `Employee`, `Staff`
+- `contains` ↔ `defines` (in a policy/rule context)
+- `forbidden`, `denies`, `disallows` ↔ `Prohibition`
+- `allowed`, `permitted` ↔ `Permission`
+- `Device` ↔ `Sensor` (if the ontology is about IoT)
+
+**e. Abbreviation and expansion.** Short forms ↔ long forms:
+- `ID` ↔ `Identifier`
+- `Org` ↔ `Organization`
+- `Desc` ↔ `Description`
+- `Qty` ↔ `Quantity`
+
+**f. Hypernym / hyponym.** The test may use a more general or more
+specific term than the terminology. Accept when the broader/narrower
+term is the **only plausible match** and the surrounding context
+(domain, range, sibling tokens) makes the mapping unambiguous. Do NOT
+force a mapping when the test term is clearly a sibling concept, not a
+parent or child.
+
+**g. Domain conventions.** If the ontology's domain uses a particular
+word as a standard synonym (e.g., "concept" for "class" in OWL,
+"agent" for "actor" in some upper ontologies), apply that convention.
+
+#### Converging evidence — your strongest signal
+
+When **semantic similarity coincides with structural signals** — the
+candidate property's domain and range match the test's usage, OR the
+candidate class appears as the range of another property the test also
+mentions — the match is **confirmed even if string similarity is low**.
+Converging evidence overrides weak lexical competitors.
+
+Example of convergence: test has `Policy controlsRule Rule`. The
+terminology has no `controlsRule`, but `definesRule` (domain Policy,
+range Rule) is the unique property with this shape, and `controls` and
+`defines` are domain-synonymous. Both signals point to the same target
+→ silent rewrite.
+
+#### Tie-breaking when multiple candidates remain
+
+1. Prefer the candidate whose **domain/range matches** the test usage.
+2. Prefer the candidate that shares more **morphological roots** with
+   the test token.
+3. Prefer the candidate that other (already-resolved) tokens on the
+   same line point to (line-internal consistency).
+4. Prefer the candidate whose **kind** matches what the Themis pattern
+   demands (object property vs data property vs class).
+5. If still tied: do **not** guess. Fall through to rule 6.
+
+→ **Silently rewrite** to the semantically equivalent term. No alert.
+
+### 6. LEXICAL near-match, ambiguous
+High string similarity but multiple plausible candidates, or weak
+semantic evidence, and tie-breaking did not pick a winner.
+→ **Silently rewrite** to the best candidate if the match is reasonably
+clear. Alert with a suggestion only if genuinely ambiguous.
+
+### 7. NONE
+After exhaustive search through strategies (a)–(g) and the convergence
+check, nothing in the terminology represents this concept.
+→ **Alert**: `⚠ <kind> `<n>` not in terminology`.
+
+---
 
 ## Structural checks — always alert (never silently "fix")
 
-These are errors, not naming issues. Do not try to auto-correct them.
-Keep the line as written (after any silent normalisations from the
-resolution procedure above) and attach an alert.
+These are conceptual errors, not naming issues. Do not try to
+auto-correct them. Keep the line as written (after any silent
+normalisations from the resolution procedure above) and attach an alert.
 
 - **KIND MISMATCH** — a name exists in the terminology but under a
   different kind. E.g., the test uses `Visibility` as a class, but
@@ -205,7 +272,7 @@ There is only one marker: `⚠`. No soft-notice marker.
 
 ## FEW-SHOT EXAMPLES
 
-Assume the terminology is:
+For all examples below, assume the terminology is:
 
 ```
 Classes: Action, Item, Permission (⊑ Rule), Policy, Prohibition (⊑ Rule),
@@ -218,6 +285,7 @@ Object Properties:
 Data Properties:
   hasDescription range: literal
   hasName        range: literal
+  hasIdentifier  range: string
 Named Individuals:
   Accessibility : Action
   All           : RuleTarget
@@ -226,98 +294,129 @@ Named Individuals:
   Visibility    : Action
 ```
 
-### Example A — Exact match, no change, no alert
+### Example A — Exact match (no change, no alert)
+
+The simplest case: every token already matches the terminology
+verbatim. Pass through untouched.
+
 Input:
 ```
-// REQ-1 — A policy defines rules
+// REQ-1 — Every policy declares one or more rules
 Policy definesRule Rule
 ```
 Output:
 ```
-// REQ-1 — A policy defines rules
+// REQ-1 — Every policy declares one or more rules
 Policy definesRule Rule
 ```
 
 ---
 
-### Example B — Semantic equivalence + shape match → silent rewrite
+### Example B — Semantic equivalence reinforced by shape (silent rewrite)
+
+The test uses `containsRule`, which is not in the terminology. Two
+independent signals point to `definesRule`: (1) "contains" and "defines"
+express the same Policy→Rule relationship in this domain, and (2)
+`definesRule` is the **only** property with domain Policy and range
+Rule. Converging evidence → silent rewrite, no alert.
+
 Input:
 ```
-// REQ-2 — A policy contains rules
+// REQ-2 — A policy contains one or more rules
 Policy containsRule Rule
 ```
 Output:
 ```
-// REQ-2 — A policy contains rules
+// REQ-2 — A policy contains one or more rules
 Policy definesRule Rule
 ```
-(`containsRule` silently rewritten to `definesRule`: semantically, "contains
-rules" and "defines rules" express the same ontological relationship in
-this domain; additionally, `definesRule` is the only property in the
-terminology with domain Policy, range Rule — both semantic and shape
-evidence converge.)
 
 ---
 
-### Example C — Has-prefix fix → silent rewrite
+### Example C — Missing `has` prefix on a data property (silent rewrite)
+
+The test writes the bare noun `description`; the terminology uses the
+conventional `hasDescription`. Silent normalisation.
+
 Input:
 ```
-// REQ-3 — An item has a description
+// REQ-3 — Every item carries a description
 Item description literal
 ```
 Output:
 ```
-// REQ-3 — An item has a description
+// REQ-3 — Every item carries a description
 Item hasDescription literal
 ```
 
 ---
 
-### Example D — xsdType breadth, accepted silently
+### Example D — XSD type narrowed silently (no alert)
+
+The terminology declares `hasName range: literal` (the broadest text
+type); the test narrows it to `string`. This is a refinement, not a
+conflict — accept it without comment.
+
 Input:
 ```
-// REQ-4 — An item has a name
+// REQ-4 — Every item has a textual name
 Item hasName string
 ```
 Output:
 ```
-// REQ-4 — An item has a name
+// REQ-4 — Every item has a textual name
 Item hasName string
 ```
-(Terminology says `hasName range: literal`; the test narrows it to
-`string`. Accepted silently — not alerted.)
 
 ---
 
-### Example E — Kind mismatch → alert
+### Example E — Kind mismatch: individual used as a class (alert)
+
+The test treats `Visibility` as a class (`SubClassOf Action`), but the
+terminology lists `Visibility` as a named individual of Action. This
+is a conceptual decision the validator must not silently "fix" by
+inventing a class.
+
 Input:
 ```
-// REQ-5 — Visibility is a class of action
+// REQ-5 — Visibility is a kind of action
 Visibility SubClassOf Action
 ```
 Output:
 ```
-// REQ-5 — Visibility is a class of action
+// REQ-5 — Visibility is a kind of action
 Visibility SubClassOf Action    // ⚠ `Visibility` is a named individual in terminology, not a class
 ```
 
 ---
 
-### Example F — Individual assertion matches → no alert
+### Example F — Individual assertion that matches the terminology (no alert)
+
+The Themis pattern `i type X` is ambiguous between "individual `i` is
+of class `X`" and a class-level assertion. Because `Friends` is listed
+in the terminology as a named individual of `RuleTarget`, this resolves
+cleanly to an individual assertion.
+
 Input:
 ```
-// REQ-6 — Friends is a rule target
+// REQ-6 — Friends is one of the predefined rule targets
 Friends type RuleTarget
 ```
 Output:
 ```
-// REQ-6 — Friends is a rule target
+// REQ-6 — Friends is one of the predefined rule targets
 Friends type RuleTarget
 ```
 
 ---
 
-### Example G — Class not in terminology → alert; sibling token silently fixed
+### Example G — Class genuinely missing; sibling token silently fixed (alert)
+
+Two issues, one silent and one alerted: `description` → `hasDescription`
+is a routine has-prefix fix (silent), but `Resource` has no plausible
+counterpart in the terminology — neither `Item` nor any other class is
+semantically close enough to commit to. Alert only the class.
+
 Input:
 ```
 // REQ-7 — A resource has a description
@@ -328,43 +427,55 @@ Output:
 // REQ-7 — A resource has a description
 Resource hasDescription literal    // ⚠ class `Resource` not in terminology
 ```
-(`description` → `hasDescription` silently; `Resource` alerted because
-nothing in the terminology is close enough.)
 
 ---
 
-### Example H — Domain/range mismatch → alert
+### Example H — Domain and range swapped (alert)
+
+The property `hasPolicy` exists, but its declared shape is
+`domain: Item, range: Policy`. The test inverts this, using
+`Policy hasPolicy Item`. The validator must not silently swap operands
+— this is a semantic error for the author to resolve.
+
 Input:
 ```
-// REQ-8 — A policy has an item
+// REQ-8 — A policy has an item it applies to
 Policy hasPolicy Item
 ```
 Output:
 ```
-// REQ-8 — A policy has an item
+// REQ-8 — A policy has an item it applies to
 Policy hasPolicy Item    // ⚠ property `hasPolicy` used with domain Policy, range Item; terminology has domain Item, range Policy
 ```
 
 ---
 
-### Example I — Lexical near-match with strong evidence → silent rewrite
+### Example I — Embedded-compound match (silent rewrite)
+
+`hasTarget` is not in the terminology, but `hasRuleTarget` is — and it
+is the unique property with domain Rule, range RuleTarget. The test
+token is a substring of the canonical name (strategy 5c: embedded
+terms), and the shape matches. Silent rewrite.
+
 Input:
 ```
-// REQ-9 — A rule has a target
+// REQ-9 — A rule has a target audience
 Rule hasTarget RuleTarget
 ```
 Output:
 ```
-// REQ-9 — A rule has a target
+// REQ-9 — A rule has a target audience
 Rule hasRuleTarget RuleTarget
 ```
-(`hasTarget` silently rewritten to `hasRuleTarget`: the terminology has
-exactly one property with domain Rule and range RuleTarget, and the name
-is a clear extension of the test's token.)
 
 ---
 
-### Example J — Truly missing → alert
+### Example J — Multiple unrelated tokens missing (multiple alerts)
+
+Neither `Resource` (class) nor `status` (data property) maps to
+anything in the terminology, even after a thorough semantic sweep.
+Both are alerted on the same line.
+
 Input:
 ```
 // REQ-10 — A resource has a status
@@ -374,6 +485,29 @@ Output:
 ```
 // REQ-10 — A resource has a status
 Resource status string    // ⚠ class `Resource` not in terminology; ⚠ data property `status` not in terminology
+```
+
+---
+
+### Example K — Abbreviation expansion + verb-to-noun derivation (silent rewrite)
+
+Two strategies work together. The test uses `id` (abbreviation) where
+the terminology has `hasIdentifier` (strategy 5e). At the same time,
+the Item/Policy connection uses `policy` as a verb-like property,
+which the terminology expresses as the noun-prefixed `hasPolicy`
+(strategy 5b combined with 5c). Both resolutions are unambiguous.
+
+Input:
+```
+// REQ-11 — An item has a policy and an identifier
+Item policy Policy
+Item id string
+```
+Output:
+```
+// REQ-11 — An item has a policy and an identifier
+Item hasPolicy Policy
+Item hasIdentifier string
 ```
 
 ---
@@ -388,7 +522,9 @@ Resource status string    // ⚠ class `Resource` not in terminology; ⚠ data p
 2. Walk the tests top to bottom, line by line.
 3. For each non-comment, non-blank line, identify the kind of each
    token using the pattern table.
-4. For each token, run the resolution procedure.
+4. For each token, run the resolution procedure in order, applying
+   strategies (a)–(g) of step 5 aggressively before considering an
+   alert. Prefer converging-evidence matches over weak lexical hits.
 5. Emit the (possibly rewritten) line, followed by any alerts.
 6. Preserve all original `// REQ-…` comments and blank lines.
 

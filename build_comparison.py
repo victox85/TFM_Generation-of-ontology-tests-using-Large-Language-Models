@@ -55,7 +55,7 @@ def find_csv(folder: Path) -> Path | None:
 
 # Matches:  // FACI-1 — Competency question text
 # Handles em-dash (—), en-dash (–), or plain hyphen after the ID.
-_HEADER_RE = re.compile(r'^//\s+(\S+)\s+[—–-]+\s*(.+)$')
+_HEADER_RE = re.compile(r'^(?://\s+)?(\S+)\s+[—–-]+\s*(.+)$')
 
 
 def parse_txt(path: Path) -> list[dict]:

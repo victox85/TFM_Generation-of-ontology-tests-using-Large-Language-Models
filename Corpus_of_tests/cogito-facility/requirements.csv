@@ -13,4 +13,4 @@
 "FACI-12	A spatial zone has an identifier, a name and a description "
 "FACI-13	An element has an identifier and a name. It also includes its material (Uniclass code), and its type (Uniclass code and IFC type)"
 "FACI-14	A project has an identifier and a name"
-FACI-15An element belongs to a SpatialZone
+FACI-15 An element belongs to a SpatialZone

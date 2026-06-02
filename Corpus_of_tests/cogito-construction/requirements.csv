@@ -25,4 +25,4 @@
 "PROC-24	A tasks can have a validation message"
 "PROC-25	A work order is made up of tasks"
 "PROC-26	A work order can have a date of creation, of planned and actual beginnings, and of planned and actual ends"
-"PROC-26	A work order has an identifier and a status"
+"PROC-27	A work order has an identifier and a status"

@@ -1,27 +1,30 @@
 Requirement identifier,Competency question,Good test,Generated test,Advises
-FACI-1,A project is related to a site,Project isRelatedToSite Site;,Project isRelatedToSite Site,
-FACI-2,Spatial zones (especially sites) can have facility,SpatialZone hasFacility Facility;,Site hasFacility Facility,"⚠ property `hasFacility` used with domain Site, range Facility; terminology has domain — , range —"
-FACI-3,"Facilities include buildings, railways, bridges and roads","Building subClassOf Facility;
+FACI-1,A Project is related to a Site,Project isRelatedToSite Site;,Project isRelatedToSite Site,
+FACI-2,Spatial Zone (especially sites) can have Facility,SpatialZone hasFacility Facility;,"Site subClassOf SpatialZone
+SpatialZone hasFacility Facility","⚠ property `hasFacility` used with domain SpatialZone, range Facility; terminology has domain — , range —"
+FACI-3,Facilities include Building Railway Bridge and Road,"Building subClassOf Facility;
 Railway subClassOf Facility;
 Bridge subClassOf Facility;
 Road subClassOf Facility;","Building subClassOf Facility
 Railway subClassOf Facility
 Bridge subClassOf Facility
 Road subClassOf Facility",
-FACI-4,Spatial zones (especially facilities and facility parts) can have facility parts,SpatialZone hasFacilityPart FacilityPart;,FacilityPart hasFacilityPart FacilityPart,
-FACI-5,Spatial zones (especially buildings) can have storeys,SpatialZone hasStorey Storey;,Building hasStorey Storey,
-FACI-6,Spatial zones can have spaces,SpatialZone hasSpace Space;,SpatialZone hasSpace Space,
-FACI-7,Spatial zones can contain elements and other spatial zones,"SpatialZone containsElement Element;
+FACI-4,Spatial Zone (especially facilities and Facility parts) can have Facility parts,SpatialZone hasFacilityPart FacilityPart;,"FacilityPart subClassOf SpatialZone
+SpatialZone hasFacilityPart FacilityPart",
+FACI-5,Spatial Zone (especially Building can have Storey,SpatialZone hasStorey Storey;,"Building subClassOf SpatialZone
+SpatialZone hasStorey Storey",
+FACI-6,Spatial Zone can have Space,SpatialZone hasSpace Space;,SpatialZone hasSpace Space,
+FACI-7,Spatial Zone can contain Element and other spatial Zone,"SpatialZone containsElement Element;
 SpatialZone isRelatedToSpatialZone SpatialZone;","SpatialZone containsElement Element
-SpatialZone containsOtherSpatialZone OtherSpatialZone",⚠ class `OtherSpatialZone` not in terminology
-FACI-8,"Elements include walls, slabs, columns, etc. (building elements)",BuildingElement subClassOf Element;,"BuildingElement subClassOf Element
-Wall subClassOf Element
+SpatialZone containsZone SpatialZone",
+FACI-8,"Element include walls, slabs, columns, etc. Building Element",BuildingElement subClassOf Element;,"Wall subClassOf Element
 Slab subClassOf Element
-Column subClassOf Element","⚠ class `Wall` not in terminology
+Column subClassOf Element
+BuildingElement subClassOf Element","⚠ class `Wall` not in terminology
 ⚠ class `Slab` not in terminology
 ⚠ class `Column` not in terminology"
-FACI-9,An element can have other elements,Element hasSubElement Element;,Element hasSubElement Element,
-FACI-10,"Spatial zones include sites, facilities, facility parts, storeys and spaces","Site subClassOf SpatialZone;
+FACI-9,An Element can have other Element,Element hasSubElement Element;,Element hasSubElement Element,
+FACI-10,"Spatial Zone include sites, facilities, Facility parts, Storey and Space","Site subClassOf SpatialZone;
 Facility subClassOf SpatialZone;
 FacilityPart subClassOf SpatialZone;
 Storey subClassOf SpatialZone;
@@ -29,27 +32,24 @@ Space subClassOf SpatialZone;","Site subClassOf SpatialZone
 Facility subClassOf SpatialZone
 FacilityPart subClassOf SpatialZone
 Storey subClassOf SpatialZone
-Space subClassOf SpatialZone",
-FACI-11,Spatial zones include construction zones (which are defined in the IFC file),ConstructionZone subClassOf SpatialZone;,ConstructionZone subClassOf SpatialZone,
-FACI-12,"A spatial zone has an identifier, a name and a description","SpatialZone identifier literal;
+Space subClassOf SpatialZone",⚠ class `Facility` not in terminology
+FACI-11,Spatial Zone include ConstructionZone Zone (which are defined in the IFC file),ConstructionZone subClassOf SpatialZone;,ConstructionZone subClassOf SpatialZone,
+FACI-12,A spatial Zone has an identifier a name and a description,"SpatialZone identifier literal;
 SpatialZone title literal;
 SpatialZone description string;","SpatialZone identifier literal
 SpatialZone title literal
-SpatialZone description literal",⚠ data property `title` not in terminology; using 'description' instead for best fit.
-FACI-13,"An element has an identifier and a name. It also includes its material (Uniclass code), and its type (Uniclass code and IFC type)","Element identifier literal;
+SpatialZone description literal","⚠ data property `name` not in terminology; ⚠ data property `description` used with range string; terminology has domain — , range: literal"
+FACI-13,"An Element has an identifier and a name. It also includes its material (Uniclass code), and its type (Uniclass code and IFC type)","Element identifier literal;
 Element title literal;
 Element codeUniclassMaterial literal;
 Element codeUniclassElement literal;
 Element ifcType literal;","Element identifier literal
 Element title literal
-Element includesMaterial Material
-Material uniclassCode literal
-Element includesType Type
-Type uniclassCode literal
-Type ifcType literal","⚠ data property `title` not in terminology; using 'description' instead for best fit.
-⚠ class `Material` not in terminology
-⚠ class `Type` not in terminology"
-FACI-14,A project has an identifier and a name,"Project identifier literal;
+Element codeUniclassMaterial literal
+Element codeUniclassElement literal
+Element ifcType literal
+",⚠ data property `name` not in terminology; ⚠ data property `typeCode` not in terminology
+FACI-14,A Project has an identifier and a name,"Project identifier literal;
 Project title literal;","Project identifier literal
-Project title literal",⚠ data property `title` not in terminology; using 'description' instead for best fit.
-FACI-15,An element belongs to a SpatialZone,Element belongsToSpatialZone SpatialZone;,Element belongsToSpatialZone SpatialZone,
+Project title literal",⚠ data property `name` not in terminology
+FACI-15,An Element belongs to a SpatialZone,Element belongsToSpatialZone SpatialZone;,Element belongsToSpatialZone SpatialZone,

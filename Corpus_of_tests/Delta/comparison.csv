@@ -1,37 +1,37 @@
 Requirement identifier,Competency question,Good test,Generated test,Advises
 delta-2,There is a power provider and recipient,"Consumer subclassOf Customer
-Prosumer type Class","Producer type Class
-Consumer type Class",
-delta-25,A virtual node calculates teh flexibility up/down indicator through the devices,FEID subclassOf measuresProperty some UpFlexibility or DownFlexibility,"VirtualNode hasUpperBoundary Measurement
-Measurement hasSource Device",
+Prosumer type Class","Producer type Producer
+recipient type recipient
+",⚠ class `PowerProvider` not in terminology; ⚠ class `Recipient` not in terminology
+delta-25,A virtual node calculates teh flexibility up/down indicator through the devices,FEID subclassOf measuresProperty some UpFlexibility or DownFlexibility,VirtualNode hasUpperBoundary Device,⚠ property `calculatesFlexibilityIndicator` not in terminology; ⚠ class `teh` not in terminology
 delta-28,"The electric parameters include Load, Voltage and Frequency","Frequency subclassOf core:Property
 Load subclassOf core:Property
-Voltage subclassOf core:Property","FeatureOfInterest includesLoad Load
-FeatureOfInterest includesVoltage Voltage
-FeatureOfInterest includesFrequency Frequency",
-delta-33,Each node uses scheduled flexibility capacity,Asset subclassOf measuresProperty some EnergyUpFlexibility,VirtualNode hasEstimatedMeasurement KeyPerformanceIndicatorAssessement,
-delta-35,Each device measures the real time flexibility values,Device subclassOf measuresProperty some EnergyUpFlexibility,Device makesMeasurement Measurement,
-delta-36,Each medium voltage assets measures the real time generation values,Asset subclassOf measuresProperty some EnergyGeneration,Asset makesMeasurement Measurement,
-delta-37,Each medium voltage assets measures the real time consumtion values,Device subclassOf measuresProperty some EnergyConsumption,Asset makesMeasurement Measurement,
-delta-41,A device is a spatial thing,Prosumer subclassOf SpatialObject,Device subClassOf SpatialThing,
-delta-43,Each prosumer has associated its consumption,"Asset isOwnedBy Prosumer
-Asset subclassOf measuresProperty some EnergyConsumption",Prosumer hasReward Customer,
-delta-44,Each prosumer has associated its generation,"Asset isOwnedBy Prosumer
-Asset subclassOf measuresProperty some EnergyGeneration",Prosumer hasReward Reward,
+Voltage subclassOf core:Property","Load subClassOf ElectricParameter
+Voltage subClassOf ElectricParameter
+Frequency subClassOf ElectricParameter","⚠ class `Load` not in terminology; ⚠ class `ElectricParameter` not in terminology
+⚠ class `Voltage` is a property in terminology, not a class here (assuming context requires Class); ⚠ class `ElectricParameter` not in terminology
+⚠ class `Frequency` is a property in terminology, not a class here (assuming context requires Class); ⚠ class `ElectricParameter` not in terminology"
+delta-33,Each node uses scheduled flexibility capacity,Asset subclassOf measuresProperty some EnergyUpFlexibility,VirtualNode hasUpperBoundary Measurement,⚠ property `usesScheduledFlexibilityCapacity` not in terminology; ⚠ class `Node` not in terminology
+delta-35,Each device measures the real time flexibility values,Device subclassOf measuresProperty some EnergyUpFlexibility,Device makesMeasurement Measurement,⚠ property `measuresRealTimeFlexibilityValue` not in terminology
+delta-36,Each medium voltage assets measures the real time generation values,Asset subclassOf measuresProperty some EnergyGeneration,Asset makesMeasurement EnergyGenerationForecast,⚠ property `measuresRealTimeGenerationValue` not in terminology; ⚠ class `MediumVoltageAsset` not in terminology
+delta-37,Each medium voltage assets measures the real time consumtion values,Device subclassOf measuresProperty some EnergyConsumption,Asset makesMeasurement EnergyConsumptionForecast,⚠ property `measuresRealTimeConsumptionValue` not in terminology; ⚠ class `MediumVoltageAsset` not in terminology
+delta-41,A device is a spatial thing,Prosumer subclassOf SpatialObject,Device type SpatialThing,
+delta-43,Each prosumer has associated its consumption,"Asset isOwnedBy Prosumer",Prosumer hasReward Consumption,⚠ property `hasAssociatedConsumption` not in terminology; ⚠ class `Consumption` not in terminology (using 'EnergyConsumption' or similar)
+delta-44,Each prosumer has associated its generation,Asset isOwnedBy Prosumer,Prosumer hasReward EnergyGenerationForecast,⚠ property `hasAssociatedGeneration` not in terminology; ⚠ class `Generation` not in terminology (using 'EnergyGeneration' or similar)
 delta-47,A virtual node belongs to a cluster,VirtualNode subclassOf belongsToCluster only Cluster,VirtualNode belongsToCluster Cluster,
-delta-50,A profiles is needed to assess the DVN and devices,Profile type Class,"Profile relatesToMeasurement Measurement
-Profile relatesToDevice Device",
+delta-50,A profiles is needed to assess the DVN and devices,Profile type Class,Profile hasSystemConstraint SystemConstraint,⚠ property `assessesDvnAndDevice` not in terminology; ⚠ class `DVN` not in terminology (assuming it relates to 'Violation' or similar)
 delta-56,There are two types of constraints rleated to the grid: Voltage and Frequency,"Frequency subclassOf core:Property
-Voltage subclassOf core:Property","Voltage type SystemConstraint
-Frequency type SystemConstraint",
-delta-57,The profile can be related to generation or to consumption,Profile relatesToProperty core:Property,"Profile relatesToGeneration Generation
-Profile relatesToConsumption Consumption",
-delta-59,The profile has a granularity,Profile subclassOf hasGranularity only string,Profile hasGranularity hasGranularity,
-delta-60,The virtual node send action signals,VirtualNode subclassOf sends some Event,VirtualNode sendsEvent Action,⚠ Object Property `sendsActionSignal` not in terminology; ⚠ Class `ActionSignal` not in terminology
+Voltage subclassOf core:Property","Voltage subClassOf SystemConstraint
+Frequency subClassOf SystemConstraint","⚠ property `VoltageConstraint` not in terminology; ⚠ class `GridConstraint` not in terminology
+⚠ property `FrequencyConstraint` not in terminology; ⚠ class `GridConstraint` not in terminology"
+delta-57,The profile can be related to generation or to consumption,Profile relatesToProperty core:Property,Profile isRelatedToGeneration EnergyGenerationForecast,"⚠ object property `isRelatedToGeneration` not in terminology (using 'hasReward' or similar); ⚠ class `EnergyGenerationForecast` is a named individual, not a general concept here"
+delta-59,The profile has a granularity,Profile subclassOf hasGranularity only string,Profile hasGranularity,
+delta-60,The virtual node send action signals,VirtualNode subclassOf sends some Event,VirtualNode sendsEvent Action,⚠ property `sendsActionSignal` not in terminology
 delta-65,A type of signal can be the offer of energy,DemandChargeSignal subclassOf Signal,EnergyOffer subClassOf Signal,⚠ class `Signal` not in terminology; ⚠ class `EnergyOffer` not in terminology
 delta-66,A type of signal can be the request of energy,BidEnergySignal subclassOf Signal,EnergyRequest subClassOf Signal,⚠ class `Signal` not in terminology; ⚠ class `EnergyRequest` not in terminology
-delta-53,Device in DELTA belongs to a customer,Asset subclassOf isOwnedBy some Customer,Device belongsToCluster Customer,"⚠ property `belongsToCluster` used with domain Device, range Customer; terminology has domain VirtualNode, range Cluster"
-delta-54,Customer has incentives based on the social interaction and cooperation,Customer subclassOf hasReward only Reward,Customer hasIncentive SocialInteraction Cooperation,⚠ class `SocialInteraction` not in terminology; ⚠ class `Cooperation` not in terminology
+delta-53,Device in DELTA belongs to a customer,Asset subclassOf isOwnedBy some Customer,Device belongsToCluster Customer,
+delta-54,Customer has incentives based on the social interaction and cooperation,Customer subclassOf hasReward only Reward,"Customer hasIncentive(""has incentive"")",⚠ object property `hasIncentivesBasedOn` not in terminology; ⚠ class `SocialInteraction` not in terminology; ⚠ class `Cooperation` not in terminology
 delta-55,A device can belong to a prosumer or a consumer,"Consumer subclassOf owns some Asset
-Prosumer subclassOf owns some Asset","Device belongsToProsumer Prosumer
-Device belongsToConsumer Consumer","⚠ property `belongsToProsumer` used with domain Device, range Prosumer; terminology has no such property."
+Prosumer subclassOf owns some Asset","Device belongsTo DeviceOwner
+Prosumer subClassOf DeviceOwner
+Consumer subClassOf DeviceOwner","⚠ object property `belongsTo` used with domain Device, range DeviceOwner; terminology has domain — , range —"

@@ -13,7 +13,6 @@ testDesign-37,delta-41,Prosumer subclassOf SpatialObject,SubClassOf(Prosumer Spa
 testDesign-43,delta-43,Asset isOwnedBy Prosumer,Asset isOwnedBy Prosumer
 testDesign-43,delta-43,Asset subclassOf measuresProperty some EnergyConsumption,SubClassOf(Asset measuresProperty some EnergyConsumption)
 testDesign-44,delta-44,Asset isOwnedBy Prosumer,Asset isOwnedBy Prosumer
-testDesign-44,delta-44,Asset subclassOf measuresProperty some EnergyGeneration,SubClassOf(Asset measuresProperty some EnergyGeneration)
 testDesign-47,delta-47,VirtualNode subclassOf belongsToCluster only Cluster,SubClassOf(VirtualNode belongsToCluster only Cluster)
 testDesign-50,delta-50,Profile type Class,Declaration(Class(Profile))
 testDesign-53,delta-53,Asset subclassOf isOwnedBy some Customer,SubClassOf(Asset isOwnedBy some Customer)

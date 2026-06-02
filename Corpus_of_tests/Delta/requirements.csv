@@ -1,24 +1,24 @@
-Identifier (domain+id);Responsible partner;DELTA Component;Sprint;"Competency Question /
+Identifier (domain+id),Responsible partner,DELTA Component,Sprint,"Competency Question /
 Natural language sentence (fact)"
-delta-2;UCY;Self Portfolio Energy Balancing;1;There is a power provider and recipient
-delta-25;UCY;Self Portfolio Energy Balancing;1;A virtual node calculates teh flexibility up/down indicator through the devices
-delta-28;UCY;Self Portfolio Energy Balancing;1;The electric parameters include Load, Voltage and Frequency
-delta-33;CERTH;Asset Handling Optimization;1;Each node uses scheduled flexibility capacity
-delta-35;CERTH;Asset Handling Optimization;1;Each device measures the real time flexibility values
-delta-36;CERTH;Asset Handling Optimization;1;Each medium voltage assets measures the real time generation values
-delta-37;CERTH;Asset Handling Optimization;1;Each medium voltage assets measures the real time consumtion values
-delta-41;HIT;T4.2. Energy Portfolio Segmentation & Classification;2;A device is a spatial thing
-delta-43;HIT;T4.2. Energy Portfolio Segmentation & Classification;2;Each prosumer has associated its consumption
-delta-44;HIT;T4.2. Energy Portfolio Segmentation & Classification;2;Each prosumer has associated its generation
-delta-47;HIT;T4.2. Energy Portfolio Segmentation & Classification;2;A virtual node belongs to a cluster
-delta-50;CERTH;Node Flexibility Data Monitoring and profiling;3;A profiles is needed to assess the DVN and devices
-delta-56;CERTH;"Grid Stability Simulation Engine 
-";4;There are two types of constraints rleated to the grid: Voltage and Frequency
-delta-57;CERTH;Consumer/Prosumer Data Flexibility;5;The profile can be related to generation or to consumption
-delta-59;CERTH;Consumer/Prosumer Data Flexibility;5;The profile has a granularity
-delta-60;CERTH;Optimal Dispatch;5;The virtual node send action signals
-delta-65;CERTH;Inter/Intra node;5;A type of signal can be the offer of energy
-delta-66;CERTH;Inter/Intra node;5;A type of signal can be the request of energy
-delta-53;CERTH;Innovative Customer Engagement Tool;3;Device in DELTA belongs to a customer
-delta-54;CERTH;Innovative Customer Engagement Tool;3;Customer has incentives based on the social interaction and cooperation
-delta-55;CERTH;Innovative Customer Engagement Tool;3;A device can belong to a prosumer or a consumer
+delta-2,UCY,Self Portfolio Energy Balancing,1,There is a power provider and recipient
+delta-25,UCY,Self Portfolio Energy Balancing,1,A virtual node calculates teh flexibility up/down indicator through the devices
+delta-28,UCY,Self Portfolio Energy Balancing,1,"The electric parameters include Load, Voltage and Frequency"
+delta-33,CERTH,Asset Handling Optimization,1,Each node uses scheduled flexibility capacity
+delta-35,CERTH,Asset Handling Optimization,1,Each device measures the real time flexibility values
+delta-36,CERTH,Asset Handling Optimization,1,Each medium voltage assets measures the real time generation values
+delta-37,CERTH,Asset Handling Optimization,1,Each medium voltage assets measures the real time consumtion values
+delta-41,HIT,T4.2. Energy Portfolio Segmentation & Classification,2,A device is a spatial thing
+delta-43,HIT,T4.2. Energy Portfolio Segmentation & Classification,2,Each prosumer has associated its consumption
+delta-44,HIT,T4.2. Energy Portfolio Segmentation & Classification,2,Each prosumer has associated its generation
+delta-47,HIT,T4.2. Energy Portfolio Segmentation & Classification,2,A virtual node belongs to a cluster
+delta-50,CERTH,Node Flexibility Data Monitoring and profiling,3,A profiles is needed to assess the DVN and devices
+delta-56,CERTH,"Grid Stability Simulation Engine 
+",4,There are two types of constraints rleated to the grid: Voltage and Frequency
+delta-57,CERTH,Consumer/Prosumer Data Flexibility,5,The profile can be related to generation or to consumption
+delta-59,CERTH,Consumer/Prosumer Data Flexibility,5,The profile has a granularity
+delta-60,CERTH,Optimal Dispatch,5,The virtual node send action signals
+delta-65,CERTH,Inter/Intra node,5,A type of signal can be the offer of energy
+delta-66,CERTH,Inter/Intra node,5,A type of signal can be the request of energy
+delta-53,CERTH,Innovative Customer Engagement Tool,3,Device in DELTA belongs to a customer
+delta-54,CERTH,Innovative Customer Engagement Tool,3,Customer has incentives based on the social interaction and cooperation
+delta-55,CERTH,Innovative Customer Engagement Tool,3,A device can belong to a prosumer or a consumer
