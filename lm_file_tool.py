@@ -14,7 +14,7 @@ import subprocess
 
 
 LM_STUDIO_URL = "http://127.0.0.1:1234/v1/chat/completions"
-CHUNK_SIZE = 20    # rows per request (excluding header)
+CHUNK_SIZE = 30    # rows per request (excluding header)
 REQUEST_TIMEOUT = 1200  # seconds to wait for each chunk response
 
 _PROMPTS_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "prompts")
@@ -90,6 +90,63 @@ def split_csv_chunks_by_type(file_content, chunk_size=CHUNK_SIZE):
         return chunks
 
     return rows_to_chunks(declarative_rows), rows_to_chunks(interrogative_rows)
+
+
+# ── Response parser (mirrors build_comparison.parse_txt on a string) ──────────
+
+_HEADER_RE = re.compile(r'^(?://\s+)?(\S+)\s+[—–-]+\s*(.+)$')
+
+
+def _parse_lm_response(text: str) -> list[dict]:
+    """Parse LM output into blocks of {id, cq, tests:[{line, advise}]}."""
+    blocks: list[dict] = []
+    current: dict | None = None
+    for raw in text.splitlines():
+        line = raw.rstrip()
+        if line.strip().startswith("```") or "─── SUMMARY" in line:
+            current = None
+            continue
+        m = _HEADER_RE.match(line)
+        if m:
+            req_id = m.group(1).strip()
+            cq = re.split(r'\s*[►▶»>]\s*', m.group(2).strip())[0].strip()
+            current = {"id": req_id, "cq": cq, "tests": []}
+            blocks.append(current)
+            continue
+        if not line.strip():
+            continue
+        if current is not None and not line.lstrip().startswith("//"):
+            if "//" in line:
+                code_part, advice_part = line.split("//", 1)
+                code, advise = code_part.strip(), advice_part.strip()
+            else:
+                code, advise = line.strip(), ""
+            if code:
+                current["tests"].append({"line": code, "advise": advise})
+    return blocks
+
+
+def _blocks_to_csv(blocks: list[dict]) -> str:
+    """Serialise parsed blocks to CSV content (no Good test column)."""
+    buf = io.StringIO()
+    writer = csv.DictWriter(
+        buf,
+        fieldnames=["id", "Competency question", "Generated test"],
+        lineterminator="\r\n",
+    )
+    writer.writeheader()
+    for block in blocks:
+        writer.writerow({
+            "id":                     block["id"].lstrip("/").strip(),
+            "Competency question":    block["cq"],
+            "Generated test":         "\n".join(t["line"] for t in block["tests"]),
+        })
+    return buf.getvalue()
+
+
+def response_to_csv(text: str) -> str:
+    """Convert raw LM response text to a CSV string (for use by pipeline)."""
+    return _blocks_to_csv(_parse_lm_response(text))
 
 
 def _fix_lm_output(text: str) -> str:
@@ -332,13 +389,19 @@ class App(tk.Tk):
             messagebox.showinfo("Nothing to save", "The response is empty.")
             return
         path = filedialog.asksaveasfilename(
-            defaultextension=".txt",
-            filetypes=[("Text files", "*.txt"), ("Markdown", "*.md"), ("All files", "*.*")],
+            defaultextension=".csv",
+            filetypes=[("CSV files", "*.csv"), ("Text files", "*.txt"), ("All files", "*.*")],
             title="Save response",
         )
         if path:
-            with open(path, "w", encoding="utf-8") as f:
-                f.write(text)
+            if path.lower().endswith(".csv"):
+                blocks = _parse_lm_response(text)
+                content = _blocks_to_csv(blocks)
+                with open(path, "w", encoding="utf-8", newline="") as f:
+                    f.write(content)
+            else:
+                with open(path, "w", encoding="utf-8") as f:
+                    f.write(text)
             messagebox.showinfo("Saved", f"Response saved to:\n{path}")
 
 

@@ -1,7 +1,7 @@
 """
 Build a comparison CSV from a folder that contains:
-  - a *test_generated* or *+terminology* .txt  (generated tests + advises)
-  - a *themis_tests* or *tests* .csv            (ground-truth / good tests)
+  - a *terminology*generated* or *generated* .csv  (pipeline output with advises)
+  - a *themis_tests* or *tests* .csv               (ground-truth / good tests)
 
 Output: comparison.csv  next to the source files, with columns:
   Requirement identifier | Competency question | Good test | Generated test | Advises
@@ -12,7 +12,6 @@ Usage:
 """
 
 import csv
-import re
 import sys
 import tkinter as tk
 from pathlib import Path
@@ -31,94 +30,47 @@ def pick_folder() -> Path | None:
 
 # ── file discovery ────────────────────────────────────────────────────────────
 
-def find_txt(folder: Path) -> Path | None:
-    """Prefer +terminology files; fall back to any test_generated."""
-    for pat in ["*+terminology*.txt", "*terminology*.txt",
-                "*Test_generated*.txt", "*generated*.txt"]:
-        hits = sorted(folder.glob(pat))
+_EXCLUDE = {"comparison", "requirement", "themis"}
+
+
+def find_generated_csv(folder: Path) -> Path | None:
+    """Find the terminology-aligned generated tests CSV (step 2 output).
+    Falls back to the plain generated CSV (step 1 output)."""
+    for pat in ["*terminology*generated*.csv", "*terminology*.csv",
+                "*generated*.csv"]:
+        hits = [p for p in sorted(folder.glob(pat))
+                if not any(x in p.name.lower() for x in _EXCLUDE)]
         if hits:
             return hits[0]
     return None
 
 
 def find_csv(folder: Path) -> Path | None:
-    """Prefer themis_tests / tests CSVs; skip requirements CSVs."""
+    """Find the ground-truth tests CSV; skip generated / comparison files."""
     for pat in ["themis_tests*.csv", "tests*.csv", "test*.csv"]:
         hits = [p for p in sorted(folder.glob(pat))
-                if "requirement" not in p.name.lower()]
+                if "requirement" not in p.name.lower()
+                and "generated"   not in p.name.lower()
+                and "terminology" not in p.name.lower()
+                and "comparison"  not in p.name.lower()]
         if hits:
             return hits[0]
     return None
 
 
-# ── TXT parser ────────────────────────────────────────────────────────────────
+# ── CSV loaders ───────────────────────────────────────────────────────────────
 
-# Matches:  // FACI-1 — Competency question text
-# Handles em-dash (—), en-dash (–), or plain hyphen after the ID.
-_HEADER_RE = re.compile(r'^(?://\s+)?(\S+)\s+[—–-]+\s*(.+)$')
-
-
-def parse_txt(path: Path) -> list[dict]:
-    """
-    Returns a list of blocks:
-      { 'id': str, 'cq': str, 'tests': [{'line': str, 'advise': str}] }
-    """
-    blocks: list[dict] = []
-    current: dict | None = None
-
-    with path.open(encoding="utf-8", errors="replace") as fh:
-        for raw in fh:
-            line = raw.rstrip("\n").rstrip()
-
-            # Skip markdown fences and summary sections
-            if line.strip().startswith("```") or "─── SUMMARY" in line:
-                current = None  # stop collecting after summary
-                continue
-
-            # Header line
-            m = _HEADER_RE.match(line)
-            if m:
-                req_id = m.group(1).strip()
-                cq = m.group(2).strip()
-                # Drop inline annotations that start with ► or similar
-                cq = re.split(r'\s*[►▶»>]\s*', cq)[0].strip()
-                current = {"id": req_id, "cq": cq, "tests": []}
-                blocks.append(current)
-                continue
-
-            # Empty line – just a separator
-            if not line.strip():
-                continue
-
-            # Test line (must be inside a block and not a bare comment)
-            if current is not None and not line.lstrip().startswith("//"):
-                if "//" in line:
-                    code_part, advice_part = line.split("//", 1)
-                    code = code_part.strip()
-                    advise = advice_part.strip()
-                else:
-                    code = line.strip()
-                    advise = ""
-                if code:
-                    current["tests"].append({"line": code, "advise": advise})
-
-    return blocks
-
-
-# ── CSV loader ────────────────────────────────────────────────────────────────
-
-# Candidate column names (tried in order)
+# Candidate column names for the ground-truth CSV (tried in order)
 _ID_COLS   = ["Requirement", "Requirement_ID", "id", "Requirement identifier",
               "requirement_id", "Id", "ID", "Identifier", "identifier"]
 _TEST_COLS = ["title", "Test", "RDF_Behaviour", "Themis_Test", "test", "Title"]
 
 
 def load_good_tests(path: Path) -> dict[str, list[str]]:
-    """Returns { req_id: [good_test, ...] }."""
+    """Returns { req_id: [good_test, ...] } from the ground-truth CSV."""
     result: dict[str, list[str]] = {}
     try:
         with path.open(encoding="utf-8", errors="replace", newline="") as fh:
-            # Sniff for comma, semicolon or tab delimiter
             sample = fh.read(4096)
             fh.seek(0)
             dialect = csv.Sniffer().sniff(sample, delimiters=",;\t")
@@ -142,22 +94,31 @@ def load_good_tests(path: Path) -> dict[str, list[str]]:
     return result
 
 
+def load_generated_tests(path: Path) -> list[dict]:
+    """Load the generated/aligned tests CSV produced by the pipeline."""
+    rows = []
+    try:
+        with path.open(encoding="utf-8", errors="replace", newline="") as fh:
+            reader = csv.DictReader(fh)
+            for row in reader:
+                rows.append(dict(row))
+    except Exception as exc:
+        print(f"  [warn] error reading {path.name}: {exc}")
+    return rows
+
+
 # ── assembler ─────────────────────────────────────────────────────────────────
 
-def build_rows(blocks: list[dict], good_tests: dict[str, list[str]]) -> list[dict]:
+def build_rows(generated: list[dict], good_tests: dict[str, list[str]]) -> list[dict]:
     rows = []
-    for block in blocks:
-        req_id = block["id"]
-        cq     = block["cq"]
+    for gen in generated:
+        req_id  = (gen.get("id") or gen.get("Requirement identifier") or "").strip()
+        cq      = (gen.get("Competency question")    or "").strip()
+        gen_str = (gen.get("Generated test")         or "").strip()
+        adv_str = (gen.get("Advises")               or "").strip()
 
         good_list = good_tests.get(req_id, [])
         good_str  = "\n".join(t for t in good_list if t)
-
-        gen_lines = [t["line"]   for t in block["tests"]]
-        adv_lines = [t["advise"] for t in block["tests"]]
-
-        gen_str = "\n".join(gen_lines)
-        adv_str = "\n".join(a for a in adv_lines if a)
 
         rows.append({
             "Requirement identifier": req_id,
@@ -177,22 +138,22 @@ def run(folder: Path) -> None:
         print(f"No valid folder: {folder}")
         return
 
-    txt_path = find_txt(folder)
-    csv_path = find_csv(folder)
+    gen_path = find_generated_csv(folder)
+    gt_path  = find_csv(folder)
 
-    if not txt_path:
-        print(f"  [skip] No test_generated / +terminology .txt found in: {folder}")
+    if not gen_path:
+        print(f"  [skip] No generated tests CSV found in: {folder}")
         return
-    if not csv_path:
-        print(f"  [skip] No themis_tests / tests .csv found in: {folder}")
+    if not gt_path:
+        print(f"  [skip] No ground-truth tests CSV found in: {folder}")
         return
 
-    print(f"  TXT : {txt_path.name}")
-    print(f"  CSV : {csv_path.name}")
+    print(f"  GEN : {gen_path.name}")
+    print(f"  GT  : {gt_path.name}")
 
-    blocks     = parse_txt(txt_path)
-    good_tests = load_good_tests(csv_path)
-    rows       = build_rows(blocks, good_tests)
+    generated  = load_generated_tests(gen_path)
+    good_tests = load_good_tests(gt_path)
+    rows       = build_rows(generated, good_tests)
 
     out_path = folder / "comparison.csv"
     with out_path.open("w", newline="", encoding="utf-8") as fh:

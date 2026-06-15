@@ -1,42 +1,64 @@
-id,title,test_uri,requirement_text
-,,https://w3id.org/def/vtc#TestCaseDesign,
-core-40,User containsItem Item,:Test1,A user can contain an item
-,ActiveUserStatus type UserStatus,:Test10,
-core-33,User belongsTo Organisation,:Test12,A user belongs to an organisation
-core-39,User hasAudit Audit,:Test2,A user can contain an audit
-,DeletedItemStatus type ItemStatus,:Test23,
-,EnabledItemStatus type ItemStatus,:Test24,
-,DisabledItemStatus type ItemStatus,:Test25,
-core-29,Service subclassOf Item,:Test26,An item can be a service
-core-26,Item belongsTo Organisation,:Test29,An item belongs to an organisation
-core-38,User hasNotification Notification,:Test3,A user contain can contain a notification
-core-24,Item belongsTo Node,:Test31,An item is contained in a node
-,DeletedNodeStatus type NodeStatus,:Test36,
-,ActiveNodeStatus type NodeStatus,:Test37,
-core-24,Node containsItem Item,:Test38,An item is contained in a node
-core-17,Auroral type Node,:Test39,A node has an AURORAL identifier
-core-19,Sharq type Node,:Test40,"Examples of node types are: vicinity, sharq, auroral"
-core-19,Vicinity type Node,:Test41,"Examples of node types are: vicinity, sharq, auroral"
-core-18,Node belongsTo Organisation,:Test42,A node belongs to an organisation
-core-14,Notification hasStatus NotificationStatus,:Test57,A notification can be read
-,RespondedNotificationStatus type NotificationStatus,:Test58,
-,RejectedNotificationStatus type NotificationStatus,:Test59,
-,AcceptedNotificationStatus type NotificationStatus,:Test60,
-,InfoNotificationStatus type NotificationStatus,:Test61,
-,WaitingNotificationStatus type NotificationStatus,:Test62,
-core-6,Organisation hasPartnershipRequestedBy Organisation,:Test70,An organisation can have a partnership with another organisation
-core-36,User hasRole Role,:Test8,A user can be associated to a role
-,DeletedUserStatus type UserStatus,:Test9,
-,Commodity type ServiceType,https://w3id.org/def/vtc#Test81,
-,NotCommodity type ServiceType,https://w3id.org/def/vtc#Test82,
-,Dataset subClassOf VirtualThing,https://w3id.org/def/vtc#Test85,
-,Dataset subClassOf Dataset,https://w3id.org/def/vtc#Test86,
-,Tourism type Domain,https://w3id.org/def/vtc#Test88,
-,Health type Domain,https://w3id.org/def/vtc#Test89,
-,Energy type Domain,https://w3id.org/def/vtc#Test90,
-,Mobility type Domain,https://w3id.org/def/vtc#Test91,
-,DairyFarming type Domain,https://w3id.org/def/vtc#Test92,
-,CircularEconomy type Domain,https://w3id.org/def/vtc#Test93,
-,PhysicalThing hasGeometry Geometry,https://w3id.org/def/vtc#Test94,
-,Measurement hasReadability Readability,https://w3id.org/def/vtc#Test95,
-,Measurement hasTemporalUnit TemporalUnit,https://w3id.org/def/vtc#Test96,
+test_uri,title,id,requirement_text,Confianza,Justificacion
+Test1,User containsItem Item,core-40,A user can contain an item,HIGH,propiedad User —containsItem→ Item
+Test2,User hasAudit Audit,core-39,A user can contain an audit,HIGH,propiedad User —hasAudit→ Audit
+Test3,User hasNotification Notification,core-38,A user contain can contain a notification,HIGH,propiedad User —hasNotification→ Notification
+Test4,Dev_ops type Role,core-37,"Types of roles can be: admin, user, infrastructure operator, service provider, device owner, system integrator, super user, dev ops",HIGH,enumeración de tipos de Role; el individuo aparece en la lista de la CQ ✓
+Test5,Infras_operator type Role,core-37,"Types of roles can be: admin, user, infrastructure operator, service provider, device owner, system integrator, super user, dev ops",HIGH,enumeración de tipos de Role; el individuo aparece en la lista de la CQ ✓
+Test6,User type Role,core-37,"Types of roles can be: admin, user, infrastructure operator, service provider, device owner, system integrator, super user, dev ops",HIGH,enumeración de tipos de Role; el individuo aparece en la lista de la CQ ✓
+Test7,Admin type Role,core-37,"Types of roles can be: admin, user, infrastructure operator, service provider, device owner, system integrator, super user, dev ops",HIGH,enumeración de tipos de Role; el individuo aparece en la lista de la CQ ✓
+Test8,User hasRole Role,core-36,A user can be associated to a role,HIGH,propiedad User —hasRole→ Role
+Test9,DeletedUserStatus type UserStatus,core-35,"Types of user status can be: active, deleted",HIGH,enumeración de tipos de UserStatus; el individuo aparece en la lista de la CQ ✓
+Test10,ActiveUserStatus type UserStatus,core-35,"Types of user status can be: active, deleted",HIGH,enumeración de tipos de UserStatus; el individuo aparece en la lista de la CQ ✓
+Test12,User belongsTo Organisation,core-33,A user belongs to an organisation,HIGH,propiedad User —belongsTo→ Organisation
+Test23,DeletedItemStatus type ItemStatus,core-30,"Types of an item status can be: disabled, enabled, deleted",HIGH,enumeración de tipos de ItemStatus; el individuo aparece en la lista de la CQ ✓
+Test24,EnabledItemStatus type ItemStatus,core-30,"Types of an item status can be: disabled, enabled, deleted",HIGH,enumeración de tipos de ItemStatus; el individuo aparece en la lista de la CQ ✓
+Test25,DisabledItemStatus type ItemStatus,core-30,"Types of an item status can be: disabled, enabled, deleted",HIGH,enumeración de tipos de ItemStatus; el individuo aparece en la lista de la CQ ✓
+Test26,Service subclassOf Item,core-29,An item can be a service,HIGH,Service es subclase de Item
+Test27,Device subclassOf Item,core-28,An item can be a device,HIGH,Device es subclase de Item
+Test28,Item isRepresentedByAvatar Image,core-27,An item can be represented with an avatar,HIGH,propiedad Item —isRepresentedByAvatar→ Image
+Test29,Item belongsTo Organisation,core-26,An item belongs to an organisation,HIGH,propiedad Item —belongsTo→ Organisation
+Test30,Item hasUser User,core-25,An item is related to a user,HIGH,propiedad Item —hasUser→ User
+Test36,DeletedNodeStatus type NodeStatus,core-21,A node can have two status: active or deleted,HIGH,enumeración de tipos de NodeStatus; el individuo aparece en la lista de la CQ ✓
+Test37,ActiveNodeStatus type NodeStatus,core-21,A node can have two status: active or deleted,HIGH,enumeración de tipos de NodeStatus; el individuo aparece en la lista de la CQ ✓
+Test38,Node containsItem Item,core-20,A node contains items,HIGH,propiedad Node —containsItem→ Item
+Test39,Auroral type Node,core-19,"Examples of node types are: vicinity, sharq, auroral",HIGH,enumeración de tipos de Node; el individuo aparece en la lista de la CQ ✓
+Test40,Sharq type Node,core-19,"Examples of node types are: vicinity, sharq, auroral",HIGH,enumeración de tipos de Node; el individuo aparece en la lista de la CQ ✓
+Test41,Vicinity type Node,core-19,"Examples of node types are: vicinity, sharq, auroral",HIGH,enumeración de tipos de Node; el individuo aparece en la lista de la CQ ✓
+Test42,Node belongsTo Organisation,core-18,A node belongs to an organisation,HIGH,propiedad Node —belongsTo→ Organisation
+Test44,Node subclassOf hasUpdateDate only datetime,core-16,What are the attributes related to a node?,HIGH,"restricción de datos sobre atributo ""hasUpdateDate""; atributo presente en la respuesta de la CQ ✓"
+Test45,Node subclassOf hasCreationDate only datetime,core-16,What are the attributes related to a node?,HIGH,"restricción de datos sobre atributo ""hasCreationDate""; atributo presente en la respuesta de la CQ ✓"
+Test46,Node subclassOf hasToken only string,core-16,What are the attributes related to a node?,HIGH,"restricción de datos sobre atributo ""hasToken""; atributo presente en la respuesta de la CQ ✓"
+Test47,Node subclassOf hasKey only string,core-16,What are the attributes related to a node?,HIGH,"restricción de datos sobre atributo ""hasKey""; atributo presente en la respuesta de la CQ ✓"
+Test48,Node subclassOf hasName only string,core-16,What are the attributes related to a node?,HIGH,"restricción de datos sobre atributo ""hasName""; atributo presente en la respuesta de la CQ ✓"
+Test49,ContractAcceptedNotification type Notification,core-15,"Types of a notification can be: registrationRequest, itemEnabled, itemDisabled, itemDiscovered, contractRequest, itemUpdated,contractAccepted",HIGH,enumeración de tipos de Notification; el individuo aparece en la lista de la CQ ✓
+Test50,ContractRequestNotification type Notification,core-15,"Types of a notification can be: registrationRequest, itemEnabled, itemDisabled, itemDiscovered, contractRequest, itemUpdated,contractAccepted",HIGH,enumeración de tipos de Notification; el individuo aparece en la lista de la CQ ✓
+Test51,ItemUpdatedNotification type Notification,core-15,"Types of a notification can be: registrationRequest, itemEnabled, itemDisabled, itemDiscovered, contractRequest, itemUpdated,contractAccepted",HIGH,enumeración de tipos de Notification; el individuo aparece en la lista de la CQ ✓
+Test52,ItemDiscoveredNotification type Notification,core-15,"Types of a notification can be: registrationRequest, itemEnabled, itemDisabled, itemDiscovered, contractRequest, itemUpdated,contractAccepted",HIGH,enumeración de tipos de Notification; el individuo aparece en la lista de la CQ ✓
+Test53,ItemDisabledNotification type Notification,core-15,"Types of a notification can be: registrationRequest, itemEnabled, itemDisabled, itemDiscovered, contractRequest, itemUpdated,contractAccepted",HIGH,enumeración de tipos de Notification; el individuo aparece en la lista de la CQ ✓
+Test54,ItemEnabledNotification type Notification,core-15,"Types of a notification can be: registrationRequest, itemEnabled, itemDisabled, itemDiscovered, contractRequest, itemUpdated,contractAccepted",HIGH,enumeración de tipos de Notification; el individuo aparece en la lista de la CQ ✓
+Test55,RegistrationRequestNotification type Notification,core-15,"Types of a notification can be: registrationRequest, itemEnabled, itemDisabled, itemDiscovered, contractRequest, itemUpdated,contractAccepted",HIGH,enumeración de tipos de Notification; el individuo aparece en la lista de la CQ ✓
+Test56,Notification subclassOf isUnread only boolean,core-14,A notification can be read,HIGH,"propiedad booleana de lectura (isUnread) → ""una notificación puede leerse"""
+Test57,Notification hasStatus NotificationStatus,core-9,What are the attributes related to a notification?,MEDIUM,propiedad Notification —hasStatus→ NotificationStatus
+Test58,RespondedNotificationStatus type NotificationStatus,core-13,"Examples of notification status are: Waiting, Info, Accepted, Rejected and Responded",HIGH,enumeración de tipos de NotificationStatus; el individuo aparece en la lista de la CQ ✓
+Test59,RejectedNotificationStatus type NotificationStatus,core-13,"Examples of notification status are: Waiting, Info, Accepted, Rejected and Responded",HIGH,enumeración de tipos de NotificationStatus; el individuo aparece en la lista de la CQ ✓
+Test60,AcceptedNotificationStatus type NotificationStatus,core-13,"Examples of notification status are: Waiting, Info, Accepted, Rejected and Responded",HIGH,enumeración de tipos de NotificationStatus; el individuo aparece en la lista de la CQ ✓
+Test61,InfoNotificationStatus type NotificationStatus,core-13,"Examples of notification status are: Waiting, Info, Accepted, Rejected and Responded",HIGH,enumeración de tipos de NotificationStatus; el individuo aparece en la lista de la CQ ✓
+Test62,WaitingNotificationStatus type NotificationStatus,core-13,"Examples of notification status are: Waiting, Info, Accepted, Rejected and Responded",HIGH,enumeración de tipos de NotificationStatus; el individuo aparece en la lista de la CQ ✓
+Test63,Notification subClassOf hasObject only string,core-9,What are the attributes related to a notification?,HIGH,"restricción de datos sobre atributo ""hasObject""; atributo presente en la respuesta de la CQ ✓"
+Test64,Notification subClassOf hasActor only string,core-9,What are the attributes related to a notification?,HIGH,"restricción de datos sobre atributo ""hasActor""; atributo presente en la respuesta de la CQ ✓"
+Test65,Notification subClassOf hasCreationDate only Datetime,core-9,What are the attributes related to a notification?,HIGH,"restricción de datos sobre atributo ""hasCreationDate""; atributo presente en la respuesta de la CQ ✓"
+Test66,Notification subClassOf hasTarget only string,core-9,What are the attributes related to a notification?,HIGH,"restricción de datos sobre atributo ""hasTarget""; atributo presente en la respuesta de la CQ ✓"
+Test67,Notification subClassOf hasOwner only string,core-9,What are the attributes related to a notification?,HIGH,"restricción de datos sobre atributo ""hasOwner""; atributo presente en la respuesta de la CQ ✓"
+Test68,Notification subClassOf hasID only string,core-9,What are the attributes related to a notification?,HIGH,"restricción de datos sobre atributo ""hasID""; atributo presente en la respuesta de la CQ ✓"
+Test69,Organisation hasPartnershipRequestedTo Organisation,core-8,A partnership is requested to an organisation,HIGH,propiedad Organisation —hasPartnershipRequestedTo→ Organisation
+Test70,Organisation hasPartnershipRequestedBy Organisation,core-7,A partnership is requested by an organisation,HIGH,propiedad Organisation —hasPartnershipRequestedBy→ Organisation
+Test71,Organisation knows Organisation,core-6,An organisation can have a partnership with another organisation,HIGH,propiedad Organisation —knows→ Organisation
+Test72,Organisation hasNode Node,core-5,An organisation can contain nodes,HIGH,propiedad Organisation —hasNode→ Node
+Test73,Organisation hasUser User,core-4,An organisation is related to users,HIGH,propiedad Organisation —hasUser→ User
+Test74,Organisation hasAudit Audit,core-3,An organisation can contain audits,HIGH,propiedad Organisation —hasAudit→ Audit
+Test75,Organisation hasNotification Notification,core-2,An organisation can contain notifications,HIGH,propiedad Organisation —hasNotification→ Notification
+Test76,Organisation subclassOf hasCreationDate only DateTime,core-1,What are the attributes of an organisation?,HIGH,"restricción de datos sobre atributo ""hasCreationDate""; atributo presente en la respuesta de la CQ ✓"
+Test77,Organisation subclassOf hasLocation only string,core-1,What are the attributes of an organisation?,HIGH,"restricción de datos sobre atributo ""hasLocation""; atributo presente en la respuesta de la CQ ✓"
+Test78,Organisation subclassOf hasID only string,core-1,What are the attributes of an organisation?,HIGH,"restricción de datos sobre atributo ""hasID""; atributo presente en la respuesta de la CQ ✓"
+Test79,Organisation subclassOf hasSkinColor only string,core-1,What are the attributes of an organisation?,HIGH,"restricción de datos sobre atributo ""hasSkinColor""; atributo presente en la respuesta de la CQ ✓"
+,,,,,

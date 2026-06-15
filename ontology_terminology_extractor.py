@@ -12,9 +12,12 @@ Step 2 — Pick the generated-tests file and click "Send to LM Studio".
 Requires: rdflib  (pip install rdflib)
 """
 
+import csv
 import difflib
+import io
 import json
 import os
+import re
 import subprocess
 import threading
 import urllib.error
@@ -32,14 +35,21 @@ from rdflib.term import URIRef, BNode
 # ── LM Studio settings ────────────────────────────────────────────────────────
 LM_STUDIO_URL  = "http://127.0.0.1:1234/v1/chat/completions"
 REQUEST_TIMEOUT = 1200   # seconds
-CHUNK_SIZE      = 16    # test blocks per request
+CHUNK_SIZE      = 20    # test blocks per request
 
 # ── Edit your system prompt here ──────────────────────────────────────────────
 SYSTEM_PROMPT = """
 You are a terminology-alignment validator. You receive two inputs:
-
-1. **THEMIS TESTS** — a block of Themis test lines generated from
-   competency questions (each preceded by a `// REQ-…` comment).
+1. **THEMIS TESTS** — a **CSV file**. It has a header row and exactly three
+   columns:
+   - `id` — a requirement identifier, already written in comment form
+     (e.g. `//priv-1`). It already carries the `//` prefix; do not add a
+     second one.
+   - `Competency question` — the natural-language requirement that the
+     test encodes.
+   - `Generated test` — **one or more** Themis test lines. A single cell
+     may hold several lines (a multi-line, quoted CSV field). Treat each
+     physical line inside the cell as a separate test line.
 2. **ONTOLOGY TERMINOLOGY** — a listing of the actual vocabulary of the
    target ontology, organised into sections: Classes, Object Properties,
    Data Properties, Named Individuals. Each entry may include its
@@ -80,6 +90,11 @@ These Themis tokens are **syntax, never check them against terminology**:
 `exactly`, `disjointWith`, `equivalentTo`, `characteristic`,
 `symmetricProperty`, `domain`, `range`.
 
+**Match these syntax keywords case-insensitively.** The generated tests
+may write them with different casing than shown above (e.g. `subClassOf`
+instead of `SubClassOf`). Recognise them as the same syntax token
+regardless of case, and do not check them against the terminology.
+
 These XSD types are **syntax, never check them as classes or flag them**:
 `literal`, `string`, `integer`, `float`, `double`, `decimal`, `boolean`,
 `date`, `dateTime`, `time`, `anyURI`.
@@ -108,6 +123,9 @@ Use the Themis pattern to know each token's role:
 | `p characteristic symmetricProperty` | p is an **object property** |
 | `i type X` | if the terminology lists `i` as a named individual of `X`, treat as individual assertion; otherwise treat as class/class relation |
 | `X disjointWith Y` / `X equivalentTo Y` | X, Y are **classes** |
+
+(Pattern keywords above are matched case-insensitively, per the note in
+the previous section.)
 
 ---
 
@@ -271,6 +289,17 @@ There is only one marker: `⚠`. No soft-notice marker.
 ---
 
 ## FEW-SHOT EXAMPLES
+
+> **How to read these examples in CSV terms.** Each example below shows a
+> test in the old line-oriented shape: a `// …` comment header followed by
+> one or more test lines. Under the CSV input this maps directly:
+> - the `// …` header corresponds to a row's `id` + `Competency question`
+>   (rendered as `<id> — <Competency question>`), and
+> - the test line(s) correspond to that row's `Generated test` cell (one
+>   row's cell may contain several lines).
+>
+> The resolution logic the examples teach is identical; only where the
+> text comes from changes.
 
 For all examples below, assume the terminology is:
 
@@ -519,33 +548,121 @@ Item hasIdentifier string
    - object properties (map: name → {domain, range})
    - data properties (map: name → {range})
    - named individuals (map: name → class)
-2. Walk the tests top to bottom, line by line.
-3. For each non-comment, non-blank line, identify the kind of each
-   token using the pattern table.
+2. Parse the THEMIS TESTS **CSV**. Skip the header row
+   (`id,Competency question,Generated test`). Then process the data rows
+   top to bottom. For each row:
+   a. Read the three fields: `id`, `Competency question`, `Generated test`.
+   b. Split `Generated test` into individual test lines on embedded
+      newlines — a single cell may contain more than one test line.
+   c. Trim surrounding whitespace from each test line; skip empty lines.
+3. For each test line, identify the kind of each token using the
+   pattern table (matching syntax keywords case-insensitively).
 4. For each token, run the resolution procedure in order, applying
    strategies (a)–(g) of step 5 aggressively before considering an
    alert. Prefer converging-evidence matches over weak lexical hits.
-5. Emit the (possibly rewritten) line, followed by any alerts.
-6. Preserve all original `// REQ-…` comments and blank lines.
+5. Emit output as described in OUTPUT FORMAT below: one block per CSV
+   row, each test line possibly rewritten and followed by any alerts.
+6. Process every data row in the CSV; do not drop or reorder rows.
 
 ---
 
 ## OUTPUT FORMAT
 
+Emit **one block per CSV row**, in the original row order. For each row:
+
+1. A comment header that combines the row's identifier and its
+   competency question:
+   ```
+   <id> — <Competency question>
+   ```
+   The `id` already carries the `//` comment prefix (e.g. `//priv-3`), so
+   do not add another. The result looks like
+   `//priv-3 — A policy contains rules`.
+2. One line per test line in that row's `Generated test` cell, each
+   possibly rewritten, each followed by any inline `⚠` alerts.
+3. A blank line separating consecutive blocks.
+
+Example shape:
+
 ```
-<test line 1, possibly rewritten>
-<test line 2, possibly rewritten>    // ⚠ … (only if a real issue)
-<test line 3, possibly rewritten>
+//priv-3 — A policy contains rules
+Policy definesRule Rule
+
+//priv-7 — There are two types of action: Visibility and Accessibility
+Visibility SubClassOf Action    // ⚠ `Visibility` is a named individual in terminology, not a class
+Accessibility SubClassOf Action    // ⚠ `Accessibility` is a named individual in terminology, not a class
 
 ```
 
-- "Fully matched" counts lines that needed no rewrite AND had no alert.
-- "Silently normalised" counts lines that were rewritten but had no alert.
+Counting conventions:
+
+- "Fully matched" counts test lines that needed no rewrite AND had no
+  alert.
+- "Silently normalised" counts test lines that were rewritten but had no
+  alert.
 - If a line has both a rewrite (e.g., fixing the property) AND an alert
   (e.g., the class is missing), count it under the alert category only.
 
 """
 # ─────────────────────────────────────────────────────────────────────────────
+
+
+# ── Response parser (mirrors build_comparison.parse_txt on a string) ──────────
+
+_HEADER_RE = re.compile(r'^(?://\s+)?(\S+)\s+[—–-]+\s*(.+)$')
+
+
+def _parse_lm_response(text: str) -> list[dict]:
+    """Parse LM output into blocks of {id, cq, tests:[{line, advise}]}."""
+    blocks: list[dict] = []
+    current: dict | None = None
+    for raw in text.splitlines():
+        line = raw.rstrip()
+        if line.strip().startswith("```") or "─── SUMMARY" in line:
+            current = None
+            continue
+        m = _HEADER_RE.match(line)
+        if m:
+            req_id = m.group(1).strip()
+            cq = re.split(r'\s*[►▶»>]\s*', m.group(2).strip())[0].strip()
+            current = {"id": req_id, "cq": cq, "tests": []}
+            blocks.append(current)
+            continue
+        if not line.strip():
+            continue
+        if current is not None and not line.lstrip().startswith("//"):
+            if "//" in line:
+                code_part, advice_part = line.split("//", 1)
+                code, advise = code_part.strip(), advice_part.strip()
+            else:
+                code, advise = line.strip(), ""
+            if code:
+                current["tests"].append({"line": code, "advise": advise})
+    return blocks
+
+
+def _blocks_to_csv(blocks: list[dict]) -> str:
+    """Serialise parsed blocks to CSV with Advises column."""
+    buf = io.StringIO()
+    writer = csv.DictWriter(
+        buf,
+        fieldnames=["id", "Competency question", "Generated test", "Advises"],
+        lineterminator="\r\n",
+    )
+    writer.writeheader()
+    for block in blocks:
+        writer.writerow({
+            "id":                     block["id"].lstrip("/").strip(),
+            "Competency question":    block["cq"],
+            "Generated test":         "\n".join(t["line"] for t in block["tests"]),
+            "Advises":                "\n".join(t["advise"] for t in block["tests"] if t["advise"]),
+        })
+    return buf.getvalue()
+
+
+def response_to_csv(text: str) -> str:
+    """Convert raw LM response text to a CSV string (for use by pipeline)."""
+    return _blocks_to_csv(_parse_lm_response(text))
 
 
 # ── OWL constants ─────────────────────────────────────────────────────────────
@@ -901,19 +1018,22 @@ def send_to_lm(terminology_text: str, tests_content: str, tests_filename: str):
         return None, str(e)
 
 
-def process_ontology_and_tests(ontology_path: str, tests_path: str) -> str:
-    """Extract terminology from ontology, validate tests, return merged LM response."""
+def process_ontology_and_tests(ontology_path: str, tests_path: str = None,
+                                *, tests_content: str = None) -> str:
+    """Extract terminology from ontology, validate tests, return merged LM response.
+
+    Either *tests_path* (file path) or *tests_content* (raw text) must be supplied.
+    """
     terminology = extract_terminology(ontology_path)
     terminology_txt = terminology_to_text(terminology)
 
     base = os.path.splitext(ontology_path)[0]
     with open(base + "_terminology.json", "w", encoding="utf-8") as f:
         json.dump(terminology, f, indent=2, ensure_ascii=False)
-    with open(base + "_terminology.txt", "w", encoding="utf-8") as f:
-        f.write(terminology_txt)
 
-    with open(tests_path, "r", encoding="utf-8", errors="replace") as f:
-        tests_content = f.read()
+    if tests_content is None:
+        with open(tests_path, "r", encoding="utf-8", errors="replace") as f:
+            tests_content = f.read()
 
     tests_content = preprocess_tests_with_similarity(tests_content, terminology)
 
@@ -1138,13 +1258,19 @@ class App(tk.Tk):
             messagebox.showinfo("Nothing to save", "The response is empty.")
             return
         path = filedialog.asksaveasfilename(
-            defaultextension=".txt",
-            filetypes=[("Text files", "*.txt"), ("Markdown", "*.md"),
+            defaultextension=".csv",
+            filetypes=[("CSV files", "*.csv"), ("Text files", "*.txt"),
                        ("All files", "*.*")],
             title="Save LM response")
         if path:
-            with open(path, "w", encoding="utf-8") as f:
-                f.write(text)
+            if path.lower().endswith(".csv"):
+                blocks = _parse_lm_response(text)
+                content = _blocks_to_csv(blocks)
+                with open(path, "w", encoding="utf-8", newline="") as f:
+                    f.write(content)
+            else:
+                with open(path, "w", encoding="utf-8") as f:
+                    f.write(text)
             messagebox.showinfo("Saved", f"Response saved to:\n{path}")
 
     # ── Shared helper ─────────────────────────────────────────────────────────
