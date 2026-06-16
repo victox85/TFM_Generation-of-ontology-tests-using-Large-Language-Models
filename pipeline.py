@@ -4,7 +4,10 @@ Pipeline GUI: configure and run ontology test generation steps.
 Steps:
   1 (mandatory) lm_file_tool                — requirements.csv → test_generated.csv
   2 (optional)  ontology_terminology_extractor — ontology + step-1 text → terminology+test_generated.csv
-  3 (optional)  build_comparison             — generated CSV + ground-truth CSV → comparison.csv
+  3 (optional, requires Step 2) validator_ontology — ontology_test_generator (external terms on) +
+                                  terminology+test_generated.csv → validator_results.csv
+  4 (optional)  build_comparison             — last generated CSV + ground-truth CSV
+                                  (+ validator_results.csv if present) → comparison.csv
 """
 
 import sys
@@ -15,6 +18,8 @@ from tkinter import ttk, filedialog
 
 import lm_file_tool
 import ontology_terminology_extractor
+import ontology_test_generator
+import validator_ontology
 import build_comparison
 
 
@@ -46,7 +51,7 @@ def find_ontology(folder: Path) -> Path | None:
     return None
 
 
-def process_folder(folder: Path, run_step2: bool, run_step3: bool) -> None:
+def process_folder(folder: Path, run_step2: bool, run_step3: bool, run_step4: bool) -> None:
     print(f"\n{'='*60}")
     print(f"Processing: {folder.name}")
     print(f"{'='*60}")
@@ -75,6 +80,7 @@ def process_folder(folder: Path, run_step2: bool, run_step3: bool) -> None:
         return
 
     # Step 2 — optional
+    last_generated_csv = test_generated_csv
     if run_step2:
         terminology_csv = folder / "terminology+test_generated.csv"
         print(f"\n[Step 2] Aligning with terminology from {ontology_path.name}…")
@@ -86,21 +92,44 @@ def process_folder(folder: Path, run_step2: bool, run_step3: bool) -> None:
             with terminology_csv.open("w", encoding="utf-8", newline="") as fh:
                 fh.write(csv_content2)
             print(f"  → Saved: {terminology_csv.name}")
+            last_generated_csv = terminology_csv
         except Exception as e:
             print(f"  [error] Step 2 failed: {e}")
             return
     else:
         print("\n[Step 2] Skipped.")
 
-    # Step 3 — optional
+    # Step 3 — optional, requires Step 2
     if run_step3:
-        print("\n[Step 3] Building comparison.csv…")
+        if not run_step2:
+            print("\n[Step 3] Skipped (requires Step 2 — ontology_terminology_extractor).")
+        else:
+            print(f"\n[Step 3] Generating ontology reference tests from {ontology_path.name} (external terms included)…")
+            try:
+                reference_txt = folder / "test_generated_auto.txt"
+                tests_text = ontology_test_generator.generate_tests(str(ontology_path), local_only=False)
+                with reference_txt.open("w", encoding="utf-8") as fh:
+                    fh.write(tests_text)
+                print(f"  → Saved: {reference_txt.name}")
+
+                print("  Validating terminology-aligned tests against the reference…")
+                validator_csv = folder / "validator_results.csv"
+                validator_ontology.run(str(reference_txt), str(last_generated_csv), str(validator_csv))
+                print(f"  → Saved: {validator_csv.name}")
+            except Exception as e:
+                print(f"  [error] Step 3 failed: {e}")
+    else:
+        print("\n[Step 3] Skipped.")
+
+    # Step 4 — optional
+    if run_step4:
+        print("\n[Step 4] Building comparison.csv…")
         try:
             build_comparison.run(folder)
         except Exception as e:
-            print(f"  [error] Step 3 failed: {e}")
+            print(f"  [error] Step 4 failed: {e}")
     else:
-        print("\n[Step 3] Skipped.")
+        print("\n[Step 4] Skipped.")
 
 
 # ── GUI ───────────────────────────────────────────────────────────────────────
@@ -152,13 +181,22 @@ class PipelineApp(tk.Tk):
             steps_frame,
             text="Step 2 — ontology_terminology_extractor",
             variable=self.step2_var,
+            command=self._on_step2_toggled,
         ).pack(anchor="w", pady=2)
 
         self.step3_var = tk.BooleanVar(value=True)
+        self.cb3 = ttk.Checkbutton(
+            steps_frame,
+            text="Step 3 — validator_ontology  (requires Step 2)",
+            variable=self.step3_var,
+        )
+        self.cb3.pack(anchor="w", pady=2)
+
+        self.step4_var = tk.BooleanVar(value=True)
         ttk.Checkbutton(
             steps_frame,
-            text="Step 3 — build_comparison",
-            variable=self.step3_var,
+            text="Step 4 — build_comparison",
+            variable=self.step4_var,
         ).pack(anchor="w", pady=2)
 
         # ── Run button ────────────────────────────────────────────────────────
@@ -187,6 +225,13 @@ class PipelineApp(tk.Tk):
 
     # ── actions ───────────────────────────────────────────────────────────────
 
+    def _on_step2_toggled(self) -> None:
+        if self.step2_var.get():
+            self.cb3.configure(state="normal")
+        else:
+            self.step3_var.set(False)
+            self.cb3.configure(state="disabled")
+
     def _start(self) -> None:
         self.run_btn.configure(state="disabled")
         self.log.configure(state="normal")
@@ -195,7 +240,8 @@ class PipelineApp(tk.Tk):
 
         mode = self.folder_mode.get()
         run_step2 = self.step2_var.get()
-        run_step3 = self.step3_var.get()
+        run_step3 = self.step3_var.get() and run_step2
+        run_step4 = self.step4_var.get()
 
         title = "Select root corpus folder" if mode == "all" else "Select ontology folder"
         folder = filedialog.askdirectory(title=title)
@@ -219,9 +265,9 @@ class PipelineApp(tk.Tk):
                     else:
                         print(f"Found {len(subfolders)} subfolder(s) in: {target}")
                         for subfolder in subfolders:
-                            process_folder(subfolder, run_step2, run_step3)
+                            process_folder(subfolder, run_step2, run_step3, run_step4)
                 else:
-                    process_folder(target, run_step2, run_step3)
+                    process_folder(target, run_step2, run_step3, run_step4)
                 print("\nPipeline complete.")
             except Exception as e:
                 print(f"\n[fatal] {e}")

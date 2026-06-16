@@ -1037,7 +1037,7 @@ def process_ontology_and_tests(ontology_path: str, tests_path: str = None,
 
     tests_content = preprocess_tests_with_similarity(tests_content, terminology)
 
-    tests_filename = os.path.basename(tests_path)
+    tests_filename = os.path.basename(tests_path) if tests_path else "test_generated.csv"
     chunks = split_test_chunks(tests_content)
     total = len(chunks)
 
