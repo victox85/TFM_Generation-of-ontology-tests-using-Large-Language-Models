@@ -150,7 +150,9 @@ def response_to_csv(text: str) -> str:
 
 
 def _fix_lm_output(text: str) -> str:
-    """Fix concatenated tokens like 'XSubClassOf B' or 'X SubClassOfB' → 'X SubClassOf B'."""
+    """Fix concatenated tokens and normalize SubClassOf casing variants."""
+    # Normalize any casing variant (subclassOf, subclassof, ...) to canonical SubClassOf
+    text = re.sub(r'(?i)\bsubclassof\b', 'SubClassOf', text)
     # Insert missing space before: "XSubClassOf" → "X SubClassOf"
     text = re.sub(r'(?<=\w)SubClassOf', ' SubClassOf', text)
     # Insert missing space after: "SubClassOfB" → "SubClassOf B"

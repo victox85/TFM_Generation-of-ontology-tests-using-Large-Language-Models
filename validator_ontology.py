@@ -60,10 +60,11 @@ def load_reference(path: str):
     for l in lines:
         canon_map.setdefault(canon(l), l)
     # Vocabulario de dominio: todos los tokens menos las kw estructurales puras.
+    _struct_lower = {k.lower() for k in STRUCT_KW}
     known = set()
     for l in lines:
         for t in l.split():
-            if t not in STRUCT_KW:
+            if t.lower() not in _struct_lower:
                 known.add(t)
     return raw_set, canon_map, known
 
@@ -166,7 +167,7 @@ def classify_residual_with_llm(candidate, reference_lines, known, *,
         return out
     except Exception as e:
         # ---- Fallback determinista (NO es Gemma; queda marcado) ----
-        toks = [t for t in candidate.split() if t not in STRUCT_KW
+        toks = [t for t in candidate.split() if t.lower() not in {k.lower() for k in STRUCT_KW}
                 and t not in {"string", "Class", "Property"}]
         all_known = all(t in known for t in toks)
         verdict = ("NOT_IN_REFERENCE_PLAUSIBLE" if all_known

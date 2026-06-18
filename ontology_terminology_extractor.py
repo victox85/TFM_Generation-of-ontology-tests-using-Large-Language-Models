@@ -665,6 +665,92 @@ def response_to_csv(text: str) -> str:
     return _blocks_to_csv(_parse_lm_response(text))
 
 
+# ── Dropped-line reconciliation ───────────────────────────────────────────────
+#
+# The LM is asked to emit exactly one output line per input test line (and to
+# alert, never silently drop). In practice it sometimes collapses a block:
+# e.g. priv-5 fed three lines (FriendTarget / EveryoneTarget / NoneTarget)
+# but the model returned only two, folding the missing line's alert onto a
+# sibling. The parser faithfully mirrors that, so a test silently disappears.
+#
+# This pass compares the LM output against the original (similarity-preprocessed)
+# input block by block. When a block came back with fewer test lines than it
+# had on input, the dropped originals are recovered verbatim and flagged, so no
+# test is ever lost regardless of model behaviour.
+
+_RECOVERED_ALERT = "⚠ test recovered (dropped by the model during terminology alignment)"
+
+
+def _reconcile_block(orig_lines: list[str], out_tests: list[dict]) -> list[dict]:
+    """Re-insert input test lines the model failed to echo.
+
+    Each output test is assigned to its best-matching original (greedy, unique);
+    originals left unassigned are the dropped lines and are recovered in place.
+    """
+    if len(out_tests) >= len(orig_lines):
+        return out_tests  # nothing dropped — trust the model's output as-is
+
+    assigned: dict[int, dict] = {}   # orig index → output test
+    used: set[int] = set()
+    for test in out_tests:
+        best_i, best_score = None, -1.0
+        for i, orig in enumerate(orig_lines):
+            if i in used:
+                continue
+            score = _str_similarity(test["line"], orig)
+            if score > best_score:
+                best_score, best_i = score, i
+        if best_i is not None:
+            assigned[best_i] = test
+            used.add(best_i)
+
+    rebuilt: list[dict] = []
+    for i, orig in enumerate(orig_lines):
+        if i in assigned:
+            rebuilt.append(assigned[i])
+        else:
+            rebuilt.append({"line": orig, "advise": _RECOVERED_ALERT})
+    return rebuilt
+
+
+def _blocks_to_text(blocks: list[dict]) -> str:
+    """Serialise parsed blocks back to the `// header` + test-lines text form."""
+    out: list[str] = []
+    for block in blocks:
+        out.append(f"{block['id']} — {block['cq']}")
+        for test in block["tests"]:
+            line = test["line"]
+            if test["advise"]:
+                line += "    // " + test["advise"]
+            out.append(line)
+        out.append("")
+    return "\n".join(out)
+
+
+def reconcile_dropped_lines(lm_text: str, original_tests_content: str) -> str:
+    """Guarantee every input test line survives into the LM output.
+
+    *original_tests_content* is the (similarity-preprocessed) text that was sent
+    to the model. Any block the model returned with fewer test lines than it was
+    given has its missing lines recovered.
+    """
+    out_blocks = _parse_lm_response(lm_text)
+    orig_by_id: dict[str, list[str]] = {}
+    for block in _parse_lm_response(original_tests_content):
+        key = block["id"].lstrip("/").strip()
+        orig_by_id[key] = [t["line"] for t in block["tests"]]
+
+    changed = False
+    for block in out_blocks:
+        key = block["id"].lstrip("/").strip()
+        orig_lines = orig_by_id.get(key)
+        if orig_lines and len(block["tests"]) < len(orig_lines):
+            block["tests"] = _reconcile_block(orig_lines, block["tests"])
+            changed = True
+
+    return _blocks_to_text(out_blocks) if changed else lm_text
+
+
 # ── OWL constants ─────────────────────────────────────────────────────────────
 OWL_CLASS           = OWL.Class
 OWL_OBJPROP         = OWL.ObjectProperty
@@ -1110,7 +1196,9 @@ def process_ontology_and_tests(ontology_path: str, tests_path: str = None,
         answer = apply_type_suffix_heuristic(answer, terminology)
         results.append(answer)
 
-    return "\n\n".join(results)
+    merged = "\n\n".join(results)
+    merged = reconcile_dropped_lines(merged, tests_content)
+    return merged
 
 
 # ── GUI ───────────────────────────────────────────────────────────────────────
@@ -1303,6 +1391,7 @@ class App(tk.Tk):
                 results.append(answer)
 
             merged = "\n\n".join(results)
+            merged = reconcile_dropped_lines(merged, tests_content)
             self.after(0, self._handle_lm_response, merged, None)
 
         threading.Thread(target=worker, daemon=True).start()

@@ -194,7 +194,7 @@ def generate_tests(ontology_path: str, local_only: bool = True) -> str:
         if key in seen or not payload:
             return
         seen.add(key)
-        lines_list.extend(test_lines)
+        lines_list.extend(payload)
         lines_list.append("")
 
     # ── 1. Class declarations ─────────────────────────────────────────────────
