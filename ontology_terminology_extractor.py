@@ -918,6 +918,7 @@ _THEMIS_KEYWORDS = {
     "literal", "string", "integer", "float", "double", "decimal",
     "boolean", "date", "dateTime", "time", "anyURI",
 }
+_THEMIS_KEYWORDS_LOWER = {kw.lower() for kw in _THEMIS_KEYWORDS}
 
 
 def _term_candidates(terminology: dict) -> list[tuple[str, str]]:
@@ -985,6 +986,65 @@ def preprocess_tests_with_similarity(tests_content: str, terminology: dict,
     return "\n".join(result)
 
 
+# ── Post-LM Type-suffix heuristic ────────────────────────────────────────────
+
+def _exists_in_terminology(token: str, terminology: dict) -> bool:
+    return (token in terminology["classes"] or
+            token in terminology["object_properties"] or
+            token in terminology["data_properties"] or
+            token in terminology["individuals"])
+
+
+def apply_type_suffix_heuristic(lm_text: str, terminology: dict) -> str:
+    """Post-LM pass: for every token in a test line that is not a Themis keyword
+    and is not already in the terminology, check whether appending 'Type' makes
+    it match.  If so, replace it silently."""
+    result = []
+    for raw in lm_text.splitlines():
+        # Preserve comment/header lines and blank lines untouched
+        if not raw.strip() or raw.lstrip().startswith("//"):
+            result.append(raw)
+            continue
+
+        # Separate inline advisory comment from the test code
+        if "//" in raw:
+            code_part, comment_part = raw.split("//", 1)
+            has_comment = True
+        else:
+            code_part, comment_part = raw, ""
+            has_comment = False
+
+        tokens = code_part.split()
+        new_tokens = []
+        for tok in tokens:
+            # Skip Themis syntax keywords (case-insensitive)
+            if tok.lower() in _THEMIS_KEYWORDS_LOWER:
+                new_tokens.append(tok)
+                continue
+            # Skip numeric literals (cardinality values)
+            try:
+                float(tok)
+                new_tokens.append(tok)
+                continue
+            except ValueError:
+                pass
+            # Keep if already in terminology
+            if _exists_in_terminology(tok, terminology):
+                new_tokens.append(tok)
+                continue
+            # Try appending "Type"
+            tok_type = tok + "Type"
+            new_tokens.append(tok_type if _exists_in_terminology(tok_type, terminology) else tok)
+
+        new_code = " ".join(new_tokens)
+        if has_comment:
+            result.append(new_code + "    //" + comment_part)
+        else:
+            result.append(new_code)
+
+    return "\n".join(result)
+
+
 # ── LM Studio call ────────────────────────────────────────────────────────────
 
 def send_to_lm(terminology_text: str, tests_content: str, tests_filename: str):
@@ -1047,6 +1107,7 @@ def process_ontology_and_tests(ontology_path: str, tests_path: str = None,
         answer, error = send_to_lm(terminology_txt, chunk, tests_filename)
         if error:
             raise RuntimeError(f"LM Studio error on chunk {i}: {error}")
+        answer = apply_type_suffix_heuristic(answer, terminology)
         results.append(answer)
 
     return "\n\n".join(results)
@@ -1237,6 +1298,8 @@ class App(tk.Tk):
                 if error:
                     self.after(0, self._handle_lm_response, None, error)
                     return
+                if self._terminology:
+                    answer = apply_type_suffix_heuristic(answer, self._terminology)
                 results.append(answer)
 
             merged = "\n\n".join(results)

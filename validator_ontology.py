@@ -90,6 +90,8 @@ SYSTEM_TEMPLATE = """Eres un validador de tests de ontología en sintaxis THEMIS
 # Qué detectar (TODA corrección debe estar respaldada por una línea concreta de REFERENCIA)
 - INVERSION: candidato "A prop B" pero en REFERENCIA está "B prop A" (dominio/rango
   intercambiados), o "B q A" con q inversa declarada de prop. Corrige al orden de REFERENCIA.
+  Incluye el caso combinado: "A SubClassOf B" en candidato pero "B type A" en REFERENCIA
+  (inversión de sujeto/objeto Y cambio de palabra clave simultáneos).
 - TYPE_VS_SUBCLASS: el candidato usa "SubClassOf" pero el sujeto es INDIVIDUO
   (en REFERENCIA aparece "Sujeto type AlgunaClase" y NO "Sujeto type Class");
   o usa "type" cuando el sujeto es CLASE (en REFERENCIA "Sujeto type Class").
@@ -181,7 +183,8 @@ def classify_residual_with_llm(candidate, reference_lines, known, *,
 
 
 # ----------------------------- Validación ------------------------------------
-def validate(candidate, raw_set, canon_map, known, **llm_kw):
+def _validate_deterministic(candidate, raw_set, canon_map):
+    """Heurísticas deterministas (pasos 1-4). Devuelve resultado o None si no resuelve."""
     rc = collapse(candidate)
 
     # 1) Exacto
@@ -198,7 +201,7 @@ def validate(candidate, raw_set, canon_map, known, **llm_kw):
     toks = cc.split()
     if len(toks) == 3:
         X, kw, Y = toks
-        # 3) type <-> SubClassOf
+        # 3) type <-> SubClassOf (mismos sujeto/objeto, distinta palabra clave)
         if kw in ("type", "SubClassOf"):
             other = "type" if kw == "SubClassOf" else "SubClassOf"
             alt = f"{X} {other} {Y}"
@@ -206,14 +209,31 @@ def validate(candidate, raw_set, canon_map, known, **llm_kw):
                 ref = canon_map[alt]
                 return _v(candidate, "FIX_TYPE_VS_SUBCLASS", ref, ref,
                           f"referencia usa '{other}', no '{kw}'", "deterministic")
-        # 4) Inversión sujeto/objeto (misma propiedad)
+        # 3b) Inversión sujeto/objeto + cambio type<->SubClassOf combinados
+        # Ejemplo: CSV "Item SubClassOf Device" / TXT "Device type Item"
+        if kw in ("type", "SubClassOf"):
+            other = "type" if kw == "SubClassOf" else "SubClassOf"
+            inv_other = canon(f"{Y} {other} {X}")
+            if inv_other in canon_map:
+                ref = canon_map[inv_other]
+                return _v(candidate, "FIX_INVERSION", ref, ref,
+                          f"invertido y '{kw}'->'{other}' frente a referencia", "deterministic")
+        # 4) Inversión sujeto/objeto con misma palabra clave
+        # Cubre también: CSV "Item SubClassOf Device" / TXT "Device SubClassOf Item"
         inv = canon(f"{Y} {kw} {X}")
         if inv in canon_map:
             ref = canon_map[inv]
             return _v(candidate, "FIX_INVERSION", ref, ref,
-                      "dominio/rango invertidos frente a referencia", "deterministic")
+                      "sujeto/objeto invertidos frente a referencia", "deterministic")
 
-    # 5) Residuo -> LM
+    return None  # no resuelto por heurísticas
+
+
+def validate(candidate, raw_set, canon_map, known, **llm_kw):
+    """Validación completa: heurísticas deterministas y, solo si no resuelven, LM."""
+    result = _validate_deterministic(candidate, raw_set, canon_map)
+    if result is not None:
+        return result
     return classify_residual_with_llm(candidate, raw_set, known, **llm_kw)
 
 
@@ -259,18 +279,34 @@ def validate_csv(reference_path: str, candidates_csv_path: str, **llm_kw):
     """Valida los candidatos de *candidates_csv_path* contra la referencia de
     *reference_path* (TXT generado por ontology_test_generator).
 
+    Pipeline de dos fases:
+      1) Heurísticas deterministas sobre todos los candidatos.
+      2) Solo el residuo no resuelto se envía al LM.
+    Los resultados se fusionan respetando el orden original.
+
     Devuelve (results, cq_map) donde results es una lista de tuplas
-    (id, result_dict) -- mismo formato que produce la GUI -- y cq_map es
-    {id: 'Competency question'}.
+    (id, result_dict) y cq_map es {id: 'Competency question'}.
     """
     raw_set, canon_map, known = load_reference(reference_path)
     candidates = load_candidates_from_csv(candidates_csv_path)
     cq_map = load_cq_map(candidates_csv_path)
 
-    results = []
-    for cid, cand in candidates:
-        r = validate(cand, raw_set, canon_map, known, **llm_kw)
-        results.append((cid, r))
+    # Fase 1: heurísticas deterministas
+    results = [None] * len(candidates)
+    residual_idx = []
+    for i, (cid, cand) in enumerate(candidates):
+        r = _validate_deterministic(cand, raw_set, canon_map)
+        if r is not None:
+            results[i] = (cid, r)
+        else:
+            residual_idx.append(i)
+
+    # Fase 2: solo el residuo va al LM
+    for i in residual_idx:
+        cid, cand = candidates[i]
+        r = classify_residual_with_llm(cand, raw_set, known, **llm_kw)
+        results[i] = (cid, r)
+
     return results, cq_map
 
 
@@ -406,13 +442,35 @@ class App(tk.Tk):
                 self._cq_map = load_cq_map(self._csv_path)
 
                 lines = [f"REFERENCIA: {len(raw_set)} tests | vocabulario: {len(known)} términos\n"]
+
+                # Fase 1: heurísticas deterministas
+                results = [None] * len(candidates)
+                residual_idx = []
+                for i, (cid, cand) in enumerate(candidates):
+                    r = _validate_deterministic(cand, raw_set, canon_map)
+                    if r is not None:
+                        results[i] = (cid, r)
+                    else:
+                        residual_idx.append(i)
+
+                n_det = len(candidates) - len(residual_idx)
+                lines.append(
+                    f"Fase 1 (determinista): {n_det}/{len(candidates)} resueltos"
+                    f" | Fase 2 (LM): {len(residual_idx)} candidatos\n"
+                )
+
+                # Fase 2: solo el residuo va al LM
+                self.after(0, lambda: self.lbl_status.config(
+                    text=f"LM: {len(residual_idx)} candidatos…", fg="#f9e2af"))
+                for i in residual_idx:
+                    cid, cand = candidates[i]
+                    r = classify_residual_with_llm(cand, raw_set, known)
+                    results[i] = (cid, r)
+
                 counts = {}
-                results = []
-                for cid, cand in candidates:
-                    r = validate(cand, raw_set, canon_map, known)
-                    results.append((cid, r))
+                for cid, r in results:
                     counts[r["verdict"]] = counts.get(r["verdict"], 0) + 1
-                    lines.append(f"[{cid:6}] {cand:38} -> {r['verdict']:28} ({r['_source']})")
+                    lines.append(f"[{cid:6}] {r['candidate']:38} -> {r['verdict']:28} ({r['_source']})")
                     if r["verdict"].startswith("FIX"):
                         lines.append(f"          corregido: {r['corrected']}")
                 lines.append("\nResumen: " + str(dict(sorted(counts.items()))))

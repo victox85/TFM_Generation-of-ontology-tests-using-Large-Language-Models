@@ -174,6 +174,20 @@ Equipment subClassOf Resource
 > "Battery-status values: good, warn, critical, insufficient." → `Good type BatteryStatus` …
 > BUT status/state/mode/role value enumerations are SUPPRESSED entirely — see Conservative Generation Doctrine #1. Use `type` expansion only for value-tokens that are genuine named individuals (currency codes, named nodes), not for status/state/role labels.
 
+**Coded technology / standard / generation / protocol enumerations → prefix members with the head's CORE noun, preserve alphanumerics verbatim, use `subClassOf`.** When a CQ enumerates the *technologies / standards / generations / protocols / connectivity types* a system supports, and the members are alphanumeric or coded tokens — they contain digits (`2G`, `5G`, `802.11`), are acronyms (`ADSL`, `LTE`), or are separator-joined labels (`Fixed_line`) — apply this three-part convention (it generalises Ex 4's `currency codes → Currency` / `usd → CurrencyUSD`, differing only in predicate):
+1. **Head reduction → parent.** Drop the trailing collective qualifier of the head noun, keeping its core domain noun: "network **technologies**" → `Network`; "broadband **technologies**" → `Broadband` (parallels "currency **codes**" → `Currency`). This carve-out applies ONLY to the enumeration head's collective qualifier (`technologies`, `standards`, `protocols`, `generations`, `codes`); it does NOT license dropping the Rule X frozen suffixes (`Type`, `Status`, `Category`, `Property`, `Setting`, `Asset`, `Kind`), nor the `-Property`-style parent suffixes that trigger `type` (Decision step 3 / Ex 5).
+2. **Member naming.** Each member = `<CoreNoun>` + the token in CamelCase, with separators stripped and **digits kept VERBATIM — never spell numerals out**: `2G` → `Network2G` (NOT `TwoG` / `NetworkTwoG`); `Fixed_line` → `NetworkFixedLine`.
+3. **Predicate = `subClassOf <CoreNoun>`.** These tokens denote *kinds of* the technology, each a class with potential instances. Contrast Ex 4: currency **codes** name individual values → `type`; technology / generation / standard tokens name kinds → `subClassOf`. (Confidence note: this `type`-vs-`subClassOf` split is calibrated to a single gold; if a corpus CQ contradicts it, the gold wins.) This rule does NOT override Doctrine #1 — status/state/mode/role value enums stay suppressed regardless of how "technological" the labels look.
+
+> "Examples of broadband technologies offered by the modem are: ADSL, VDSL2, DOCSIS_3, fiber."
+```
+BroadbandADSL subClassOf Broadband
+BroadbandVDSL2 subClassOf Broadband
+BroadbandDOCSIS3 subClassOf Broadband
+BroadbandFiber subClassOf Broadband
+```
+Never `Adsl subClassOf BroadbandTechnology` (un-prefixed member + un-reduced head), never `VdslTwo` / `Network5G`→`NetworkFiveG` (spelled-out digit).
+
 **"There are N (main) types of X: A, B, C" with CONCEPT-CLASS members → `subClassOf X` per member.** Each member becomes a subclass of the head class. NEVER pair adjacent members together, and NEVER emit `X type X`.
 > "There are four main types of water assets: source, sink, transport and storage."
 ```
@@ -308,6 +322,7 @@ If a CQ needs ontology-specific vocab not in the text, emit one sound triple usi
 0d. **State/event/signal assertion ("X is active", "X has been pressed/received", "the lift has a Y fault")?** → `StateName subClassOf [Alarm|FaultSignal|Signal]` (Rule SE).
 1. **Class-existence assertion, no parent?** → `X type Class` (Rule C).
 2. **Member is proper noun / coded label / lowercase value-token (good, warn, usd, vega)?** → `member type Parent` (Decision alg. step 2). *Unless it's a status/state/role value enum → suppress (0b).*
+2b. **Enumeration of coded TECHNOLOGIES / standards / generations / protocols ("X technologies/standards are: 2G, ADSL, Fixed_line…")?** → reduce head to core noun, prefix each member with it, keep digits verbatim, use `subClassOf`: `Network2G subClassOf Network` (Rule E coded-technology block). Distinct from step 2 (named individuals → `type`).
 3. **Parent ends `-Property`/`-Use`/`-Kind`/`-Status`/`-Mode`/`-Audience` AND member is specific value?** → `member type Parent` (step 3).
 4. **Concept-class enumeration ("workers are resources", "lakes are source assets", "N types of water assets: source, sink…")?** → `X subClassOf Y` per member; never pair members together; never `X type X` (step 4 + Rule E).
 5. **Literal-valued attribute?** → `Class attrName xsdType` — bare name, most specific XSD. Never `Class hasAttr attr`.
@@ -330,6 +345,7 @@ If a CQ needs ontology-specific vocab not in the text, emit one sound triple usi
 - Same morpheme as predicate AND object (`hasStatus status`, `duration duration`)? → fix verb-verb trap.
 - Used `hasObjectName ObjectName` when CQ verb wasn't "has"? → swap to CQ verb.
 - Enumeration members paired together (`Lake type Lagoon`) or self-referenced (`River type River`)? → make each `Member subClassOf Head`.
+- Coded technology/standard/generation enumeration ("X technologies are: 2G, ADSL, Fixed_line…")? → parent is the REDUCED core noun (`Network`, not `NetworkTechnology`); each member is `<CoreNoun>+Token` with digits VERBATIM (`Network2G`, not `TwoG`); predicate `subClassOf`.
 - Generic placeholder despite explicit CQ verb? Invented property/class not in CQ? → fix.
 - Synonym substituted for CQ noun (`Customer` for "patron", `WaterDevice` for "water meter")? → revert.
 - Reused property from earlier CQ with different wording? → coin fresh.
