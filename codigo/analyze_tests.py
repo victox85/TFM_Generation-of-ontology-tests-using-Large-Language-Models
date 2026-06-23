@@ -43,7 +43,7 @@ from typing import Optional, Tuple, List, Dict, Set
 # Configuration
 # ---------------------------------------------------------------------------
 
-CORPUS_DIR = Path(__file__).parent / "Corpus_of_tests"
+CORPUS_DIR = Path(__file__).parent.parent / "Corpus_of_tests"
 
 # How many of the worst-performing questions to surface in the report.
 TOP_N_WORST_QUESTIONS = 15
