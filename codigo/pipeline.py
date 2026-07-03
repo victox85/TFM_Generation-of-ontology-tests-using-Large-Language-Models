@@ -16,10 +16,10 @@ from pathlib import Path
 import tkinter as tk
 from tkinter import ttk, filedialog
 
-import lm_file_tool
-import ontology_terminology_extractor
+import codigo.requirements as requirements
+import codigo.terminology as terminology
 import ontology_test_generator
-import validator_ontology
+import codigo.tests as tests
 import build_comparison
 
 
@@ -70,8 +70,8 @@ def process_folder(folder: Path, run_step2: bool, run_step3: bool, run_step4: bo
     test_generated_csv = folder / "test_generated.csv"
     print(f"\n[Step 1] Generating tests from {req_path.name}…")
     try:
-        step1_text = lm_file_tool.process_csv_file(str(req_path))
-        csv_content = lm_file_tool.response_to_csv(step1_text)
+        step1_text = requirements.process_csv_file(str(req_path))
+        csv_content = requirements.response_to_csv(step1_text)
         with test_generated_csv.open("w", encoding="utf-8", newline="") as fh:
             fh.write(csv_content)
         print(f"  → Saved: {test_generated_csv.name}")
@@ -85,10 +85,10 @@ def process_folder(folder: Path, run_step2: bool, run_step3: bool, run_step4: bo
         terminology_csv = folder / "terminology+test_generated.csv"
         print(f"\n[Step 2] Aligning with terminology from {ontology_path.name}…")
         try:
-            step2_text = ontology_terminology_extractor.process_ontology_and_tests(
+            step2_text = terminology.process_ontology_and_tests(
                 str(ontology_path), tests_content=step1_text
             )
-            csv_content2 = ontology_terminology_extractor.response_to_csv(step2_text)
+            csv_content2 = terminology.response_to_csv(step2_text)
             with terminology_csv.open("w", encoding="utf-8", newline="") as fh:
                 fh.write(csv_content2)
             print(f"  → Saved: {terminology_csv.name}")
@@ -114,7 +114,7 @@ def process_folder(folder: Path, run_step2: bool, run_step3: bool, run_step4: bo
 
                 print("  Validating terminology-aligned tests against the reference…")
                 validator_csv = folder / "validator_results.csv"
-                validator_ontology.run(str(reference_txt), str(last_generated_csv), str(validator_csv))
+                tests.run(str(reference_txt), str(last_generated_csv), str(validator_csv))
                 print(f"  → Saved: {validator_csv.name}")
             except Exception as e:
                 print(f"  [error] Step 3 failed: {e}")
@@ -170,7 +170,7 @@ class PipelineApp(tk.Tk):
         self.step1_var = tk.BooleanVar(value=True)
         cb1 = ttk.Checkbutton(
             steps_frame,
-            text="Step 1 — lm_file_tool  (mandatory)",
+            text="Step 1 — Requirements (mandatory)",
             variable=self.step1_var,
             state="disabled",
         )
@@ -179,7 +179,7 @@ class PipelineApp(tk.Tk):
         self.step2_var = tk.BooleanVar(value=True)
         ttk.Checkbutton(
             steps_frame,
-            text="Step 2 — ontology_terminology_extractor",
+            text="Step 2 — terminology",
             variable=self.step2_var,
             command=self._on_step2_toggled,
         ).pack(anchor="w", pady=2)
@@ -187,7 +187,7 @@ class PipelineApp(tk.Tk):
         self.step3_var = tk.BooleanVar(value=True)
         self.cb3 = ttk.Checkbutton(
             steps_frame,
-            text="Step 3 — validator_ontology  (requires Step 2)",
+            text="Step 3 — validator_tests  (requires Step 2)",
             variable=self.step3_var,
         )
         self.cb3.pack(anchor="w", pady=2)
@@ -195,7 +195,7 @@ class PipelineApp(tk.Tk):
         self.step4_var = tk.BooleanVar(value=True)
         ttk.Checkbutton(
             steps_frame,
-            text="Step 4 — build_comparison",
+            text="Step 4 — comparison",
             variable=self.step4_var,
         ).pack(anchor="w", pady=2)
 
