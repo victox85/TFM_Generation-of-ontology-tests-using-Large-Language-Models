@@ -7,7 +7,7 @@ Trabajo Fin de Máster — Máster en Ciencia de Datos, Universidad Politécnica
 
 Este repositorio contiene el código y el corpus de evaluación de un método que usa un modelo de lenguaje (LLM) desplegado en local para generar automáticamente pruebas de verificación de ontologías en la sintaxis de [Themis](https://themis.linkeddata.es), a partir de los requisitos textuales de la ontología (preguntas de competencia y requisitos declarativos).
 
-> ⚠️ **Nota sobre este README:** generado a partir de la memoria del TFM, de la estructura del repositorio verificada el 3 de julio de 2026, y de la información que me confirmaste directamente (Python 3.12.0, librerías reales incluyendo `difflib`, y licencia).
+
 
 ## Estructura del repositorio
 
@@ -16,8 +16,7 @@ Este repositorio contiene el código y el corpus de evaluación de un método qu
 ├── Corpus_of_tests/     # Corpus de 8 ontologías de evaluación (requisitos + pruebas de referencia)
 ├── Ontologia/           # Todas las ontologías y sus preguntas de competencia (CQ) usadas para pruebas manuales
 ├── Presentations/       # Ontología sencilla de ejemplo para probar el flujo completo en Themis
-├── codigo/              # Scripts Python de la tubería (pipeline) y prompts de sistema
-└── analysis_report.txt  # Informe de análisis agregado sobre el corpus completo
+└── codigo/              # Scripts Python de la tubería (pipeline) y prompts de sistema
 ```
 
 La carpeta `codigo/` contiene:
