@@ -921,40 +921,24 @@ def terminology_to_text(term: dict) -> str:
         lines += [f"# Ontology: {title}", ""]
 
     lines.append("## Classes")
-    for name, info in sorted(term["classes"].items()):
-        label    = f' ("{info["label"]}")' if info["label"] != name else ""
-        row      = f"- {name}{label}"
-        if info["parents"]:
-            row += f"\n  subClassOf: {', '.join(info['parents'])}"
-        if info["disjoint"]:
-            row += f"\n  disjointWith: {', '.join(info['disjoint'])}"
-        lines.append(row)
+    for name in sorted(term["classes"]):
+        lines.append(f"- {name}")
     lines.append("")
 
     lines.append("## Object Properties")
-    for name, info in sorted(term["object_properties"].items()):
-        label  = f' ("{info["label"]}")' if info["label"] != name else ""
-        domain = ", ".join(info["domain"]) or "—"
-        rng    = ", ".join(info["range"])  or "—"
-        sym    = "  symmetric" if info["symmetric"] else ""
-        inv    = f'  inverseOf: {", ".join(info["inverseOf"])}' if info["inverseOf"] else ""
-        lines.append(f"- {name}{label}  domain: {domain}  range: {rng}{sym}{inv}")
+    for name in sorted(term["object_properties"]):
+        lines.append(f"- {name}")
     lines.append("")
 
     lines.append("## Data Properties")
-    for name, info in sorted(term["data_properties"].items()):
-        label  = f' ("{info["label"]}")' if info["label"] != name else ""
-        domain = ", ".join(info["domain"]) or "—"
-        rng    = ", ".join(info["range"])
-        lines.append(f"- {name}{label}  domain: {domain}  range: {rng}")
+    for name in sorted(term["data_properties"]):
+        lines.append(f"- {name}")
     lines.append("")
 
     if term["individuals"]:
         lines.append("## Named Individuals")
-        for name, info in sorted(term["individuals"].items()):
-            label = f' ("{info["label"]}")' if info["label"] != name else ""
-            types = f'  type: {", ".join(info["types"])}' if info["types"] else ""
-            lines.append(f"- {name}{label}{types}")
+        for name in sorted(term["individuals"]):
+            lines.append(f"- {name}")
         lines.append("")
 
     return "\n".join(lines)
