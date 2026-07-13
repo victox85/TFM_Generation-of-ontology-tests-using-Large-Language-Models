@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 """
 Validador de tests THEMIS.
-
 Pipeline híbrido:
   1) Determinista (resuelve casing, inversión sujeto/objeto, type<->SubClassOf,
      contra el conjunto de REFERENCIA extraído de la ontología).
@@ -12,17 +11,18 @@ REFERENCIA  = tests extraídos de la ontología (TXT)  -> verdad de base / esque
 CANDIDATOS  = tests generados desde las CQ (CSV, columna 'title')
 
 El cliente LM es real (endpoint OpenAI-compatible). Si no hay endpoint
-disponible cae a una heurística determinista, dejándolo explícito en _source.
+disponible, se reintenta contra el propio LM; no hay heurística de repuesto.
 """
 import csv
 import json
 import os
 import threading
+import time
 import tkinter as tk
 from tkinter import filedialog, messagebox, scrolledtext
 import urllib.request
 
-# Palabras clave estructurales: NO cuentan como vocabulario de dominio.
+
 STRUCT_KW = {"type", "SubClassOf", "only"}
 
 
@@ -47,14 +47,15 @@ def canon(s: str) -> str:
 
 
 # ----------------------------- Carga de referencia ---------------------------
-def load_reference(path: str):
+def load_reference_lines(text: str):
+    """Igual que load_reference pero a partir de contenido ya en memoria
+    (p.ej. generado directamente desde una ontología, sin pasar por disco)."""
     lines = []
-    with open(path, encoding="utf-8") as f:
-        for raw in f:
-            s = raw.strip()
-            if not s or s.startswith("//"):
-                continue
-            lines.append(collapse(s))
+    for raw in text.splitlines():
+        s = raw.strip()
+        if not s or s.startswith("//"):
+            continue
+        lines.append(collapse(s))
     raw_set = set(lines)
     canon_map = {}  # canon(line) -> linea canónica original (primera aparición)
     for l in lines:
@@ -67,6 +68,12 @@ def load_reference(path: str):
             if t.lower() not in _struct_lower:
                 known.add(t)
     return raw_set, canon_map, known
+
+
+def load_reference(path: str):
+    with open(path, encoding="utf-8") as f:
+        text = f.read()
+    return load_reference_lines(text)
 
 
 # ----------------------------- Cliente LM ------------------------------------
@@ -138,10 +145,13 @@ CANDIDATO: Item containsNode Node
 {"candidate":"Item containsNode Node","verdict":"NOT_IN_REFERENCE_MALFORMED","corrected":null,"matched_reference":null,"reason":"containsNode y Node no existen en REFERENCIA"}"""
 
 
-def classify_residual_with_llm(candidate, reference_lines, known, *,
+def classify_residual_with_llm(candidate, reference_lines, *,
                                base_url="http://localhost:1234/v1",
-                               model="gemma-4-e4b-it", timeout=30):
-    """Intenta clasificar con el LM local. Si falla, heurística determinista."""
+                               model="gemma-4-e4b-it", timeout=600,
+                               max_retries=5, retry_delay=2.0):
+    """Clasifica con el LM local. Si una petición falla, reintenta contra el
+    propio LM (no hay heurística de repuesto): el resultado siempre viene
+    del LM. Si se agotan los reintentos, se propaga la excepción."""
     system = SYSTEM_TEMPLATE.replace("{{REFERENCIA}}", "\n".join(sorted(reference_lines)))
     payload = {
         "model": model,
@@ -151,36 +161,37 @@ def classify_residual_with_llm(candidate, reference_lines, known, *,
             {"role": "user", "content": f"CANDIDATO: {candidate}"},
         ],
     }
-    try:
-        req = urllib.request.Request(
-            f"{base_url}/chat/completions",
-            data=json.dumps(payload).encode(),
-            headers={"Content-Type": "application/json"},
-        )
-        with urllib.request.urlopen(req, timeout=timeout) as r:
-            data = json.loads(r.read())
-        content = data["choices"][0]["message"]["content"].strip()
-        # Quita posibles vallas de código
-        content = content.replace("```json", "").replace("```", "").strip()
-        out = json.loads(content)
-        out["_source"] = model
-        return out
-    except Exception as e:
-        # ---- Fallback determinista (NO es Gemma; queda marcado) ----
-        toks = [t for t in candidate.split() if t.lower() not in {k.lower() for k in STRUCT_KW}
-                and t not in {"string", "Class", "Property"}]
-        all_known = all(t in known for t in toks)
-        verdict = ("NOT_IN_REFERENCE_PLAUSIBLE" if all_known
-                   else "NOT_IN_REFERENCE_MALFORMED")
-        return {
-            "candidate": candidate,
-            "verdict": verdict,
-            "corrected": candidate if all_known else None,
-            "matched_reference": None,
-            "reason": ("vocabulario conocido, ausente de referencia" if all_known
-                       else "usa términos ausentes en referencia"),
-            "_source": f"heuristica_fallback ({type(e).__name__})",
-        }
+    last_exc = None
+    for attempt in range(1, max_retries + 1):
+        try:
+            req = urllib.request.Request(
+                f"{base_url}/chat/completions",
+                data=json.dumps(payload).encode(),
+                headers={"Content-Type": "application/json"},
+            )
+            with urllib.request.urlopen(req, timeout=timeout) as r:
+                data = json.loads(r.read())
+            content = data["choices"][0]["message"]["content"].strip()
+            # Quita posibles vallas de código
+            content = content.replace("```json", "").replace("```", "").strip()
+            out = json.loads(content)
+            out["_source"] = model
+            if out.get("verdict") == "OK_NORMALIZED":
+                # Este candidato ya pasó la fase determinista sin resolverse
+                # (incluye el chequeo OK_NORMALIZED); si el LM lo marca así
+                # igualmente, es un desacuerdo con la REFERENCIA -> malformado.
+                out["verdict"] = "NOT_IN_REFERENCE_MALFORMED"
+                out["corrected"] = None
+                out["matched_reference"] = None
+                out["reason"] = "LM devolvió OK_NORMALIZED para un residuo; forzado a MALFORMED"
+            return out
+        except Exception as e:
+            last_exc = e
+            if attempt < max_retries:
+                time.sleep(retry_delay)
+    raise RuntimeError(
+        f"LM no respondió tras {max_retries} intentos para '{candidate}': {last_exc}"
+    ) from last_exc
 
 
 # ----------------------------- Validación ------------------------------------
@@ -235,7 +246,7 @@ def validate(candidate, raw_set, canon_map, known, **llm_kw):
     result = _validate_deterministic(candidate, raw_set, canon_map)
     if result is not None:
         return result
-    return classify_residual_with_llm(candidate, raw_set, known, **llm_kw)
+    return classify_residual_with_llm(candidate, raw_set, **llm_kw)
 
 
 def _v(cand, verdict, corrected, matched, reason, source):
@@ -288,7 +299,7 @@ def validate_csv(reference_path: str, candidates_csv_path: str, **llm_kw):
     Devuelve (results, cq_map) donde results es una lista de tuplas
     (id, result_dict) y cq_map es {id: 'Competency question'}.
     """
-    raw_set, canon_map, known = load_reference(reference_path)
+    raw_set, canon_map, _known = load_reference(reference_path)
     candidates = load_candidates_from_csv(candidates_csv_path)
     cq_map = load_cq_map(candidates_csv_path)
 
@@ -305,7 +316,7 @@ def validate_csv(reference_path: str, candidates_csv_path: str, **llm_kw):
     # Fase 2: solo el residuo va al LM
     for i in residual_idx:
         cid, cand = candidates[i]
-        r = classify_residual_with_llm(cand, raw_set, known, **llm_kw)
+        r = classify_residual_with_llm(cand, raw_set, **llm_kw)
         results[i] = (cid, r)
 
     return results, cq_map
@@ -339,6 +350,7 @@ class App(tk.Tk):
         self.geometry("860x520")
         self.configure(bg="#1e1e2e")
         self._ref_path = None
+        self._ref_content = None   # set when the reference is generated from an ontology
         self._csv_path = None
         self._results = None
         self._cq_map = {}
@@ -363,6 +375,9 @@ class App(tk.Tk):
         tk.Button(ref_row, text="Elegir…", command=self._pick_ref,
                   bg="#89b4fa", fg="#1e1e2e", font=("Segoe UI", 9, "bold"),
                   relief=tk.FLAT, padx=10, cursor="hand2").pack(side="right")
+        tk.Button(ref_row, text="Generar desde ontología…", command=self._generate_ref_from_ontology,
+                  bg="#fab387", fg="#1e1e2e", font=("Segoe UI", 9, "bold"),
+                  relief=tk.FLAT, padx=10, cursor="hand2").pack(side="right", padx=(0, 6))
 
         self._label(self, "② Archivo de candidatos (CSV, columna 'title')").pack(fill="x", padx=12, pady=(4, 2))
         csv_row = tk.Frame(self, bg="#1e1e2e")
@@ -407,7 +422,32 @@ class App(tk.Tk):
             filetypes=[("Text files", "*.txt"), ("All files", "*.*")])
         if path:
             self._ref_path = path
+            self._ref_content = None
             self.lbl_ref.config(text=os.path.basename(path), fg="#cdd6f4")
+
+    def _generate_ref_from_ontology(self):
+        path = filedialog.askopenfilename(
+            title="Selecciona la ontología",
+            filetypes=[("OWL/RDF files", "*.owl *.rdf *.ttl *.n3 *.nt *.jsonld *.xml"),
+                       ("All files", "*.*")])
+        if not path:
+            return
+        try:
+            import ontology_test_generator
+        except Exception as e:
+            messagebox.showerror("Falta módulo",
+                                 f"No se pudo importar ontology_test_generator:\n{e}")
+            return
+        self.lbl_status.config(text="Generando referencia desde la ontología…", fg="#f9e2af")
+        self.update()
+        try:
+            self._ref_content = ontology_test_generator.generate_tests(path, local_only=False)
+            self._ref_path = None
+            self.lbl_ref.config(text=f"(generado desde {os.path.basename(path)})", fg="#cdd6f4")
+            self.lbl_status.config(text="Referencia generada.", fg="#a6e3a1")
+        except Exception as e:
+            self._ref_content = None
+            self.lbl_status.config(text=f"Error: {e}", fg="#f38ba8")
 
     def _pick_csv(self):
         path = filedialog.askopenfilename(
@@ -425,8 +465,9 @@ class App(tk.Tk):
         widget.config(state=tk.DISABLED)
 
     def _on_validate(self):
-        if not self._ref_path:
-            messagebox.showwarning("Falta archivo", "Selecciona primero el archivo de referencia.")
+        if not self._ref_path and not self._ref_content:
+            messagebox.showwarning("Falta archivo",
+                                   "Selecciona o genera primero la referencia.")
             return
         if not self._csv_path:
             messagebox.showwarning("Falta archivo", "Selecciona primero el archivo de candidatos.")
@@ -438,7 +479,10 @@ class App(tk.Tk):
 
         def worker():
             try:
-                raw_set, canon_map, known = load_reference(self._ref_path)
+                if self._ref_content is not None:
+                    raw_set, canon_map, known = load_reference_lines(self._ref_content)
+                else:
+                    raw_set, canon_map, known = load_reference(self._ref_path)
                 candidates = load_candidates_from_csv(self._csv_path)
                 self._cq_map = load_cq_map(self._csv_path)
 
@@ -465,7 +509,7 @@ class App(tk.Tk):
                     text=f"LM: {len(residual_idx)} candidatos…", fg="#f9e2af"))
                 for i in residual_idx:
                     cid, cand = candidates[i]
-                    r = classify_residual_with_llm(cand, raw_set, known)
+                    r = classify_residual_with_llm(cand, raw_set)
                     results[i] = (cid, r)
 
                 counts = {}

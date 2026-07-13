@@ -16,10 +16,10 @@ from pathlib import Path
 import tkinter as tk
 from tkinter import ttk, filedialog
 
-import codigo.requirements as requirements
-import codigo.terminology as terminology
+import requirements
+import terminology
 import ontology_test_generator
-import codigo.tests as tests
+import tests
 import build_comparison
 
 
